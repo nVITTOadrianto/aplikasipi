@@ -12,6 +12,7 @@
         body {
             min-height: 100vh;
             background: #f8fafc;
+            font-family: 'Montserrat', sans-serif;
         }
     </style>
 </head>

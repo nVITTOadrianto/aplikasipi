@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SuratKeluar;
+use App\Models\SuratMasuk;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -13,54 +17,47 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        return view('admin.dashboard');
+        $suratMasukCount = SuratMasuk::count();
+        $suratKeluarCount = SuratKeluar::count();
+        return view('admin.dashboard', compact('suratMasukCount', 'suratKeluarCount'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function indexProfile() {
+        $user = auth()->user();
+        return view('admin.profile', compact('user'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function updateProfile() {
+        $user = User::find(auth()->user()->id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // Validasi input
+        request()->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'required',
+            'password_baru' => 'nullable|min:6|confirmed',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Cek password lama
+        if (!Hash::check(request('password'), $user->password)) {
+            return back()->withErrors(['password' => 'Password lama salah']);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $data = [
+            'name' => request('name'),
+            'email' => request('email'),
+        ];
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Jika password baru diisi, update password
+        if (request('new_password')) {
+            $data['password'] = Hash::make(request('new_password'));
+        }
+
+        if (request('new_password') != request('confirm_new_password')) {
+            return back()->withErrors(['password' => 'Password baru dan konfirmasi password baru tidak sama']);
+        }
+
+        $user->update($data);
+        return redirect()->route('profile')->with('success', "Profil berhasil diperbarui");
     }
 }

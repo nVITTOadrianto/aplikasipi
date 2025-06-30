@@ -23,8 +23,9 @@
                             <a href="#"
                                 class="d-flex align-items-center text-decoration-none dropdown-toggle user-info"
                                 id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div>
-                                    <div class="nav-link">{{ Auth::user()->name }}</div>
+                                <div class="nav-link">
+                                    <i class="bi bi-person me-1"></i>
+                                    {{ Auth::user()->name }}
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
@@ -32,6 +33,9 @@
                                     <a class="dropdown-item" href="{{ route('dashboard') }}">
                                         <i class="bi bi-house-door me-2"></i> Dashboard
                                     </a>
+                                </li>
+                                <li>
+                                    <div class="my-1 dropdown-divider"></div>
                                 </li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}" class="m-0">

@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('surat_masuk', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor_surat')->unique();
             $table->string('pengirim');
+            $table->string('nomor_surat')->unique();
             $table->date('tanggal_surat');
+            $table->date('tanggal_diterima')->nullable();
+            $table->integer('nomor_agenda');
+            $table->enum('sifat', ['Segera', 'Rahasia']);
             $table->text('perihal');
             $table->string('file_surat')->nullable();
-            $table->enum('sifat', ['Biasa', 'Penting', 'Segera', 'Rahasia']);
             $table->timestamps();
         });
     }

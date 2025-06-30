@@ -132,6 +132,18 @@
                     <span class="sidebar-label">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('surat-masuk.index') }}" class="nav-link {{ request()->routeIs('surat-masuk.index') ? 'active' : '' }}" title="Surat Masuk">
+                    <i class="bi bi-envelope-arrow-down"></i>
+                    <span class="sidebar-label">Surat Masuk</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('surat-keluar.index') }}" class="nav-link {{ request()->routeIs('surat-keluar.index') ? 'active' : '' }}" title="Surat Keluar">
+                    <i class="bi bi-envelope-arrow-up"></i>
+                    <span class="sidebar-label">Surat Keluar</span>
+                </a>
+            </li>
         </ul>
         <div class="border-top px-3 py-3 sidebar-actions">
             <div class="dropdown">
@@ -139,16 +151,19 @@
                     id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}" alt="User" class="rounded-circle me-2"
                         width="40" height="40">
-                    <div>
-                        <div class="fw-semibold">{{ Auth::user()->name }}</div>
-                        <div class="text-muted small">{{ Auth::user()->email }}</div>
+                    <div style="min-width: 0; overflow: hidden;">
+                        <div class="fw-semibold text-truncate" style="max-width: 120px;">{{ Auth::user()->name }}</div>
+                        <div class="text-muted small text-truncate" style="max-width: 120px;">{{ Auth::user()->email }}</div>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
                     <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bi bi-gear me-2"></i> Settings
+                        <a class="dropdown-item" href="{{ route('profile') }}" class="m-0">
+                            <i class="bi bi-person-circle me-2"></i> Profile
                         </a>
+                    </li>
+                    <li>
+                        <div class="my-1 dropdown-divider"></div>
                     </li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}" class="m-0">

@@ -10,15 +10,12 @@ class SuratKeluar extends Model
     use HasFactory;
     protected $table = 'surat_keluar';
     protected $fillable = [
-        'nomor_surat',
         'penerima',
+        'nomor_surat',
         'tanggal_surat',
         'perihal',
         'file_surat',
         'sifat',
-    ];
-    protected $casts = [
-        'tanggal_surat' => 'date',
     ];
     protected $dates = [
         'created_at',

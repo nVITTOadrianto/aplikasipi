@@ -10,20 +10,20 @@ class SuratMasuk extends Model
     use HasFactory;
     protected $table = 'surat_masuk';
     protected $fillable = [
-        'nomor_surat',
         'pengirim',
+        'nomor_surat',
         'tanggal_surat',
+        'tanggal_diterima',
+        'nomor_agenda',
+        'sifat',
         'perihal',
         'file_surat',
-        'sifat',
-    ];
-    protected $casts = [
-        'tanggal_surat' => 'date',
     ];
     protected $dates = [
         'created_at',
         'updated_at',
         'tanggal_surat',
+        'tanggal_diterima',
     ];
     protected $primaryKey = 'id';
     public $timestamps = true;
