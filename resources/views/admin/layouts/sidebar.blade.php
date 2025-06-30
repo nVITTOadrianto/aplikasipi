@@ -157,14 +157,14 @@
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
-                    <li>
+                    {{-- <li>
                         <a class="dropdown-item" href="{{ route('profile') }}" class="m-0">
                             <i class="bi bi-person-circle me-2"></i> Profile
                         </a>
                     </li>
                     <li>
                         <div class="my-1 dropdown-divider"></div>
-                    </li>
+                    </li> --}}
                     <li>
                         <form method="POST" action="{{ route('logout') }}" class="m-0">
                             @csrf

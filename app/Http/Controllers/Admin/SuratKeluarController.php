@@ -11,11 +11,35 @@ class SuratKeluarController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $suratSuratKeluar = SuratKeluar::orderBy("created_at", "desc")->paginate(10);
-        return view('admin.surat-keluar.index', compact('suratSuratKeluar'));
+        // Ambil input dari form pencarian
+        $search = $request->input('search');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Query dasar
+        $query = SuratKeluar::query();
+
+        // Filter berdasarkan penerima atau perihal
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('penerima', 'like', "%{$search}%")
+                  ->orWhere('perihal', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter berdasarkan rentang tanggal
+        if ($startDate && $endDate) {
+            $query->whereBetween('tanggal_surat', [$startDate, $endDate]);
+        } elseif ($startDate) {
+            $query->whereDate('tanggal_surat', $startDate);
+        }
+
+        // Ambil data dengan paginasi
+        $suratSuratKeluar = $query->orderBy("created_at", "desc")->paginate(5);
+
+        return view('admin.surat-keluar.index', compact('suratSuratKeluar', 'search', 'startDate', 'endDate'));
     }
 
     /**
@@ -34,12 +58,12 @@ class SuratKeluarController extends Controller
     {
         //
         $this->validate($request, [
-            'penerima' => 'required|string|max:255',
-            'nomor_surat' => 'required|string|max:255|unique:surat_keluar,nomor_surat',
+            'penerima' => 'required|string|max:100',
+            'nomor_surat' => 'required|string|max:50|unique:surat_keluar,nomor_surat',
             'tanggal_surat' => 'required|date',
             'perihal' => 'required|string|max:255',
-            'sifat' => 'required|in:Biasa,Penting,Segera,Rahasia',
-            'file_surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'sifat' => 'required|in:Segera,Biasa',
+            'file_surat' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
         $suratKeluar = SuratKeluar::create($request->all());
         if ($request->hasFile('file_surat')) {
@@ -83,7 +107,7 @@ class SuratKeluarController extends Controller
             'nomor_surat' => 'required|string|max:255|unique:surat_keluar,nomor_surat,' . $id,
             'tanggal_surat' => 'required|date',
             'perihal' => 'required|string|max:255',
-            'sifat' => 'required|in:Biasa,Penting,Segera,Rahasia',
+            'sifat' => 'required|in:Segera,Biasa',
             'file_surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
         $suratKeluar = SuratKeluar::find($id);

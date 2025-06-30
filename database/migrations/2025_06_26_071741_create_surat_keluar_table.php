@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('tanggal_surat');
             $table->text('perihal');
             $table->string('file_surat')->nullable();
-            $table->enum('sifat', ['Segera', 'Rahasia']);
+            $table->enum('sifat', ['Segera', 'Biasa']);
             $table->timestamps();
         });
     }

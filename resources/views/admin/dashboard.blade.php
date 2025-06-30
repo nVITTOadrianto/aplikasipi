@@ -9,7 +9,7 @@
                     <div class="card-body d-flex flex-column justify-content-between" style="min-height: 9rem;">
                         <div class="fs-5">
                             <i class="bi bi-envelope-arrow-down"></i>
-                            Surat Masuk
+                            Surat Masuk Hari Ini
                         </div>
                         <div class="fw-bold fs-1">
                             {{ $suratMasukCount }}
@@ -22,7 +22,7 @@
                     <div class="card-body d-flex flex-column justify-content-between" style="min-height: 9rem;">
                         <div class="fs-5">
                             <i class="bi bi-envelope-arrow-up"></i>
-                            Surat Keluar
+                            Surat Keluar Hari Ini
                         </div>
                         <div class="fw-bold fs-1">
                             {{ $suratKeluarCount }}

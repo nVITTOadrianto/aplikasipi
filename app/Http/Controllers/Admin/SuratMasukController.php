@@ -11,11 +11,35 @@ class SuratMasukController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $suratSuratMasuk = SuratMasuk::orderBy("created_at","desc")->paginate(10);
-        return view('admin.surat-masuk.index', compact('suratSuratMasuk'));
+        // Ambil input dari form pencarian
+        $search = $request->input('search');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Query dasar
+        $query = SuratMasuk::query();
+
+        // Filter berdasarkan pengirim atau perihal
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('pengirim', 'like', "%{$search}%")
+                  ->orWhere('perihal', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter berdasarkan rentang tanggal
+        if ($startDate && $endDate) {
+            $query->whereBetween('tanggal_surat', [$startDate, $endDate]);
+        } elseif ($startDate) {
+            $query->whereDate('tanggal_surat', $startDate);
+        }
+
+        // Ambil data dengan paginasi
+        $suratSuratMasuk = $query->orderBy("created_at", "desc")->paginate(5);
+
+        return view('admin.surat-masuk.index', compact('suratSuratMasuk', 'search', 'startDate', 'endDate'));
     }
 
     /**
@@ -34,14 +58,14 @@ class SuratMasukController extends Controller
     {
         //
         $this->validate($request, [
-            'pengirim' => 'required|string|max:255',
-            'nomor_surat' => 'required|string|max:255|unique:surat_masuk,nomor_surat',
+            'pengirim' => 'required|string|max:100',
+            'nomor_surat' => 'required|string|max:50|unique:surat_masuk,nomor_surat',
             'tanggal_surat' => 'required|date',
             'tanggal_diterima' => 'required|date',
-            'nomor_agenda' => 'required|string|max:255',
-            'sifat' => 'required|in:Biasa,Penting,Segera,Rahasia',
+            'nomor_agenda' => 'required|string|max:11',
+            'sifat' => 'required|in:Segera,Biasa',
             'perihal' => 'required|string|max:255',
-            'file_surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'file_surat' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
         $suratMasuk = SuratMasuk::create($request->all());
         if ($request->hasFile('file_surat')) {
@@ -86,7 +110,7 @@ class SuratMasukController extends Controller
             'tanggal_surat' => 'required|date',
             'tanggal_diterima' => 'required|date',
             'nomor_agenda' => 'required|string|max:255',
-            'sifat' => 'required|in:Biasa,Penting,Segera,Rahasia',
+            'sifat' => 'required|in:Segera,Biasa',
             'perihal' => 'required|string|max:255',
             'file_surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);

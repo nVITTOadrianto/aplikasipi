@@ -33,11 +33,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    Route::get('/profile', [DashboardController::class, 'indexProfile'])
-        ->name('profile');
+    // Route::get('/profile', [DashboardController::class, 'indexProfile'])
+    //     ->name('profile');
 
-    Route::put('/profile', [DashboardController::class,'updateProfile'])
-        ->name('profile.update');
+    // Route::put('/profile', [DashboardController::class,'updateProfile'])
+    //     ->name('profile.update');
 
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
@@ -60,7 +60,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::put('/{id}', [SuratMasukController::class, 'update'])
             ->name('update');
-        
+
         Route::delete('/{id}', [SuratMasukController::class, 'destroy'])
             ->name('destroy');
     });
@@ -83,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::put('/{id}', [SuratKeluarController::class, 'update'])
             ->name('update');
-        
+
         Route::delete('/{id}', [SuratKeluarController::class, 'destroy'])
             ->name('destroy');
     });
