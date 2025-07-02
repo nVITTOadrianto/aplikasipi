@@ -2,7 +2,8 @@
 
 @section('content')
     <main class="container py-4">
-        <h1 class="mb-4 fw-bold">Surat Masuk</h1>
+        <h4>Lain-Lain ></h4>
+        <h1 class="mb-4 fw-bold">Surat Lain</h1>
         @session('success')
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -10,13 +11,13 @@
             </div>
         @endsession
         <div class="mb-3">
-            <a href="{{ route('surat-masuk.create') }}" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Tambah Surat Masuk
+            <a href="{{ route('subkeg-lain.surat-lain.sppd.create') }}" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Tambah Surat Perjalanan Dinas
             </a>
         </div>
-        <div class="card mb-4">
+        {{-- <div class="card mb-4">
             <div class="card-body">
-                <form action="{{ route('surat-masuk.index') }}" method="GET">
+                <form action="{{ route('subkeg-lain.surat-masuk.index') }}" method="GET">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
@@ -39,13 +40,13 @@
                         <div class="col-md-2 d-flex align-items-end">
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Filter</button>
-                                <a href="{{ route('surat-masuk.index') }}" class="btn btn-secondary">Reset</a>
+                                <a href="{{ route('subkeg-lain.surat-masuk.index') }}" class="btn btn-secondary">Reset</a>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-        </div>
+        </div> --}}
         <table class="table table-striped mt-3">
             <thead>
                 <tr scope="col">
@@ -61,7 +62,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($suratSuratMasuk as $surat)
+                {{-- @foreach ($suratSuratMasuk as $surat)
                     <tr>
                         <td scope="col">{{ $loop->iteration }}</td>
                         <td>{{ $surat->pengirim }}</td>
@@ -73,13 +74,13 @@
                         <td>{{ $surat->perihal }}</td>
                         <td class="align-middle">
                             <div class="d-flex gap-1">
-                                <a href="{{ route('surat-masuk.show', $surat->id) }}" class="btn btn-info btn-sm">
+                                <a href="{{ route('subkeg-lain.surat-masuk.show', $surat->id) }}" class="btn btn-info btn-sm">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="{{ route('surat-masuk.edit', $surat->id) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ route('subkeg-lain.surat-masuk.edit', $surat->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <form action="{{ route('surat-masuk.destroy', $surat->id) }}" method="POST"
+                                <form action="{{ route('subkeg-lain.surat-masuk.destroy', $surat->id) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -91,11 +92,11 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
         </table>
-        <div class="d-flex justify-content-center">
+        {{-- <div class="d-flex justify-content-center">
             {{ $suratSuratMasuk->appends(request()->query())->links() }}
-        </div>
+        </div> --}}
     </main>
 @endsection

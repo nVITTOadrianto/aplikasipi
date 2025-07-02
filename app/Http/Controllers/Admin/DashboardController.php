@@ -17,9 +17,11 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        $suratMasukCount = SuratMasuk::where('tanggal_diterima', date('Y-m-d'))->count();
-        $suratKeluarCount = SuratKeluar::where('tanggal_surat', date('Y-m-d'))->count();
-        return view('admin.dashboard', compact('suratMasukCount', 'suratKeluarCount'));
+        $suratMasuk1Count = SuratMasuk::where('tanggal_diterima', date('Y-m-d'))->where('sub_kegiatan', 'Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat')->count();
+        $suratKeluar1Count = SuratKeluar::where('tanggal_surat', date('Y-m-d'))->where('sub_kegiatan', 'Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat')->count();
+        $suratMasukLainCount = SuratMasuk::where('tanggal_diterima', date('Y-m-d'))->where('sub_kegiatan', 'Lain-Lain')->count();
+        $suratKeluarLainCount = SuratKeluar::where('tanggal_surat', date('Y-m-d'))->where('sub_kegiatan', 'Lain-Lain')->count();
+        return view('admin.dashboard', compact('suratMasuk1Count', 'suratKeluar1Count', 'suratMasukLainCount', 'suratKeluarLainCount'));
     }
 
     // public function indexProfile() {

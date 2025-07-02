@@ -2,7 +2,8 @@
 
 @section('content')
     <main class="container py-4">
-        <h1 class="mb-4 fw-bold">Tambah Surat Keluar Baru</h1>
+        <h4>Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat ></h4>
+        <h1 class="mb-4 fw-bold">Tambah Surat Masuk Baru</h1>
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <ul>
@@ -13,11 +14,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <form action="{{ route('surat-keluar.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('subkeg-1.surat-masuk.store') }}" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="text" name="sub_kegiatan" value="Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat" hidden>
             <div class="mb-3">
-                <label for="penerima" class="form-label">Surat Kepada<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="penerima" name="penerima" required>
+                <label for="pengirim" class="form-label">Surat Dari<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="pengirim" name="pengirim" required>
             </div>
             <div class="mb-3">
                 <label for="nomor_surat" class="form-label">Nomor Surat<span class="text-danger">*</span></label>
@@ -28,8 +30,12 @@
                 <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat" required>
             </div>
             <div class="mb-3">
-                <label for="perihal" class="form-label">Perihal<span class="text-danger">*</span></label>
-                <textarea class="form-control" id="perihal" name="perihal" rows="3" required></textarea>
+                <label for="tanggal_diterima" class="form-label">Tanggal Diterima</label>
+                <input type="date" class="form-control" id="tanggal_diterima" name="tanggal_diterima">
+            </div>
+            <div class="mb-3">
+                <label for="nomor_agenda" class="form-label">Nomor Agenda<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="nomor_agenda" name="nomor_agenda" required>
             </div>
             <div class="mb-3">
                 <label for="sifat" class="form-label">Sifat Surat<span class="text-danger">*</span></label>
@@ -37,6 +43,10 @@
                     <option value="Segera">Segera</option>
                     <option value="Biasa">Biasa</option>
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="perihal" class="form-label">Perihal<span class="text-danger">*</span></label>
+                <textarea class="form-control" id="perihal" name="perihal" rows="3" required></textarea>
             </div>
             <div class="mb-3">
                 <label for="file_surat" class="form-label">File Surat (opsional)</label>
@@ -48,7 +58,7 @@
                 <p class="text-danger">*wajib diisi</p>
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
-            <a href="{{ route('surat-keluar.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('subkeg-1.surat-masuk.index') }}" class="btn btn-secondary">Kembali</a>
         </form>
     </main>
 @endsection

@@ -2,6 +2,7 @@
 
 @section('content')
     <main class="container py-4">
+        <h4>Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat ></h4>
         <h1 class="mb-4 fw-bold">Detail Surat Keluar</h1>
         <div class="card mb-4">
             <div class="card-body">
@@ -17,7 +18,7 @@
                 @endif
             </div>
             <div class="card-footer">
-                <a href="{{ route('surat-keluar.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('subkeg-1.surat-keluar.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </main>

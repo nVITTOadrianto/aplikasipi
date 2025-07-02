@@ -10,6 +10,7 @@ class SuratMasuk extends Model
     use HasFactory;
     protected $table = 'surat_masuk';
     protected $fillable = [
+        'sub_kegiatan',
         'pengirim',
         'nomor_surat',
         'tanggal_surat',

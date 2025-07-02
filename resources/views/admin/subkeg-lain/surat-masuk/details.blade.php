@@ -2,6 +2,7 @@
 
 @section('content')
     <main class="container py-4">
+        <h4>Lain-Lain ></h4>
         <h1 class="mb-4 fw-bold">Detail Surat Masuk</h1>
         <div class="card mb-4">
             <div class="card-body">
@@ -20,7 +21,7 @@
                 @endif
             </div>
             <div class="card-footer">
-                <a href="{{ route('surat-masuk.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('subkeg-lain.surat-masuk.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
         </div>
     </main>
