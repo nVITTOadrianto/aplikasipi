@@ -8,9 +8,9 @@
             <div class="card-body">
                 <h5 class="card-title mb-3">Surat Dari: {{ $suratMasuk->pengirim }}</h5>
                 <p class="card-text"><strong>Nomor Surat:</strong> {{ $suratMasuk->nomor_surat }}</p>
-                <p class="card-text"><strong>Tanggal Surat:</strong> {{ $suratMasuk->tanggal_surat }}</p>
+                <p class="card-text"><strong>Tanggal Surat:</strong> {{ $suratMasuk->tanggal_surat->isoFormat('D MMMM YYYY') }}</p>
                 <p class="card-text"><strong>Tanggal Diterima:</strong>
-                    {{ $suratMasuk->tanggal_diterima ? $suratMasuk->tanggal_diterima : 'Belum Diterima' }}</p>
+                    {{ $suratMasuk->tanggal_diterima ? $suratMasuk->tanggal_diterima->isoFormat('D MMMM YYYY') : 'Belum Diterima' }}</p>
                 <p class="card-text"><strong>Nomor Agenda:</strong> {{ $suratMasuk->nomor_agenda }}</p>
                 <p class="card-text"><strong>Sifat Surat:</strong> {{ $suratMasuk->sifat }}</p>
                 <p class="card-text"><strong>Perihal:</strong> {{ $suratMasuk->perihal }}</p>

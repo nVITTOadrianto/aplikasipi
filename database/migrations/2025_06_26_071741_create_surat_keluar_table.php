@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('surat_keluar', function (Blueprint $table) {
             $table->id();
+            $table->enum('sub_kegiatan', ['Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat', 'Lain-Lain'])
+                ->default('Lain-Lain');
             $table->string('penerima');
             $table->string('nomor_surat')->unique();
             $table->date('tanggal_surat');
             $table->text('perihal');
-            $table->string('file_surat')->nullable();
+            $table->string('file_surat');
             $table->enum('sifat', ['Segera', 'Biasa']);
             $table->timestamps();
         });

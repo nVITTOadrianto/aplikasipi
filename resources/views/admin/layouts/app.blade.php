@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -202,7 +202,7 @@
                 <div class="d-flex align-items-center justify-content-between px-3   py-3 border-bottom">
                     <a class="navbar-brand sidebar-label" href="{{ route('home') }}">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ asset('logo_horizontal.png') }}" alt="Logo" width="auto" height="40"
+                            <img src="{{ asset('logo_pi.png') }}" alt="Logo Pemberdayaan Industri" width="auto" height="40"
                                 class="d-inline-block align-text-top">
                         </div>
                     </a>
@@ -254,7 +254,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" title="Surat Lain-Lain">
+                                <a href="#"
+                                    class="nav-link"
+                                    title="Surat Lain-Lain">
                                     <i class="bi bi-envelope"></i>
                                     <span class="sidebar-label">Surat Lain-Lain</span>
                                 </a>
@@ -264,7 +266,7 @@
 
                     <li class="nav-item">
                         @php
-                            $isLainLainActive = 
+                            $isLainLainActive =
                                 request()->routeIs('subkeg-lain.surat-masuk.index') || request()->routeIs('subkeg-lain.surat-keluar.index') || request()->routeIs('subkeg-lain.surat-lain.index');
                         @endphp
                         <a href="#submenu-lain" data-bs-toggle="collapse"
@@ -295,8 +297,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('subkeg-lain.surat-lain.index')}}"
-                                    class="nav-link {{ request()->routeIs('subkeg-lain.surat-lain.index') ? 'active' : '' }}"
+                                <a href="#"
+                                    class="nav-link"
                                     title="Surat Lain-Lain">
                                     <i class="bi bi-envelope"></i>
                                     <span class="sidebar-label">Surat Lain-Lain</span>

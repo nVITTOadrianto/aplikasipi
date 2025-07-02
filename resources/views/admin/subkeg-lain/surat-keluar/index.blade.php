@@ -65,7 +65,7 @@
                         <td scope="col">{{ $loop->iteration }}</td>
                         <td>{{ $surat->penerima }}</td>
                         <td>{{ $surat->nomor_surat }}</td>
-                        <td>{{ $surat->tanggal_surat }}</td>
+                        <td>{{ $surat->tanggal_surat->isoFormat('D MMMM YYYY') }}</td>
                         <td>{{ $surat->sifat }}</td>
                         <td>{{ $surat->perihal }}</td>
                         <td class="align-middle">

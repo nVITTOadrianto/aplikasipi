@@ -26,6 +26,10 @@ class SuratMasuk extends Model
         'tanggal_surat',
         'tanggal_diterima',
     ];
+    protected $casts = [
+        'tanggal_surat' => 'date',
+        'tanggal_diterima' => 'date',
+    ];
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $keyType = 'int';

@@ -15,7 +15,38 @@
                 <i class="bi bi-plus-circle"></i> Tambah Surat Keluar
             </a>
         </div>
-        
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="{{ route('subkeg-lain.surat-keluar.index') }}" method="GET">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="search" class="form-label">Cari (Penerima/Perihal)</label>
+                                <input type="text" class="form-control" id="search" name="search" value="{{ $search ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $startDate ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="end_date" class="form-label">Tanggal Akhir</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                                <a href="{{ route('subkeg-lain.surat-keluar.index') }}" class="btn btn-secondary">Reset</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <table class="table table-striped mt-3">
             <thead>
                 <tr scope="col">
@@ -34,7 +65,7 @@
                         <td scope="col">{{ $loop->iteration }}</td>
                         <td>{{ $surat->penerima }}</td>
                         <td>{{ $surat->nomor_surat }}</td>
-                        <td>{{ $surat->tanggal_surat }}</td>
+                        <td>{{ $surat->tanggal_surat->isoFormat('D MMMM YYYY') }}</td>
                         <td>{{ $surat->sifat }}</td>
                         <td>{{ $surat->perihal }}</td>
                         <td class="align-middle">

@@ -54,8 +54,6 @@
                     <th>Surat Dari</th>
                     <th>No. Surat</th>
                     <th>Tanggal Surat</th>
-                    <th>Tanggal Diterima</th>
-                    <th>No. Agenda</th>
                     <th>Sifat</th>
                     <th>Perihal</th>
                     <th>Aksi</th>
@@ -67,9 +65,7 @@
                         <td scope="col">{{ $loop->iteration }}</td>
                         <td>{{ $surat->pengirim }}</td>
                         <td>{{ $surat->nomor_surat }}</td>
-                        <td>{{ $surat->tanggal_surat }}</td>
-                        <td>{{ $surat->tanggal_diterima }}</td>
-                        <td>{{ $surat->nomor_agenda }}</td>
+                        <td>{{ $surat->tanggal_surat->isoFormat('D MMMM YYYY') }}</td>
                         <td>{{ $surat->sifat }}</td>
                         <td>{{ $surat->perihal }}</td>
                         <td class="align-middle">

@@ -8,7 +8,7 @@
             <div class="card-body">
                 <h5 class="card-title mb-3">Surat Kepada: {{ $suratKeluar->penerima }}</h5>
                 <p class="card-text"><strong>Nomor Surat:</strong> {{ $suratKeluar->nomor_surat }}</p>
-                <p class="card-text"><strong>Tanggal Surat:</strong> {{ $suratKeluar->tanggal_surat }}</p>
+                <p class="card-text"><strong>Tanggal Surat:</strong> {{ $suratKeluar->tanggal_surat->isoFormat('D MMMM YYYY') }}</p>
                 <p class="card-text"><strong>Perihal:</strong> {{ $suratKeluar->perihal }}</p>
                 <p class="card-text"><strong>Sifat Surat:</strong> {{ $suratKeluar->sifat }}</p>
                 @if ($suratKeluar->file_surat)

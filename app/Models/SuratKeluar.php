@@ -23,6 +23,9 @@ class SuratKeluar extends Model
         'updated_at',
         'tanggal_surat',
     ];
+    protected $casts = [
+        'tanggal_surat' => 'date',
+    ];
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $keyType = 'int';

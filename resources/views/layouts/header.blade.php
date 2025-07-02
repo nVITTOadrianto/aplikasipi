@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="{{ asset('logo_horizontal.png') }}" alt="Logo" width="auto" height="40"
+            <img src="{{ asset('logo_pi.png') }}" alt="Logo Pemberdayaan Industri" width="auto" height="40"
                 class="d-inline-block align-text-top ms-3">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

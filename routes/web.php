@@ -139,30 +139,5 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{id}', [SubkegLainSuratKeluarController::class, 'destroy'])
                 ->name('destroy');
         });
-
-        Route::prefix('/surat-lain')->name('surat-lain.')->group(function() {
-            Route::get('/', [SubkegLainSuratLainController::class, 'index'])
-                ->name('index');
-
-            Route::prefix('/sppd')->name('sppd.')->group(function() {
-                Route::get('/create', [SubkegLainSuratLainController::class, 'createSppd'])
-                    ->name('create');
-
-                Route::post('/', [SubkegLainSuratLainController::class, 'storeSppd'])
-                    ->name('store');
-
-                Route::get('/details/{id}', [SubkegLainSuratLainController::class, 'showSppd'])
-                    ->name('show');
-
-                Route::get('/edit/{id}', [SubkegLainSuratLainController::class, 'editSppd'])
-                    ->name('edit');
-
-                Route::put('/{id}', [SubkegLainSuratLainController::class, 'updateSppd'])
-                    ->name('update');
-
-                Route::delete('/{id}', [SubkegLainSuratLainController::class, 'destroySppd'])
-                    ->name('destroy');
-            });
-        });
     });
 });
