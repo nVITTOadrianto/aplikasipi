@@ -31,7 +31,7 @@
             <div class="mb-3">
                 <label for="tanggal_surat" class="form-label">Tanggal Surat<span class="text-danger">*</span></label>
                 <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat"
-                    value="{{ $suratKeluar->tanggal_surat }}" required>
+                    value="{{ $suratKeluar->tanggal_surat->format('Y-m-d') }}" required>
             </div>
             <div class="mb-3">
                 <label for="perihal" class="form-label">Perihal<span class="text-danger">*</span></label>

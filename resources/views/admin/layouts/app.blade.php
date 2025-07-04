@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - BPSMB</title>
+    <title>Dashboard - Ardigpi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -17,11 +17,14 @@
         .sidebar {
             min-width: 250px;
             max-width: 250px;
-            min-height: 100vh;
+            height: 100vh;
+            top: 0;
+            position: sticky;
             background: #afd8ff;
             border-right: 1px solid #e5e7eb;
             transition: all .3s;
             z-index: 1050;
+            overflow: hidden;
         }
 
         .sidebar.collapsed {
@@ -38,11 +41,11 @@
         }
 
         .sidebar.collapsed .nav-link {
-            justify-content: center;
+            justify-content: left;
         }
 
         .sidebar.collapsed .sidebar-actions .dropdown-toggle {
-            justify-content: center;
+            justify-content: left;
         }
 
         /* 1. Gaya untuk INDUK menu yang aktif (latar belakang sedikit menonjol) */
@@ -64,11 +67,11 @@
             /* Menambahkan sedikit lengkungan pada sudut */
         }
 
-
         .sidebar .nav-link {
             display: flex;
             align-items: center;
             gap: .75rem;
+            transition: all .3s;
         }
 
         /* Backdrop for mobile sidebar */
@@ -199,7 +202,7 @@
     <div class="d-flex">
         <nav id="sidebar" class="sidebar shadow-sm">
             <div class="d-flex flex-column h-100">
-                <div class="d-flex align-items-center justify-content-between px-3   py-3 border-bottom">
+                <div class="d-flex align-items-center justify-content-between px-3 py-3 border-bottom">
                     <a class="navbar-brand sidebar-label" href="{{ route('home') }}">
                         <div class="d-flex align-items-center gap-2">
                             <img src="{{ asset('logo_pi.png') }}" alt="Logo Pemberdayaan Industri" width="auto" height="40"
@@ -229,7 +232,7 @@
                             class="nav-link {{ $isKoordinasiActive ? 'active' : '' }}"
                             title="Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat">
                             <i class="bi bi-folder fs-5"></i>
-                            <span class="sidebar-label">Koordinasi, Sinkronisasi...</span>
+                            <span class="sidebar-label">Koordinasi & Sinkronisasi</span>
                             <i class="bi bi-chevron-down ms-auto sidebar-label"></i>
                         </a>
                         <ul id="submenu-koordinasi"
@@ -258,7 +261,7 @@
                                     class="nav-link"
                                     title="Surat Lain-Lain">
                                     <i class="bi bi-envelope"></i>
-                                    <span class="sidebar-label">Surat Lain-Lain</span>
+                                    <span class="sidebar-label">SPPD</span>
                                 </a>
                             </li>
                         </ul>
@@ -297,11 +300,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#"
-                                    class="nav-link"
+                                <a href="{{ route('subkeg-lain.sppd.index') }}"
+                                    class="nav-link {{ request()->routeIs('subkeg-lain.sppd.index') ? 'active' : '' }}"
                                     title="Surat Lain-Lain">
                                     <i class="bi bi-envelope"></i>
-                                    <span class="sidebar-label">Surat Lain-Lain</span>
+                                    <span class="sidebar-label">SPPD</span>
                                 </a>
                             </li>
                         </ul>
@@ -315,9 +318,9 @@
                             <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}" alt="User"
                                 class="rounded-circle" width="40" height="40">
                             <div class="user-info ms-2" style="min-width: 0; overflow: hidden;">
-                                <div class="fw-semibold text-truncate" style="max-width: 120px;">
+                                <div class="fw-semibold text-truncate" style="max-width: 150px;">
                                     {{ Auth::user()->name }}</div>
-                                <div class="text-muted small text-truncate" style="max-width: 120px;">
+                                <div class="text-muted small text-truncate" style="max-width: 150px;">
                                     {{ Auth::user()->email }}</div>
                             </div>
                         </a>

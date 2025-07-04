@@ -16,7 +16,8 @@
         @endif
         <form action="{{ route('subkeg-1.surat-masuk.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <input type="text" name="sub_kegiatan" value="Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat" hidden>
+            <input type="text" name="sub_kegiatan"
+                value="Koordinasi, Sinkronisasi, dan Pelaksanaan Pemberdayaan Industri dan Peran Serta Masyarakat" hidden>
             <div class="mb-3">
                 <label for="pengirim" class="form-label">Surat Dari<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="pengirim" name="pengirim" required>
@@ -25,13 +26,15 @@
                 <label for="nomor_surat" class="form-label">Nomor Surat<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" required>
             </div>
-            <div class="mb-3">
-                <label for="tanggal_surat" class="form-label">Tanggal Surat<span class="text-danger">*</span></label>
-                <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat" required>
-            </div>
-            <div class="mb-3">
-                <label for="tanggal_diterima" class="form-label">Tanggal Diterima</label>
-                <input type="date" class="form-control" id="tanggal_diterima" name="tanggal_diterima">
+            <div class="row g-5 mb-3">
+                <div class="col">
+                    <label for="tanggal_surat" class="form-label">Tanggal Surat<span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat" required>
+                </div>
+                <div class="col">
+                    <label for="tanggal_diterima" class="form-label">Tanggal Diterima<span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="tanggal_diterima" name="tanggal_diterima">
+                </div>
             </div>
             <div class="mb-3">
                 <label for="nomor_agenda" class="form-label">Nomor Agenda<span class="text-danger">*</span></label>

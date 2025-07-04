@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Subkeg1\Subkeg1SuratKeluarController;
 use App\Http\Controllers\Admin\Subkeg1\Subkeg1SuratMasukController;
+use App\Http\Controllers\Admin\SubkegLain\SubkegLainSPPDController;
 use App\Http\Controllers\Admin\SubkegLain\SubkegLainSuratKeluarController;
 use App\Http\Controllers\Admin\SubkegLain\SubkegLainSuratLainController;
 use App\Http\Controllers\Admin\SubkegLain\SubkegLainSuratMasukController;
@@ -137,6 +138,29 @@ Route::middleware(['auth'])->group(function () {
                 ->name('update');
 
             Route::delete('/{id}', [SubkegLainSuratKeluarController::class, 'destroy'])
+                ->name('destroy');
+        });
+
+        Route::prefix('/sppd')->name('sppd.')->group(function () {
+            Route::get('/', [SubkegLainSPPDController::class, 'index'])
+                ->name('index');
+
+            Route::get('/create', [SubkegLainSPPDController::class, 'create'])
+                ->name('create');
+
+            Route::post('/', [SubkegLainSPPDController::class, 'store'])
+                ->name('store');
+
+            Route::get('/details/{id}', [SubkegLainSPPDController::class, 'show'])
+                ->name('show');
+
+            Route::get('/edit/{id}', [SubkegLainSPPDController::class, 'edit'])
+                ->name('edit');
+
+            Route::put('/{id}', [SubkegLainSPPDController::class, 'update'])
+                ->name('update');
+
+            Route::delete('/{id}', [SubkegLainSPPDController::class, 'destroy'])
                 ->name('destroy');
         });
     });
