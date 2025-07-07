@@ -17,8 +17,8 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="nip" class="form-label">NIP<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="nip" name="nip" value="{{ old('nip', $pegawai->nip) }}" required>
+                <label for="nip" class="form-label">NIP</label>
+                <input type="text" class="form-control" id="nip" name="nip" value="{{ old('nip', $pegawai->nip) }}">
             </div>
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama<span class="text-danger">*</span></label>
@@ -36,8 +36,8 @@
             </div>
             <div class="row mb-3">
                 <div class="col-3">
-                    <label for="golongan" class="form-label">Golongan<span class="text-danger">*</span></label>
-                    <select class="form-control" id="golongan" name="golongan" required>
+                    <label for="golongan" class="form-label">Golongan</label>
+                    <select class="form-control" id="golongan" name="golongan">
                         <option value="" disabled {{ old('golongan', $pegawai->golongan) ? '' : 'selected' }}>-- Pilih --</option>
                         <option value="I" {{ old('golongan', $pegawai->golongan) == 'I' ? 'selected' : '' }}>I</option>
                         <option value="II" {{ old('golongan', $pegawai->golongan) == 'II' ? 'selected' : '' }}>II</option>
@@ -46,8 +46,8 @@
                     </select>
                 </div>
                 <div class="col-3">
-                    <label for="ruang" class="form-label">Ruang<span class="text-danger">*</span></label>
-                    <select class="form-control" id="ruang" name="ruang" required>
+                    <label for="ruang" class="form-label">Ruang</label>
+                    <select class="form-control" id="ruang" name="ruang">
                         <option value="" disabled {{ old('ruang', $pegawai->ruang) ? '' : 'selected' }}>-- Pilih --</option>
                         <option value="a" {{ old('ruang', $pegawai->ruang) == 'a' ? 'selected' : '' }}>a</option>
                         <option value="b" {{ old('ruang', $pegawai->ruang) == 'b' ? 'selected' : '' }}>b</option>
@@ -57,7 +57,7 @@
                     </select>
                 </div>
                 <div class="col-6">
-                    <label for="pangkat" class="form-label">Pangkat<span class="text-danger">*</span></label>
+                    <label for="pangkat" class="form-label">Pangkat</label>
                     <input type="text" class="form-control" id="pangkat" name="pangkat"
                         value="{{ old('pangkat', $pegawai->pangkat) }}"
                         placeholder="Akan terisi otomatis..." readonly>

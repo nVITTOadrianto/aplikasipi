@@ -27,12 +27,13 @@ class PegawaiController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('nama', 'like', "%{$search}%")
-                    ->orWhere('jabatan', 'like', "%{$search}%");
+                    ->orWhere('jabatan', 'like', "%{$search}%")
+                    ->orWhere('jabatan_ttd', 'like', "%{$search}%");
             });
         }
 
         // Ambil data dengan paginasi
-        $pegawaiPegawai = $query->orderBy("created_at", "asc")->paginate(5);
+        $pegawaiPegawai = $query->orderBy("created_at", "asc")->paginate(10);
 
         return view('admin.pegawai.index', compact('pegawaiPegawai', 'search'));
     }
@@ -53,13 +54,13 @@ class PegawaiController extends Controller
     {
         //
         $pegawai = $this->validate($request, [
-            'nip' => 'required|string|max:30',
+            'nip' => 'nullable|string|max:30|unique:pegawai,nip',
             'nama' => 'required|string|max:50',
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'golongan' => 'required|string|max:5',
-            'ruang' => 'required|string|max:1',
-            'pangkat' => 'required|string|max:50',
+            'golongan' => 'nullable|string|max:5',
+            'ruang' => 'nullable|string|max:1',
+            'pangkat' => 'nullable|string|max:50',
             'jabatan' => 'required|string|max:100',
             'jabatan_ttd' => 'nullable|string|max:50',
         ]);
@@ -92,13 +93,13 @@ class PegawaiController extends Controller
                 continue;
             }
             Pegawai::create([
-                'nip'           => $row['A'] ?? '',
+                'nip'           => $row['A'] ?? null,
                 'nama'          => $row['B'] ?? '',
                 'tempat_lahir'  => $row['C'] ?? '',
-                'tanggal_lahir' => $row['D'] ?? '',
-                'golongan'      => $row['E'] ?? '',
-                'ruang'         => $row['F'] ?? '',
-                'pangkat'       => $row['G'] ?? '',
+                'tanggal_lahir' => $row['D'] ?? now(),
+                'golongan'      => $row['E'] ?? null,
+                'ruang'         => $row['F'] ?? null,
+                'pangkat'       => $row['G'] ?? null,
                 'jabatan'       => $row['H'] ?? '',
                 'jabatan_ttd'   => $row['I'] ?? null,
             ]);
@@ -182,13 +183,13 @@ class PegawaiController extends Controller
     {
         //
         $pegawai = $this->validate($request, [
-            'nip' => 'required|string|max:30',
+            'nip' => 'nullable|string|max:30|unique:pegawai,nip',
             'nama' => 'required|string|max:50',
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'golongan' => 'required|string|max:5',
-            'ruang' => 'required|string|max:1',
-            'pangkat' => 'required|string|max:50',
+            'golongan' => 'nullable|string|max:5',
+            'ruang' => 'nullable|string|max:1',
+            'pangkat' => 'nullable|string|max:50',
             'jabatan' => 'required|string|max:100',
             'jabatan_ttd' => 'nullable|string|max:50',
         ]);

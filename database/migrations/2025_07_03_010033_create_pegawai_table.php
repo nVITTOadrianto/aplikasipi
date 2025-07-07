@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('pegawai', function (Blueprint $table) {
             $table->id();
+            $table->string('nip')->nullable()->unique();
             $table->string('nama');
-            $table->string('nip');
-            $table->enum('golongan', ['I', 'II', 'III', 'IV']);
-            $table->enum('ruang', ['a', 'b', 'c', 'd', 'e']);
-            $table->string('pangkat');
-            $table->string('jabatan');
-            $table->string('jabatan_ttd')->nullable();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->enum('golongan', ['I', 'II', 'III', 'IV'])->nullable();
+            $table->enum('ruang', ['a', 'b', 'c', 'd', 'e'])->nullable();
+            $table->string('pangkat')->nullable();
+            $table->string('jabatan');
+            $table->string('jabatan_ttd')->nullable();
             $table->timestamps();
         });
     }

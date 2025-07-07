@@ -234,7 +234,7 @@
                     <li class="nav-item">
                         @php
                             $isKoordinasiActive =
-                                request()->routeIs('subkeg-1.surat-masuk.index') || request()->routeIs('subkeg-1.surat-keluar.index');
+                                request()->routeIs('subkeg-1.surat-masuk.index') || request()->routeIs('subkeg-1.surat-keluar.index') || request()->routeIs('subkeg-1.sppd.index');
                         @endphp
                         <a href="#submenu-koordinasi" data-bs-toggle="collapse"
                             class="nav-link {{ $isKoordinasiActive ? 'active' : '' }}"
@@ -266,7 +266,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('subkeg-1.sppd.index') }}"
-                                    class="nav-link" {{ request()->routeIs('subkeg-1.sppd.index') ? 'active' : '' }}"
+                                    class="nav-link {{ request()->routeIs('subkeg-1.sppd.index') ? 'active' : '' }}"
                                     title="Surat Lain-Lain">
                                     <i class="bi bi-envelope"></i>
                                     <span class="sidebar-label">SPPD</span>
@@ -278,7 +278,7 @@
                     <li class="nav-item">
                         @php
                             $isLainLainActive =
-                                request()->routeIs('subkeg-lain.surat-masuk.index') || request()->routeIs('subkeg-lain.surat-keluar.index') || request()->routeIs('subkeg-lain.surat-lain.index');
+                                request()->routeIs('subkeg-lain.surat-masuk.index') || request()->routeIs('subkeg-lain.surat-keluar.index') || request()->routeIs('subkeg-lain.sppd.index');
                         @endphp
                         <a href="#submenu-lain" data-bs-toggle="collapse"
                             class="nav-link {{ $isLainLainActive ? 'active' : '' }}" title="Lain-Lain">

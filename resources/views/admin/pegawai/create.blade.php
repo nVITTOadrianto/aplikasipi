@@ -29,8 +29,8 @@
         <form action="{{ route('pegawai.store') }}" method="post">
             @csrf
             <div class="mb-3">
-                <label for="nip" class="form-label">NIP<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="nip" name="nip" required>
+                <label for="nip" class="form-label">NIP</label>
+                <input type="text" class="form-control" id="nip" name="nip">
             </div>
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama<span class="text-danger">*</span></label>
@@ -49,8 +49,8 @@
             <div class="row mb-3">
                 {{-- Kolom untuk Golongan --}}
                 <div class="col-3">
-                    <label for="golongan" class="form-label">Golongan<span class="text-danger">*</span></label>
-                    <select class="form-control" id="golongan" name="golongan" required>
+                    <label for="golongan" class="form-label">Golongan</label>
+                    <select class="form-control" id="golongan" name="golongan">
                         <option value="" disabled selected>-- Pilih --</option>
                         <option value="I">I</option>
                         <option value="II">II</option>
@@ -61,8 +61,8 @@
 
                 {{-- Kolom untuk Ruang --}}
                 <div class="col-3">
-                    <label for="ruang" class="form-label">Ruang<span class="text-danger">*</span></label>
-                    <select class="form-control" id="ruang" name="ruang" required>
+                    <label for="ruang" class="form-label">Ruang</label>
+                    <select class="form-control" id="ruang" name="ruang">
                         <option value="" disabled selected>-- Pilih --</option>
                         <option value="a">a</option>
                         <option value="b">b</option>
@@ -73,7 +73,7 @@
                     </select>
                 </div>
                 <div class="col-6">
-                    <label for="pangkat" class="form-label">Pangkat<span class="text-danger">*</span></label>
+                    <label for="pangkat" class="form-label">Pangkat</label>
                     <input type="text" class="form-control" id="pangkat" name="pangkat"
                         placeholder="Akan terisi otomatis..." readonly>
                 </div>

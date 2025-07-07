@@ -36,7 +36,7 @@
                 <select class="form-select" name="pegawai_pemberi_wewenang" id="pegawai_pemberi_wewenang" required>
                     <option value="" selected disabled>-- Pilih Pegawai --</option>
                     @foreach ($pegawai as $p)
-                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }} - {{ $p->jabatan }}
+                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }} - {{ $p->jabatan_ttd }}
                         </option>
                     @endforeach
                 </select>
@@ -153,7 +153,7 @@
                     <option value="" selected disabled>-- Pilih Pegawai --</option>
                     @foreach ($pegawai as $p)
                         <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }} -
-                            {{ $p->jabatan }}</option>
+                            {{ $p->jabatan_ttd }}</option>
                     @endforeach
                 </select>
             </div>

@@ -51,8 +51,18 @@
                 @foreach ($pegawaiPegawai as $pegawai)
                     <tr>
                         <td scope="col">{{ $loop->iteration }}</td>
-                        <td>{{$pegawai->nama}}<br>NIP. {{$pegawai->nip}}</td>
-                        <td>{{$pegawai->pangkat}}<br>{{$pegawai->golongan}}/{{$pegawai->ruang}}</td>
+                        <td>
+                            {{ $pegawai->nama }}
+                            @if($pegawai->nip)
+                                <br>NIP. {{ $pegawai->nip }}
+                            @endif
+                        </td>
+                        <td>@if($pegawai->pangkat || $pegawai->golongan || $pegawai->ruang)
+                                {{$pegawai->pangkat}}<br>{{$pegawai->golongan}}/{{$pegawai->ruang}}
+                            @else
+                                {{'-'}}
+                            @endif
+                        </td>
                         <td>{{$pegawai->jabatan}}</td>
                         <td class="align-middle">
                             <div class="d-flex gap-1">

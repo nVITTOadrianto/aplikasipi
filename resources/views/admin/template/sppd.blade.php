@@ -187,7 +187,7 @@
                     </td>
                     <td colspan="2" class="content-col">
                         {{ $sppd->pelaksana->golongan }}/{{ $sppd->pelaksana->ruang }}<br>
-                        {{ $sppd->pelaksana->jabatan }}<br>
+                        {{ $sppd->pelaksana->jabatan_ttd }}<br>
                         {{ $sppd->tingkat_biaya }}
                     </td>
                 </tr>
@@ -235,17 +235,17 @@
                     <td rowspan="3" class="label-col">9.</td>
                     <td>{{ $sppd->pengikut_1->nama ?? '' }}</td>
                     <td>{{ $sppd->pengikut_1?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_1->jabatan ?? '' }}</td>
+                    <td>{{ $sppd->pengikut_1->jabatan_ttd ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>{{ $sppd->pengikut_2->nama ?? '' }}</td>
                     <td>{{ $sppd->pengikut_2?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_2->jabatan ?? '' }}</td>
+                    <td>{{ $sppd->pengikut_2->jabatan_ttd ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>{{ $sppd->pengikut_3->nama ?? '' }}</td>
                     <td>{{ $sppd->pengikut_3?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_3->jabatan ?? '' }}</td>
+                    <td>{{ $sppd->pengikut_3->jabatan_ttd ?? '' }}</td>
                 </tr>
             </tbody>
             </td>
