@@ -6,15 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surat Perjalanan Dinas (SPD)</title>
     <style>
+        @font-face {
+            font-family: 'Bookman Old Style';
+            font-style: normal;
+            font-weight: normal;
+            src: url({{ storage_path('fonts/bookmanoldstyle.ttf') }}) format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Bookman Old Style';
+            font-style: normal;
+            font-weight: bold;
+            src: url({{ storage_path('fonts/bookmanoldstyle_bold.ttf') }}) format('truetype');
+        }
+
         body {
             font-family: "Bookman Old Style", Georgia, serif;
-            font-size: 10.5pt;
-            line-break: loose;
+            font-size: 11pt;
+            line-break: strict;
+            padding: 0px;
         }
 
         .container {
             margin: auto;
             background-color: white;
+        }
+
+        .page-2 {
+            font-size: 10pt;
         }
 
         table {
@@ -24,7 +43,6 @@
 
         td,
         th {
-            padding: 5px;
             vertical-align: top;
         }
 
@@ -34,26 +52,26 @@
         }
 
         .header-table .agency2 {
-            font-size: 19pt;
+            font-size: 18pt;
             font-weight: bold;
         }
 
         .header-table .agency1 {
-            font-size: 17pt;
-            letter-spacing: 6px;
+            font-size: 16pt;
+            letter-spacing: 5px;
             font-weight: bold;
 
         }
 
         .header-table .address {
-            font-size: 11pt;
+            font-size: 10pt;
         }
 
         .main-title {
             text-align: center;
-            font-size: 12pt;
+            font-size: 11pt;
             text-decoration: underline;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .top-right {
@@ -95,28 +113,12 @@
         }
 
         .signature-section {
-            height: 80px;
+            height: 40px;
         }
 
         .page-2,
         .attention-section {
             text-align: justify;
-        }
-
-        input[type="text"],
-        input[type="date"],
-        textarea {
-            width: 95%;
-            border: 1px solid #ccc;
-            padding: 4px;
-            font-family: inherit;
-            font-size: inherit;
-            background-color: #f9f9f9;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 40px;
         }
 
         .nested-input-table td {
@@ -267,14 +269,14 @@
             </tr>
             </tbody>
         </table>
-        <div style="font-size: 10pt; text-align: left; padding-left: 10px;">*coret yang tidak perlu</div>
+        <div style="text-align: left; padding-left: 10px;">*coret yang tidak perlu</div>
 
-        <table class="no-border" style="margin-top: 10px;">
+        <table class="no-border">
             <tr>
                 <td style="width: 50%;"></td>
                 <td>
                     Dikeluarkan di : Bandar Lampung<br>
-                    Tanggal : {{ $sppd->created_at->isoFormat('D MMMM YYYY') }}<br><br>
+                    Tanggal : {{ $sppd->created_at->isoFormat('D MMMM YYYY') }}<br>
                     <b>{{ strtoupper($sppd->pemberi_wewenang->jabatan_ttd) }},</b><br>
                     <div class="signature-section"></div>
                     <b><u>{{ $sppd->pemberi_wewenang->nama }}</u></b><br>
@@ -302,9 +304,9 @@
                         (Tempat Kedudukan):{{ $sppd->tempat_kedudukan }}<br>
                         Ke: {{ $sppd->tempat_tujuan }}<br>
                         Pada Tanggal: {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
-                        <b>{{ $sppd->mengetahui->jabatan ?? '' }}</b><br>
+                        <b>Pejabat Pelaksana<br>Teknis Kegiatan</b><br>
                         <div class="signature-section"></div>
-                        <b><u>{{ $sppd->mengetahui->nama ?? '' }}</u></b><br>
+                        <b><u>{{ $sppd->mengetahui->nama ?? '(…………………………………….……….)' }}</u></b><br>
                         NIP. {{ $sppd->mengetahui->nip ?? '' }}
                     </td>
                 </tr>

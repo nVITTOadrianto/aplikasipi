@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PegawaiController;
+use App\Http\Controllers\Admin\Subkeg1\Subkeg1SPPDController;
 use App\Http\Controllers\Admin\Subkeg1\Subkeg1SuratKeluarController;
 use App\Http\Controllers\Admin\Subkeg1\Subkeg1SuratMasukController;
 use App\Http\Controllers\Admin\SubkegLain\SubkegLainSPPDController;
@@ -46,6 +48,35 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
 
+    Route::prefix('/pegawai')->name('pegawai.')->group(function () {
+        Route::get('/', [PegawaiController::class, 'index'])
+            ->name('index');
+
+        Route::get('/create', [PegawaiController::class, 'create'])
+            ->name('create');
+
+        Route::post('/', [PegawaiController::class, 'store'])
+            ->name('store');
+
+        Route::post('/import', [PegawaiController::class, 'import'])
+            ->name('import');
+
+        Route::get('/export', [PegawaiController::class, 'export'])
+            ->name('export');
+
+        Route::get('/details/{id}', [PegawaiController::class, 'show'])
+            ->name('show');
+
+        Route::get('/edit/{id}', [PegawaiController::class, 'edit'])
+            ->name('edit');
+
+        Route::put('/{id}', [PegawaiController::class, 'update'])
+            ->name('update');
+
+        Route::delete('/{id}', [PegawaiController::class, 'destroy'])
+            ->name('destroy');
+    });
+
     Route::prefix('/subkeg-1')->name('subkeg-1.')->group(function () {
         Route::prefix('/surat-masuk')->name('surat-masuk.')->group(function () {
             Route::get('/', [Subkeg1SuratMasukController::class, 'index'])
@@ -90,6 +121,29 @@ Route::middleware(['auth'])->group(function () {
                 ->name('update');
 
             Route::delete('/{id}', [Subkeg1SuratKeluarController::class, 'destroy'])
+                ->name('destroy');
+        });
+
+        Route::prefix('/sppd')->name('sppd.')->group(function () {
+            Route::get('/', [Subkeg1SPPDController::class, 'index'])
+                ->name('index');
+
+            Route::get('/create', [Subkeg1SPPDController::class, 'create'])
+                ->name('create');
+
+            Route::post('/', [Subkeg1SPPDController::class, 'store'])
+                ->name('store');
+
+            Route::get('/details/{id}', [Subkeg1SPPDController::class, 'show'])
+                ->name('show');
+
+            Route::get('/edit/{id}', [Subkeg1SPPDController::class, 'edit'])
+                ->name('edit');
+
+            Route::put('/{id}', [Subkeg1SPPDController::class, 'update'])
+                ->name('update');
+
+            Route::delete('/{id}', [Subkeg1SPPDController::class, 'destroy'])
                 ->name('destroy');
         });
     });

@@ -224,6 +224,14 @@
                     </li>
 
                     <li class="nav-item">
+                        <a href="{{ route('pegawai.index') }}"
+                            class="nav-link {{ request()->routeIs('pegawai.index') ? 'active' : '' }}" title="Pegawai">
+                            <i class="bi bi-people fs-5"></i>
+                            <span class="sidebar-label">Pegawai</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         @php
                             $isKoordinasiActive =
                                 request()->routeIs('subkeg-1.surat-masuk.index') || request()->routeIs('subkeg-1.surat-keluar.index');
@@ -257,8 +265,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#"
-                                    class="nav-link"
+                                <a href="{{ route('subkeg-1.sppd.index') }}"
+                                    class="nav-link" {{ request()->routeIs('subkeg-1.sppd.index') ? 'active' : '' }}"
                                     title="Surat Lain-Lain">
                                     <i class="bi bi-envelope"></i>
                                     <span class="sidebar-label">SPPD</span>
