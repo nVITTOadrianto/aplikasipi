@@ -18,6 +18,57 @@ class RincianBiayaSPPD extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $keyType = 'int';
+
+    // Accessor to format biaya columns with thousand separator
+    public function getBiayaPergiAttribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getBiayaPulangAttribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getBiayaPenginapan4Attribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getBiayaPenginapan3Attribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getBiayaPenginapan2Attribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getBiayaPenginapan1Attribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getUangHarianAttribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getBiayaPenerbanganAttribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getBiayaTolAttribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    public function getBiayaLainAttribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
     public function sppd() {
         return $this->belongsTo(SPPD::class, 'id_sppd');
     }

@@ -182,6 +182,80 @@
                 </div>
             </div>
             <div class="mb-3">
+                <h2>Rincian Biaya</h2>
+            </div>
+            <div class="mb-3">
+                <h5>Biaya Angkutan Pegawai</h5>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="biaya_pergi" class="form-label">Biaya Pergi</label>
+                    <input type="text" class="form-control" id="biaya_pergi" name="biaya_pergi" value="{{ $rincianBiaya->biaya_pergi == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_pergi)  }}">
+                </div>
+                <div class="col">
+                    <label for="biaya_pulang" class="form-label">Biaya Pulang</label>
+                    <input type="text" class="form-control" id="biaya_pulang" name="biaya_pulang" value="{{ $rincianBiaya->biaya_pulang == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_pulang) }}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <h5>Biaya Harian</h5>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="biaya_penginapan_4" class="form-label">Biaya Penginapan Golongan IV</label>
+                    <input type="text" class="form-control" id="biaya_penginapan_4" name="biaya_penginapan_4" value="{{ $rincianBiaya->biaya_penginapan_4 == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_penginapan_4)  }}">
+                </div>
+                <div class="col">
+                    <label for="biaya_penginapan_3" class="form-label">Biaya Penginapan Golongan III</label>
+                    <input type="text" class="form-control" id="biaya_penginapan_3" name="biaya_penginapan_3" value="{{ $rincianBiaya->biaya_penginapan_3 == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_penginapan_3) }}">
+                </div>
+                <div class="col">
+                    <label for="biaya_penginapan_2" class="form-label">Biaya Penginapan Golongan II</label>
+                    <input type="text" class="form-control" id="biaya_penginapan_2" name="biaya_penginapan_2" value="{{ $rincianBiaya->biaya_penginapan_2 == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_penginapan_2) }}">
+                </div>
+                <div class="col">
+                    <label for="biaya_penginapan_1" class="form-label">Biaya Penginapan Golongan I</label>
+                    <input type="text" class="form-control" id="biaya_penginapan_1" name="biaya_penginapan_1" value="{{ $rincianBiaya->biaya_penginapan_1 == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_penginapan_1) }}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="uang_harian" class="form-label">Uang Harian (untuk Semua Golongan)</label>
+                <input type="text" class="form-control" id="uang_harian" name="uang_harian" value="{{ $rincianBiaya->uang_harian == 0 ? '' : str_replace('.', '', $rincianBiaya->uang_harian) }}">
+            </div>
+            <div class="mb-3">
+                <h5>Biaya Lain</h5>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="biaya_penerbangan" class="form-label">Biaya Penerbangan</label>
+                    <input type="text" class="form-control" id="biaya_penerbangan" name="biaya_penerbangan" value="{{ $rincianBiaya->biaya_penerbangan == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_penerbangan) }}">
+                </div>
+                <div class="col">
+                    <label for="keterangan_penerbangan" class="form-label">Keterangan Biaya Penerbangan</label>
+                    <input type="text" class="form-control" id="keterangan_penerbangan" name="keterangan_penerbangan" value="{{ $rincianBiaya->keterangan_penerbangan }}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="biaya_tol" class="form-label">Biaya Tol</label>
+                    <input type="text" class="form-control" id="biaya_tol" name="biaya_tol" value="{{ $rincianBiaya->biaya_tol == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_tol) }}">
+                </div>
+                <div class="col">
+                    <label for="keterangan_tol" class="form-label">Keterangan Biaya Tol</label>
+                    <input type="text" class="form-control" id="keterangan_tol" name="keterangan_tol" value="{{ $rincianBiaya->keterangan_tol }}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="biaya_lain" class="form-label">Biaya Lain-Lain</label>
+                    <input type="text" class="form-control" id="biaya_lain" name="biaya_lain" value="{{ $rincianBiaya->biaya_lain == 0 ? '' : str_replace('.', '', $rincianBiaya->biaya_lain) }}">
+                </div>
+                <div class="col">
+                    <label for="keterangan_lain" class="form-label">Keterangan Biaya Lain-Lain</label>
+                    <input type="text" class="form-control" id="keterangan_lain" name="keterangan_lain" value="{{ $rincianBiaya->keterangan_lain }}">
+                </div>
+            </div>
+            <div class="mb-3">
                 <p class="text-danger">*wajib diisi</p>
             </div>
             <button type="submit" class="btn btn-success">Submit</button>

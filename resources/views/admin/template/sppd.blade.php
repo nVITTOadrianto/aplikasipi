@@ -50,13 +50,13 @@
         }
 
         @page {
-            margin: 6px 12px 0px 12px;
+            margin: 1cm;
         }
 
         body {
             font-family: "Bookman Old Style", Georgia, serif;
-            font-size: 10pt;
-            line-break: loose;
+            font-size: 11pt;
+            line-height: 10pt;
             padding: 0px;
             background-color: white;
         }
@@ -81,8 +81,8 @@
             font-family: Arial, sans-serif;
         }
 
-        .page-2 {
-            font-size: 9pt;
+        .appendix-page {
+            font-size: 10pt;
         }
 
         table {
@@ -95,29 +95,9 @@
             vertical-align: center;
         }
 
-        .header-table {
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-        }
-
-        .header-table .agency2 {
-            font-size: 17pt;
-            font-weight: bold;
-        }
-
-        .header-table .agency1 {
-            font-size: 15pt;
-            letter-spacing: 5px;
-            font-weight: bold;
-        }
-
-        .header-table .address {
-            font-size: 9pt;
-        }
-
         .main-title {
             text-align: center;
-            font-size: 10pt;
+            font-size: 12pt;
             text-decoration: underline;
             margin-bottom: 10px;
         }
@@ -126,14 +106,20 @@
             text-align: left;
         }
 
+        .main-table {
+            margin-left: 20px;
+        }
+
         .main-table,
         .main-table td {
             border: 1px solid black;
+            padding: 6px;
         }
 
         .main-table .label-col {
             width: 5%;
             text-align: right;
+            vertical-align: center;
             padding-right: 10px;
         }
 
@@ -145,10 +131,6 @@
             width: 60%;
         }
 
-            {
-            margin-top: 10px;
-        }
-
         .no-border,
         .no-border td,
         .no-border th {
@@ -156,7 +138,7 @@
         }
 
         .signature-section {
-            height: 40px;
+            height: 60px;
         }
 
         .page-2,
@@ -201,10 +183,15 @@
         .rincian-table td,
         .rincian-table th {
             border: 1px solid black;
+            line-height: 12pt;
         }
 
         .rincian-table th {
-            font-weight: normal;
+            font-weight: bold;
+        }
+
+        .rincian-table td {
+            padding: 6px 3px;
         }
 
         /* Utility classes */
@@ -233,7 +220,7 @@
         }
 
         .signature-space {
-            height: 40px;
+            height: 60px;
         }
     </style>
 </head>
@@ -242,23 +229,9 @@
 
     <div class="page main-page">
 
-        {{-- <table class="header-table no-border">
-            <tr>
-                <td style="width: 15%; text-align: center;">
-                    <img src="/public/lampung.png" alt="Logo Lampung" style="width: 60px;">
-                </td>
-                <td>
-                    <div class="agency1">PEMERINTAH PROVINSI LAMPUNG</div>
-                    <div class="agency2">DINAS PERINDUSTRIAN DAN PERDAGANGAN</div>
-                    <div class="address">Jln. Cut Mutia No.44 Telp/Fax. 0721-474331 Telukbetung 35214</div>
-                    <div class="address">Email: disperindag@lampungprov.go.id Website : disperindag.lampungprov.go.id
-                    </div>
-                </td>
-            </tr>
-        </table> --}}
-        <img src="/public/header_surat.png" alt="Header" height="160px">
+        <img src="/public/header_surat.png" alt="Header" style="width:100%; height:auto; max-height:170px;">
 
-        <table class="no-border" style="margin-bottom: 10px;">
+        <table class="no-border" style="margin-bottom: 12px;">
             <tr>
                 <td style="width: 60%;"></td>
                 <td class="top-right">
@@ -397,7 +370,7 @@
     </div>
     <div class="page appendix-page">
 
-        <table class="page-2 no-border">
+        <table class="no-border">
             <tbody>
                 <tr>
                     <td>
@@ -486,15 +459,16 @@
                 <tr>
                     <td>V.</td>
                     <td>
-                        Tiba di: <br>
-                        Pada Tanggal: <br><br>
+                        Tiba di : <br><br>
+                        Pada Tanggal : <br>
+                        Kepala :
                         Pejabat yang berwenang,<br>
                         <div class="signature-section"></div>
                         <b><u>{{ $sppd->pemberi_wewenang->nama }}</u></b><br>
                         NIP. {{ $sppd->pemberi_wewenang->nip }}
                     </td>
                     <td></td>
-                    <td>
+                    <td class="attention-section">
                         Telah diperiksa, dengan keterangan bahwa perjalanan tersebut di atas benar dilakukan atas
                         perintahnya dan semata-mata untuk kepentingan Jabatan dalam waktu sesingkat-singkatnya.
                     </td>
@@ -509,7 +483,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td colspan="3">
+                    <td colspan="3" class="attention-section">
                         PPK yang menerbitkan SPD, Pegawai yang melakukan Perjalanan Dinas, para pejabat yang mengesahkan
                         tanggal berangkat/tiba serta Bendahara Pengeluaran bertanggung jawab berdasarkan
                         peraturan-peraturan Keuangan Negara, apabila Negara menderita rugi akibat kesalahan, kelalaian
@@ -531,16 +505,16 @@
             </tr>
             <tr>
                 <td>Tanggal</td>
-                <td>: {{ $rincianBiaya->sppd->tanggal_pulang?->isoFormat('D MMMM YYYY') }}</td>
+                <td>: {{ $rincianBiaya->sppd->tanggal_kembali?->isoFormat('D MMMM YYYY') }}</td>
             </tr>
         </table>
 
         <table class="dop-table" style="border: 1px solid black">
             <tr class="text-center font-bold" style="border: 1px solid black">
                 <td style="width: 5%">NO</td>
-                <td style="width: 55%" colspan="12">PERINCIAN BIAYA</td>
+                <td style="width: 60%" colspan="12">PERINCIAN BIAYA</td>
                 <td style="width: 15%" colspan="2">JUMLAH</td>
-                <td style="width: 35%">KETERANGAN</td>
+                <td style="width: 30%">KETERANGAN</td>
             </tr>
             <tr>
                 <td class="text-center">1.</td>
@@ -552,35 +526,66 @@
                 <td></td>
                 <td colspan="12">Plane, KA, Kapal Laut, Taksi/Bus</td>
                 <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalPengikut != 0 && ((int) trim($rincianBiaya->biaya_pergi) > 0 || (int) trim($rincianBiaya->biaya_pulang) > 0))
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalAngkutan, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td style="font-weight: normal">An :</td>
             </tr>
             <tr>
                 <td></td>
                 <td style="border-right: none">- Pergi</td>
-                <td style="border-right: none">:</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">Rp.</td>
-                <td colspan="6">{{ $rincianBiaya->biaya_pergi }}</td>
-                <td style="border-right: none">Rp.</td>
-                <td>-</td>
-                <td style="padding-left: 30px">1. {{ $rincianBiaya->sppd->pelaksana->nama }}</td>
+                @if ($totalPengikut != 0 && (int) trim($rincianBiaya->biaya_pergi) > 0)
+                    <td style="border-right: none">:</td>
+                    <td style="border-right: none">{{ $totalPengikut }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td colspan="6">{{ $rincianBiaya->biaya_pergi }}</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalPergi, 0, ',', '.') }}</td>
+                @else
+                    <td style="border-right: none">:</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td colspan="6">-</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
+                <td style="padding-left: 25px">1. {{ $rincianBiaya->sppd->pelaksana->nama }}</td>
             </tr>
             <tr>
                 <td></td>
                 <td style="border-right: none">- Pulang</td>
-                <td style="border-right: none">:</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">Rp.</td>
-                <td colspan="6">{{ $rincianBiaya->biaya_pulang }}</td>
-                <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalPengikut != 0 && (int) trim($rincianBiaya->biaya_pulang) > 0)
+                    <td style="border-right: none">:</td>
+                    <td style="border-right: none">{{ $totalPengikut }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td colspan="6">{{ $rincianBiaya->biaya_pulang }}</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalPulang, 0, ',', '.') }}</td>
+                @else
+                    <td style="border-right: none">:</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td colspan="6">-</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 @if ($rincianBiaya->sppd->pengikut_1)
-                    <td style="padding-left: 30px">2. {{ $rincianBiaya->sppd->pengikut_1->nama }}</td>
+                    <td style="padding-left: 25px">2. {{ $rincianBiaya->sppd->pengikut_1->nama }}</td>
+                @else
+                    <td></td>
                 @endif
             </tr>
             <tr>
@@ -588,7 +593,9 @@
                 <td colspan="12"></td>
                 <td colspan="2"></td>
                 @if ($rincianBiaya->sppd->pengikut_2)
-                    <td style="padding-left: 30px">3. {{ $rincianBiaya->sppd->pengikut_2->nama }}</td>
+                    <td style="padding-left: 25px">3. {{ $rincianBiaya->sppd->pengikut_2->nama }}</td>
+                @else
+                    <td></td>
                 @endif
             </tr>
             <tr>
@@ -597,13 +604,25 @@
                 <td colspan="2"></td>
                 @if ($rincianBiaya->sppd->pengikut_3)
                     <td style="padding-left: 30px">4. {{ $rincianBiaya->sppd->pengikut_3->nama }}</td>
+                @else
+                    <td></td>
                 @endif
             </tr>
             <tr style="font-weight: bold">
                 <td></td>
                 <td colspan="12">- Penginapan</td>
                 <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if (
+                    $totalPengikut != 0 &&
+                        ((int) trim($rincianBiaya->biaya_penginapan_4) > 0 ||
+                            (int) trim($rincianBiaya->biaya_penginapan_3) > 0 ||
+                            (int) trim($rincianBiaya->biaya_penginapan_2) > 0 ||
+                            (int) trim($rincianBiaya->biaya_penginapan_1) > 0))
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalPenginapan, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -611,18 +630,34 @@
                 <td style="padding-left: 12px; border-right: none" colspan="2">
                     Gol IV
                 </td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">Hari</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">Rp.</td>
-                <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_4 }}</td>
+                @if ($totalGolIV != 0 && (int) trim($rincianBiaya->biaya_penginapan_4) > 0)
+                    <td style="border-right: none">{{ $totalGolIV }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_4 }}</td>
+                @else
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">-</td>
+                @endif
                 <td style="border-right: none">x</td>
                 <td>30%</td>
                 <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalGolIV != 0 && (int) trim($rincianBiaya->biaya_penginapan_4) > 0)
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalPenginapan4, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -630,18 +665,34 @@
                 <td style="padding-left: 12px; border-right: none" colspan="2">
                     Gol III
                 </td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">Hari</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">Rp.</td>
-                <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_3 }}</td>
+                @if ($totalGolIII != 0 && (int) trim($rincianBiaya->biaya_penginapan_3) > 0)
+                    <td style="border-right: none">{{ $totalGolIII }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_3 }}</td>
+                @else
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">-</td>
+                @endif
                 <td style="border-right: none">x</td>
                 <td>30%</td>
                 <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalGolIII != 0 && (int) trim($rincianBiaya->biaya_penginapan_3) > 0)
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalPenginapan3, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -649,18 +700,34 @@
                 <td style="padding-left: 12px; border-right: none" colspan="2">
                     Gol II
                 </td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">Hari</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">Rp.</td>
-                <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_2 }}</td>
+                @if ($totalGolII != 0 && (int) trim($rincianBiaya->biaya_penginapan_2) > 0)
+                    <td style="border-right: none">{{ $totalGolII }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_2 }}</td>
+                @else
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">-</td>
+                @endif
                 <td style="border-right: none">x</td>
                 <td>30%</td>
                 <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalGolII != 0 && (int) trim($rincianBiaya->biaya_penginapan_2) > 0)
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalPenginapan2, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -668,18 +735,34 @@
                 <td style="padding-left: 12px; border-right: none" colspan="2">
                     Gol I
                 </td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">Hari</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">Rp.</td>
-                <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_1 }}</td>
+                @if ($totalGolI != 0 && (int) trim($rincianBiaya->biaya_penginapan_1) > 0)
+                    <td style="border-right: none">{{ $totalGolI }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_1 }}</td>
+                @else
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">-</td>
+                @endif
                 <td style="border-right: none">x</td>
                 <td>30%</td>
                 <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalGolI != 0 && (int) trim($rincianBiaya->biaya_penginapan_1) > 0)
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalPenginapan1, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -692,7 +775,12 @@
                 <td></td>
                 <td colspan="12">- Uang Harian</td>
                 <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalPengikut != 0 && (int) trim($rincianBiaya->uang_harian))
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalHarian, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -700,16 +788,36 @@
                 <td style="padding-left: 12px; border-right: none" colspan="2">
                     Gol IV
                 </td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">Hari</td>
-                <td style="border-right: none">x</td>
+                @if ($totalGolIV != 0 && (int) trim($rincianBiaya->uang_harian) > 0)
+                    <td style="border-right: none">{{ $totalGolIV }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">{{ $rincianBiaya->uang_harian }}</td>
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @else
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @endif
                 <td style="border-right: none">Rp.</td>
-                <td colspan="3">{{ $rincianBiaya->uang_harian }}</td>
-                <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalGolIV != 0 && (int) trim($rincianBiaya->uang_harian) > 0)
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalHarian4, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -717,16 +825,36 @@
                 <td style="padding-left: 12px; border-right: none" colspan="2">
                     Gol III
                 </td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">Hari</td>
-                <td style="border-right: none">x</td>
+                @if ($totalGolIII != 0 && (int) trim($rincianBiaya->uang_harian) > 0)
+                    <td style="border-right: none">{{ $totalGolIII }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">{{ $rincianBiaya->uang_harian }}</td>
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @else
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @endif
                 <td style="border-right: none">Rp.</td>
-                <td colspan="3">{{ $rincianBiaya->uang_harian }}</td>
-                <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalGolIII != 0 && (int) trim($rincianBiaya->uang_harian) > 0)
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalHarian3, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -734,16 +862,36 @@
                 <td style="padding-left: 12px; border-right: none" colspan="2">
                     Gol II
                 </td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">Hari</td>
-                <td style="border-right: none">x</td>
+                @if ($totalGolII != 0 && (int) trim($rincianBiaya->uang_harian) > 0)
+                    <td style="border-right: none">{{ $totalGolII }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">{{ $rincianBiaya->uang_harian }}</td>
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @else
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @endif
                 <td style="border-right: none">Rp.</td>
-                <td colspan="3">{{ $rincianBiaya->uang_harian }}</td>
-                <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalGolII != 0 && (int) trim($rincianBiaya->uang_harian) > 0)
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalHarian2, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -751,16 +899,36 @@
                 <td style="padding-left: 12px; border-right: none" colspan="2">
                     Gol I
                 </td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">org</td>
-                <td style="border-right: none">x</td>
-                <td style="border-right: none">-</td>
-                <td style="border-right: none">Hari</td>
-                <td style="border-right: none">x</td>
+                @if ($totalGolI != 0 && (int) trim($rincianBiaya->uang_harian) > 0)
+                    <td style="border-right: none">{{ $totalGolI }}</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">{{ $rincianBiaya->uang_harian }}</td>
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @else
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">org</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none">Hari</td>
+                    <td style="border-right: none">x</td>
+                    <td style="border-right: none">Rp.</td>
+                    <td style="border-right: none">-</td>
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @endif
                 <td style="border-right: none">Rp.</td>
-                <td colspan="3">{{ $rincianBiaya->uang_harian }}</td>
-                <td style="border-right: none">Rp.</td>
-                <td>-</td>
+                @if ($totalGolI != 0 && (int) trim($rincianBiaya->uang_harian) > 0)
+                    <td class="text-right" style="padding-right: 6px">
+                        {{ number_format($subtotalHarian1, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -773,28 +941,49 @@
                 <td class="text-center">3.</td>
                 <td colspan="12">BIAYA :</td>
                 <td style="border-right: none; font-weight: bold;">Rp.</td>
-                <td style="font-weight: bold;">-</td>
+                @if (
+                    $totalPengikut != 0 &&
+                        ((int) trim($rincianBiaya->biaya_penerbangan) > 0 ||
+                            (int) trim($rincianBiaya->biaya_tol) > 0 ||
+                            (int) trim($rincianBiaya->biaya_lain) > 0))
+                    <td class="text-right" style="font-weight: bold; padding-right: 6px;">
+                        {{ number_format($subtotalLain, 0, ',', '.') }}</td>
+                @else
+                    <td class="text-right" style="font-weight: bold; padding-right: 12px;">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td colspan="12">- Penerbangan {{ $rincianBiaya->keterangan_penerbangan }}</td>
                 <td style="border-right: none">Rp.</td>
-                <td>{{ $rincianBiaya->biaya_penerbangan }}</td>
+                @if ((int) trim($rincianBiaya->biaya_penerbangan) > 0)
+                    <td class="text-right" style="padding-right: 6px">{{ $rincianBiaya->biaya_penerbangan }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td colspan="12">- Biaya Tol {{ $rincianBiaya->keterangan_tol }}</td>
                 <td style="border-right: none">Rp.</td>
-                <td>{{ $rincianBiaya->biaya_tol }}</td>
+                @if ((int) trim($rincianBiaya->biaya_tol) > 0)
+                    <td class="text-right" style="padding-right: 6px">{{ $rincianBiaya->biaya_tol }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td colspan="12">- Biaya Lain-Lain {{ $rincianBiaya->keterangan_lain }}</td>
                 <td style="border-right: none">Rp.</td>
-                <td>{{ $rincianBiaya->biaya_lain }}</td>
+                @if ((int) trim($rincianBiaya->biaya_lain) > 0)
+                    <td class="text-right" style="padding-right: 6px">{{ $rincianBiaya->biaya_lain }}</td>
+                @else
+                    <td class="text-right" style="padding-right: 12px">-</td>
+                @endif
                 <td></td>
             </tr>
             <tr>
@@ -811,11 +1000,11 @@
                 <td class="text-left font-bold" style="vertical-align: middle; border-right: none">
                     Rp.
                 </td>
-                <td class="text-left font-bold" style="vertical-align: middle">
-                    -
+                <td class="text-right font-bold" style="vertical-align: middle; padding-right: 6px">
+                    {{ number_format($totalBiaya, 0, ',', '.') }}
                 </td>
                 <td class="text-left text-small">
-                    Satu Juta Empat Ratus Delapan Puluh Lima Ribu Rupiah
+                    {{ ucwords(Number::spell($totalBiaya, 'id')) }} Rupiah
                 </td>
             </tr>
         </table>
@@ -824,12 +1013,12 @@
                 <td style="width: 60%">
                     <br />
                     Telah dibayar sejumlah :<br />
-                    <strong>Rp. [Total Biaya Dibayar]</strong>
+                    <strong>Rp. {{ number_format($totalBiaya, 0, ',', '.') }}</strong>
                 </td>
                 <td style="width: 40%" class="text-left">
-                    Bandar Lampung, [Tanggal Sekarang]<br />
+                    Bandar Lampung, {{ Carbon\Carbon::now()->isoFormat('D MMMM YYYY') }}<br />
                     Telah menerima jumlah uang sebesar :<br />
-                    <strong>Rp. [Total Biaya Diterima]</strong>
+                    <strong>Rp. {{ number_format($totalBiaya, 0, ',', '.') }}</strong>
                 </td>
             </tr>
             <tr>
@@ -837,13 +1026,13 @@
                     Bendahara Pengeluaran
                     <div class="signature-space"></div>
                     <b class="underline">ELMA KAISI, S.E.</b><br />
-                    NIP. 19771215 200604 2 011
+                    <b>NIP. 19771215 200604 2 011</b>
                 </td>
                 <td class="text-left">
                     Yang Menerima
                     <div class="signature-space"></div>
                     <b class="underline">{{ $rincianBiaya->sppd->pelaksana->nama }}</b><br />
-                    NIP. {{ $rincianBiaya->sppd->pelaksana->nip }}
+                    <b>NIP. {{ $rincianBiaya->sppd->pelaksana->nip }}</b>
                 </td>
             </tr>
             <tr>
@@ -882,20 +1071,20 @@
                     Pengguna Anggaran
                     <div class="signature-space"></div>
                     <b class="underline">{{ $rincianBiaya->sppd->pemberi_wewenang->nama }}</b><br />
-                    NIP. {{ $rincianBiaya->sppd->pemberi_wewenang->nip }}
+                    <b>NIP. {{ $rincianBiaya->sppd->pemberi_wewenang->nip }}</b>
                 </td>
             </tr>
         </table>
     </div>
 
     <div class="page rincian-page">
-        <table class="no-border" style="margin-bottom: 60px">
+        <table class="no-border" style="margin-top: 30px; margin-left: 30px; margin-bottom: 60px">
             <tr>
                 <td colspan="2">Rincian biaya perjalanan Dinas</td>
             </tr>
             <tr>
                 <td style="width: 20%">Berdasarkan</td>
-                <td style="width: 80%">: [Nomor SPT]</td>
+                <td style="width: 80%">: </td>
             </tr>
             <tr>
                 <td>Atas Nama</td>
@@ -903,7 +1092,7 @@
             </tr>
             <tr>
                 <td>Pengikut</td>
-                <td>: [Jumlah Pengikut] orang</td>
+                <td>: {{ $totalPengikut - 1 }} orang</td>
             </tr>
             <tr>
                 <td>Selama</td>
@@ -911,7 +1100,7 @@
             </tr>
             <tr>
                 <td>Dari tanggal</td>
-                <td>: {{ $rincianBiaya->sppd->tanggal_pulang?->isoFormat('D MMMM YYYY') }}</td>
+                <td>: {{ $rincianBiaya->sppd->tanggal_kembali?->isoFormat('D MMMM YYYY') }}</td>
             </tr>
         </table>
 
@@ -921,58 +1110,116 @@
                     <th style="width: 5%">No.</th>
                     <th style="width: 40%">N a m a</th>
                     <th style="width: 10%">Gol.</th>
-                    <th style="width: 20%">Besar Biaya</th>
-                    <th style="width: 25%">Tanda Tangan</th>
+                    <th colspan="2" style="width: 20%">Besar Biaya</th>
+                    <th colspan="2" style="width: 25%">Tanda Tangan</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="text-center">1.</td>
-                    <td class="nama-column">[Nama Pegawai 1]</td>
-                    <td class="text-center">[Gol. 1]</td>
-                    <td class="text-right">Rp. [Biaya 1]</td>
-                    <td class="ttd-column">1. ....................</td>
-                </tr>
-                <tr>
-                    <td class="text-center">2.</td>
-                    <td class="nama-column">[Nama Pegawai 2]</td>
-                    <td class="text-center">[Gol. 2]</td>
-                    <td class="text-right">Rp. [Biaya 2]</td>
-                    <td class="ttd-column">2. ....................</td>
-                </tr>
-                <tr>
-                    <td class="text-center">3.</td>
-                    <td class="nama-column">[Nama Pegawai 3]</td>
-                    <td class="text-center">[Gol. 3]</td>
-                    <td class="text-right">Rp. [Biaya 3]</td>
-                    <td class="ttd-column">3. ....................</td>
-                </tr>
-                <tr class="font-bold">
-                    <td colspan="2" class="text-center">JUMLAH</td>
-                    <td class="text-center">:</td>
-                    <td class="text-right">Rp. [Total Biaya]</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="5" class="nama-column font-bold font-italic">
-                        Terbilang: [Total Terbilang]
+                    <td class="nama-column">{{ $rincianBiaya->sppd->pelaksana->nama }}</td>
+                    <td class="text-center">
+                        @if ($rincianBiaya->sppd->pelaksana->golongan || $rincianBiaya->sppd->pelaksana->ruang)
+                            {{ $rincianBiaya->sppd->pelaksana->golongan }}/{{ $rincianBiaya->sppd->pelaksana->ruang }}
+                        @else
+                            -
+                        @endif
                     </td>
+                    <td class="text-left" style="border-right: none;">Rp.</td>
+                    <td class="text-right" style="border-left: none;">{{number_format($biayaPelaksana, 0, ',', '.')}}</td>
+                    <td class="ttd-column">1. .........</td>
+                    <td class="ttd-column"></td>
+                </tr>
+                @if ($rincianBiaya->sppd->pengikut_1)
+                    <tr>
+                        <td class="text-center">2.</td>
+                        <td class="nama-column">{{ $rincianBiaya->sppd->pengikut_1->nama }}</td>
+                        <td class="text-center">
+                            @if ($rincianBiaya->sppd->pengikut_1->golongan || $rincianBiaya->sppd->pengikut_1->ruang)
+                                {{ $rincianBiaya->sppd->pengikut_1->golongan }}/{{ $rincianBiaya->sppd->pengikut_1->ruang }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="text-left" style="border-right: none;">Rp.</td>
+                        <td class="text-right" style="border-left: none;">
+                            {{ number_format($biayaPengikut, 0, ',', '.') }}</td>
+                        <td class="ttd-column"></td>
+                        <td class="ttd-column">2. .........</td>
+                    </tr>
+                @endif
+                @if ($rincianBiaya->sppd->pengikut_2)
+                    <tr>
+                        <td class="text-center">3.</td>
+                        <td class="nama-column">{{ $rincianBiaya->sppd->pengikut_2->nama }}</td>
+                        <td class="text-center">
+                            @if ($rincianBiaya->sppd->pengikut_2->golongan || $rincianBiaya->sppd->pengikut_2->ruang)
+                                {{ $rincianBiaya->sppd->pengikut_2->golongan }}/{{ $rincianBiaya->sppd->pengikut_2->ruang }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="text-left" style="border-right: none;">Rp.</td>
+                        <td class="text-right" style="border-left: none;">
+                            {{ number_format($biayaPengikut, 0, ',', '.') }}</td>
+                        <td class="ttd-column">3. .........</td>
+                        <td class="ttd-column"></td>
+
+                    </tr>
+                @endif
+                @if ($rincianBiaya->sppd->pengikut_3)
+                    <tr>
+                        <td class="text-center">4.</td>
+                        <td class="nama-column">{{ $rincianBiaya->sppd->pengikut_3->nama }}</td>
+                        <td class="text-center">
+                            @if ($rincianBiaya->sppd->pengikut_3->golongan || $rincianBiaya->sppd->pengikut_3->ruang)
+                                {{ $rincianBiaya->sppd->pengikut_3->golongan }}/{{ $rincianBiaya->sppd->pengikut_3->ruang }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="text-left" style="border-right: none;">Rp.</td>
+                        <td class="text-right" style="border-left: none;">
+                            {{ number_format($biayaPengikut, 0, ',', '.') }}</td>
+                        <td class="ttd-column"></td>
+                        <td class="ttd-column">4. .........</td>
+                    </tr>
+                @endif
+                <tr class="font-bold">
+                    <td colspan="2" class="text-right" style="padding-right: 12px">JUMLAH</td>
+                    <td class="text-right">:</td>
+                    <td class="text-left" style="border-right: none;">Rp.</td>
+                    <td class="text-right" style="border-left: none;">{{ number_format($totalBiaya, 0, ',', '.') }}
+                    </td>
+                    <td class="ttd-column"></td>
+                    <td class="ttd-column"></td>
                 </tr>
             </tbody>
         </table>
-        <div
-            style="
-                    width: 40%;
-                    float: right;
-                    text-align: center;
-                    margin-top: 30px;
-                ">
-            Bandar Lampung, [Tanggal Sekarang]<br />
-            Ketua Rombongan,
-            <div class="signature-space"></div>
-            <b class="underline">[Nama Ketua Rombongan]</b><br />
-            NIP. [NIP Ketua Rombongan]
+        <div style="width: 60%; float: right; margin-top: 30px;">
+
+            {{-- Bagian Terbilang --}}
+            <table class="no-border" style="width: 100%; margin-bottom: 30px; padding-right: 30px;">
+                <tr>
+                    <td style="width: 25%;">Terbilang</td>
+                    <td>
+                        {{ ucwords(Number::spell($totalBiaya, 'id')) }} Rupiah
+                    </td>
+                </tr>
+            </table>
+
+            {{-- Bagian Tanda Tangan --}}
+            <div style="width: 100%; text-align: center; padding-left: 100px; line-height: 12pt;">
+                Bandar Lampung, {{ Carbon\Carbon::now()->isoFormat('D MMMM YYYY') }}<br /><br />
+                Ketua Rombongan,
+                <div class="signature-space"></div>
+                <b class="underline">{{ $rincianBiaya->sppd->pelaksana->nama }}</b><br />
+                NIP. {{ $rincianBiaya->sppd->pelaksana->nip }}
+            </div>
+
         </div>
+
+        <div style="clear: both;"></div>
     </div>
 </body>
 
