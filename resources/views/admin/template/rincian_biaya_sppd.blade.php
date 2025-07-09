@@ -2,9 +2,8 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Perjalanan Dinas (SPD)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Rincian Biaya Perjalanan Dinas</title>
     <style>
         /* Font untuk DomPDF */
         @font-face {
@@ -35,30 +34,13 @@
             src: url({{ storage_path('fonts/arial_bold.ttf') }}) format('truetype');
         }
 
-        @font-face {
-            font-family: 'Bookman Old Style';
-            font-style: normal;
-            font-weight: normal;
-            src: url({{ storage_path('fonts/bookmanoldstyle.ttf') }}) format('truetype');
-        }
-
-        @font-face {
-            font-family: 'Bookman Old Style';
-            font-style: normal;
-            font-weight: bold;
-            src: url({{ storage_path('fonts/bookmanoldstyle_bold.ttf') }}) format('truetype');
-        }
-
-        @page {
-            margin: 6px 12px 0px 12px;
-        }
-
+        /* Mengatur font dan ukuran dasar */
         body {
-            font-family: "Bookman Old Style", Georgia, serif;
-            font-size: 10pt;
-            line-break: loose;
-            padding: 0px;
-            background-color: white;
+            font-size: 11pt;
+        }
+
+        .text-small {
+            font-size: 9pt;
         }
 
         /* Kontainer untuk setiap halaman */
@@ -73,95 +55,14 @@
             page-break-after: avoid;
         }
 
-        .dop-page {
-            font-family: "Calibri", sans-serif;
-        }
-
-        .rincian-page {
-            font-family: Arial, sans-serif;
-        }
-
-        .page-2 {
-            font-size: 9pt;
-        }
-
+        /* Tabel utama */
         table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        td,
-        th {
-            vertical-align: center;
-        }
-
-        .header-table {
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-        }
-
-        .header-table .agency2 {
-            font-size: 17pt;
-            font-weight: bold;
-        }
-
-        .header-table .agency1 {
-            font-size: 15pt;
-            letter-spacing: 5px;
-            font-weight: bold;
-        }
-
-        .header-table .address {
-            font-size: 9pt;
-        }
-
-        .main-title {
-            text-align: center;
-            font-size: 10pt;
-            text-decoration: underline;
-            margin-bottom: 10px;
-        }
-
-        .top-right {
-            text-align: left;
-        }
-
-        .main-table,
-        .main-table td {
-            border: 1px solid black;
-        }
-
-        .main-table .label-col {
-            width: 5%;
-            text-align: right;
-            padding-right: 10px;
-        }
-
-        .main-table .desc-col {
-            width: 35%;
-        }
-
-        .main-table .content-col {
-            width: 60%;
-        }
-
-            {
-            margin-top: 10px;
-        }
-
-        .no-border,
-        .no-border td,
-        .no-border th {
-            border: none;
-        }
-
-        .signature-section {
-            height: 40px;
-        }
-
-        .page-2,
-        .attention-section {
-            text-align: justify;
+        td {
+            vertical-align: top;
         }
 
         /* Styling khusus untuk halaman DOP */
@@ -172,14 +73,41 @@
         .dop-page .header {
             text-align: center;
             font-weight: bold;
-            font-size: 12pt;
+            font-size: 14pt;
             padding-bottom: 10px;
+        }
+
+        .dop-page .no-border,
+        .dop-page .no-border td {
+            border: none;
+        }
+
+        .dop-page .main-table,
+        .dop-page .main-table td {
+            border-right: 1px solid black;
         }
 
         /* Styling khusus untuk halaman Rincian */
         .rincian-page {
             font-family: Arial, sans-serif;
-            font-size: 12pt;
+        }
+
+        .rincian-page .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14pt;
+            text-decoration: underline;
+            padding-bottom: 20px;
+        }
+
+        .rincian-page .main-table,
+        .rincian-page .main-table td,
+        .rincian-page .main-table th {
+            border: 1px solid black;
+        }
+
+        .rincian-page .main-table th {
+            font-weight: normal;
         }
 
         .rincian-page .nama-column {
@@ -188,23 +116,6 @@
 
         .rincian-page .ttd-column {
             text-align: left;
-        }
-
-        /* Tabel DOP */
-        .dop-table,
-        .dop-table td {
-            border-right: 1px solid black;
-        }
-
-        /* Tabel Rincian */
-        .rincian-table,
-        .rincian-table td,
-        .rincian-table th {
-            border: 1px solid black;
-        }
-
-        .rincian-table th {
-            font-weight: normal;
         }
 
         /* Utility classes */
@@ -229,297 +140,16 @@
         }
 
         .small-text {
-            font-size: 7pt;
+            font-size: 9pt;
         }
 
         .signature-space {
-            height: 40px;
+            height: 60px;
         }
     </style>
 </head>
 
 <body>
-
-    <div class="page main-page">
-
-        {{-- <table class="header-table no-border">
-            <tr>
-                <td style="width: 15%; text-align: center;">
-                    <img src="/public/lampung.png" alt="Logo Lampung" style="width: 60px;">
-                </td>
-                <td>
-                    <div class="agency1">PEMERINTAH PROVINSI LAMPUNG</div>
-                    <div class="agency2">DINAS PERINDUSTRIAN DAN PERDAGANGAN</div>
-                    <div class="address">Jln. Cut Mutia No.44 Telp/Fax. 0721-474331 Telukbetung 35214</div>
-                    <div class="address">Email: disperindag@lampungprov.go.id Website : disperindag.lampungprov.go.id
-                    </div>
-                </td>
-            </tr>
-        </table> --}}
-        <img src="/public/header_surat.png" alt="Header" height="160px">
-
-        <table class="no-border" style="margin-bottom: 10px;">
-            <tr>
-                <td style="width: 60%;"></td>
-                <td class="top-right">
-                    Lembar ke : {{ $sppd->lembar_ke ?? '………………………….. ' }}<br>
-                    Kode No. &nbsp;: {{ $sppd->kode ?? '………………………….. ' }}<br>
-                    Nomor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $sppd->nomor_surat ?? '………………………….. ' }}
-                </td>
-            </tr>
-        </table>
-
-        <div class="main-title">SURAT PERJALANAN DINAS (SPD)</div>
-
-        <table class="main-table">
-            <tbody>
-                <tr>
-                    <td class="label-col">1.</td>
-                    <td class="desc-col">Pejabat berwenang yang memberi Perintah</td>
-                    <td colspan="2" class="content-col">{{ $sppd->pemberi_wewenang->jabatan }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label-col">2.</td>
-                    <td class="desc-col">Nama/NIP Pegawai yang melaksanakan perjalanan dinas</td>
-                    <td colspan="2" class="content-col">
-                        {{ $sppd->pelaksana->nama }}<br>
-                        NIP. {{ $sppd->pelaksana->nip }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label-col">3.</td>
-                    <td class="desc-col">
-                        a. Pangkat dan Golongan<br>
-                        b. Jabatan/Instansi<br>
-                        c. Tingkat Biaya Perjalanan Dinas
-                    </td>
-                    <td colspan="2" class="content-col">
-                        {{ $sppd->pelaksana->golongan }}/{{ $sppd->pelaksana->ruang }}<br>
-                        {{ $sppd->pelaksana->jabatan_ttd }}<br>
-                        {{ $sppd->tingkat_biaya }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label-col">4.</td>
-                    <td class="desc-col">Maksud Perjalanan Dinas</td>
-                    <td colspan="2" class="content-col">{{ $sppd->maksud }}</td>
-                </tr>
-                <tr>
-                    <td class="label-col">5.</td>
-                    <td class="desc-col">Alat angkut yang dipergunakan</td>
-                    <td colspan="2" class="content-col">{{ $sppd->alat_angkut }}</td>
-                </tr>
-                <tr>
-                    <td class="label-col">6.</td>
-                    <td class="desc-col">
-                        a. Tempat berangkat<br>
-                        b. Tempat Tujuan
-                    </td>
-                    <td colspan="2" class="content-col">
-                        {{ $sppd->tempat_berangkat }}<br>
-                        {{ $sppd->tempat_tujuan }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label-col">7.</td>
-                    <td class="desc-col">
-                        a. Lamanya Perjalanan Dinas<br>
-                        b. Tanggal berangkat<br>
-                        c. Tanggal harus kembali/tiba di tempat baru *)
-                    </td>
-                    <td colspan="2" class="content-col">
-                        {{ $sppd->jumlah_hari }} hari<br>
-                        {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
-                        {{ $sppd->tanggal_kembali->isoFormat('D MMMM YYYY') }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label-col">8.</td>
-                    <td style="text-align:left; padding-left:5px;">Pengikut : Nama</td>
-                    <td style="text-align:left;">Tanggal Lahir</td>
-                    <td style="text-align:left;">Keterangan</td>
-            <tbody>
-                <tr>
-                    <td rowspan="3" class="label-col">9.</td>
-                    <td>{{ $sppd->pengikut_1->nama ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_1?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_1->jabatan_ttd ?? '' }}</td>
-                </tr>
-                <tr>
-                    <td>{{ $sppd->pengikut_2->nama ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_2?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_2->jabatan_ttd ?? '' }}</td>
-                </tr>
-                <tr>
-                    <td>{{ $sppd->pengikut_3->nama ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_3?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
-                    <td>{{ $sppd->pengikut_3->jabatan_ttd ?? '' }}</td>
-                </tr>
-            </tbody>
-            </td>
-            </tr>
-            <tr>
-                <td class="label-col">10.</td>
-                <td class="desc-col">
-                    Pembebanan Anggaran<br>
-                    a. Instansi<br>
-                    b. Akun
-                </td>
-                <td colspan="2" class="content-col"><br>
-                    {{ $sppd->instansi_pembebanan_anggaran }}<br>
-                    {{ $sppd->akun_pembebanan_anggaran }}
-                </td>
-            </tr>
-            <tr>
-                <td class="label-col">11.</td>
-                <td class="desc-col">Keterangan lain-lain</td>
-                <td colspan="2" class="content-col">{{ $sppd->keterangan ?? '' }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <div style="text-align: left; padding-left: 10px;">*coret yang tidak perlu</div>
-
-        <table class="no-border">
-            <tr>
-                <td style="width: 50%;"></td>
-                <td>
-                    Dikeluarkan di : Bandar Lampung<br>
-                    Tanggal : {{ $sppd->created_at->isoFormat('D MMMM YYYY') }}<br>
-                    <b>{{ strtoupper($sppd->pemberi_wewenang->jabatan_ttd) }},</b><br>
-                    <div class="signature-section"></div>
-                    <b><u>{{ $sppd->pemberi_wewenang->nama }}</u></b><br>
-                    NIP. {{ $sppd->pemberi_wewenang->nip }}
-                </td>
-            </tr>
-        </table>
-
-    </div>
-    <div class="page appendix-page">
-
-        <table class="page-2 no-border">
-            <tbody>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td style="width:50%; border-left: none;">
-
-                    </td>
-                    <td>
-                        I.
-                    </td>
-                    <td style="width:50%; border-right: none;">
-                        Berangkat dari: {{ $sppd->tempat_berangkat }}<br>
-                        (Tempat Kedudukan):{{ $sppd->tempat_kedudukan }}<br>
-                        Ke: {{ $sppd->tempat_tujuan }}<br>
-                        Pada Tanggal: {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
-                        <b>Pejabat Pelaksana<br>Teknis Kegiatan</b><br>
-                        <div class="signature-section"></div>
-                        <b><u>{{ $sppd->mengetahui->nama ?? '(…………………………………….……….)' }}</u></b><br>
-                        NIP. {{ $sppd->mengetahui->nip ?? '' }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>II.</td>
-                    <td>
-                        Tiba di : {{ $sppd->tempat_tujuan }}<br>
-                        Pada Tanggal : {{ $sppd->tanggal_tiba?->isoFormat('D MMMM YYYY') ?? '' }}<br>
-                        Kepala : {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
-                        <div class="signature-section" style="height:40px"></div><br>
-                        ({{ $sppd->nama_di_tempat ?? '…………………………………….……….' }})<br>
-                        NIP. {{ $sppd->nip_di_tempat ?? '' }}
-                    </td>
-                    <td></td>
-                    <td>
-                        Berangkat dari : {{ $sppd->tempat_tujuan }}<br>
-                        Ke : {{ $sppd->tempat_berangkat }}<br>
-                        Pada tanggal : {{ $sppd->tanggal_kembali->isoFormat('D MMMM YYYY') }}<br>
-                        Kepala : {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
-                        <div class="signature-section" style="height:40px"></div>
-                        ({{ $sppd->nama_di_tempat ?? '…………………………………….……….' }})<br>
-                        NIP. {{ $sppd->nip_di_tempat ?? '' }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>III.</td>
-                    <td>
-                        Tiba di : <br>
-                        Pada Tanggal : <br>
-                        Kepala : <br>
-                        <div class="signature-section" style="height:40px"></div><br>
-                        (…………………………………….……….)<br>
-                        NIP.
-                    </td>
-                    <td></td>
-                    <td>
-                        Berangkat dari : <br>
-                        Ke : <br>
-                        Pada tanggal : <br>
-                        Kepala : <br>
-                        <div class="signature-section" style="height:40px"></div>
-                        (…………………………………….……….)<br>
-                        NIP.
-                    </td>
-                </tr>
-                <tr>
-                    <td>IV.</td>
-                    <td>
-                        Tiba di : <br>
-                        Pada Tanggal : <br>
-                        Kepala : <br>
-                        <div class="signature-section" style="height:40px"></div><br>
-                        (…………………………………….……….)<br>
-                        NIP.
-                    </td>
-                    <td></td>
-                    <td>
-                        Berangkat dari : <br>
-                        Ke : <br>
-                        Pada tanggal : <br>
-                        Kepala : <br>
-                        <div class="signature-section" style="height:40px"></div>
-                        (…………………………………….……….)<br>
-                        NIP.
-                    </td>
-                </tr>
-                <tr>
-                    <td>V.</td>
-                    <td>
-                        Tiba di: <br>
-                        Pada Tanggal: <br><br>
-                        Pejabat yang berwenang,<br>
-                        <div class="signature-section"></div>
-                        <b><u>{{ $sppd->pemberi_wewenang->nama }}</u></b><br>
-                        NIP. {{ $sppd->pemberi_wewenang->nip }}
-                    </td>
-                    <td></td>
-                    <td>
-                        Telah diperiksa, dengan keterangan bahwa perjalanan tersebut di atas benar dilakukan atas
-                        perintahnya dan semata-mata untuk kepentingan Jabatan dalam waktu sesingkat-singkatnya.
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">VI. CATATAN LAIN-LAIN</td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <u>VII. PERHATIAN : </u>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td colspan="3">
-                        PPK yang menerbitkan SPD, Pegawai yang melakukan Perjalanan Dinas, para pejabat yang mengesahkan
-                        tanggal berangkat/tiba serta Bendahara Pengeluaran bertanggung jawab berdasarkan
-                        peraturan-peraturan Keuangan Negara, apabila Negara menderita rugi akibat kesalahan, kelalaian
-                        dan kealpaannya.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
     <div class="page dop-page">
         <div class="header" style="margin-bottom: 10px">
             RINCIAN BIAYA PERJALANAN DINAS
@@ -527,7 +157,7 @@
         <table class="no-border" style="margin-bottom: 20px">
             <tr>
                 <td style="width: 25%">Lampiran SPD Nomor</td>
-                <td style="width: 75%">: {{ $rincianBiaya->sppd->nomor_surat }}</td>
+                <td style="width: 75%">: {{$rincianBiaya->sppd->nomor_surat}}</td>
             </tr>
             <tr>
                 <td>Tanggal</td>
@@ -535,7 +165,7 @@
             </tr>
         </table>
 
-        <table class="dop-table" style="border: 1px solid black">
+        <table class="main-table" style="border: 1px solid black">
             <tr class="text-center font-bold" style="border: 1px solid black">
                 <td style="width: 5%">NO</td>
                 <td style="width: 55%" colspan="12">PERINCIAN BIAYA</td>
@@ -563,7 +193,7 @@
                 <td style="border-right: none">org</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td colspan="6">{{ $rincianBiaya->biaya_pergi }}</td>
+                <td colspan="6">{{$rincianBiaya->biaya_pergi}}</td>
                 <td style="border-right: none">Rp.</td>
                 <td>-</td>
                 <td style="padding-left: 30px">1. {{ $rincianBiaya->sppd->pelaksana->nama }}</td>
@@ -576,7 +206,7 @@
                 <td style="border-right: none">org</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td colspan="6">{{ $rincianBiaya->biaya_pulang }}</td>
+                <td colspan="6">{{$rincianBiaya->biaya_pulang}}</td>
                 <td style="border-right: none">Rp.</td>
                 <td>-</td>
                 @if ($rincianBiaya->sppd->pengikut_1)
@@ -618,7 +248,7 @@
                 <td style="border-right: none">Hari</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_4 }}</td>
+                <td style="border-right: none">{{$rincianBiaya->biaya_penginapan_4}}</td>
                 <td style="border-right: none">x</td>
                 <td>30%</td>
                 <td style="border-right: none">Rp.</td>
@@ -637,7 +267,7 @@
                 <td style="border-right: none">Hari</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_3 }}</td>
+                <td style="border-right: none">{{$rincianBiaya->biaya_penginapan_3}}</td>
                 <td style="border-right: none">x</td>
                 <td>30%</td>
                 <td style="border-right: none">Rp.</td>
@@ -656,7 +286,7 @@
                 <td style="border-right: none">Hari</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_2 }}</td>
+                <td style="border-right: none">{{$rincianBiaya->biaya_penginapan_2}}</td>
                 <td style="border-right: none">x</td>
                 <td>30%</td>
                 <td style="border-right: none">Rp.</td>
@@ -675,7 +305,7 @@
                 <td style="border-right: none">Hari</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td style="border-right: none">{{ $rincianBiaya->biaya_penginapan_1 }}</td>
+                <td style="border-right: none">{{$rincianBiaya->biaya_penginapan_1}}</td>
                 <td style="border-right: none">x</td>
                 <td>30%</td>
                 <td style="border-right: none">Rp.</td>
@@ -686,7 +316,6 @@
                 <td style="padding-bottom: 12px"></td>
                 <td colspan="12"></td>
                 <td colspan="2"></td>
-                <td></td>
             </tr>
             <tr style="font-weight: bold">
                 <td></td>
@@ -707,7 +336,7 @@
                 <td style="border-right: none">Hari</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td colspan="3">{{ $rincianBiaya->uang_harian }}</td>
+                <td colspan="3">{{$rincianBiaya->uang_harian}}</td>
                 <td style="border-right: none">Rp.</td>
                 <td>-</td>
                 <td></td>
@@ -724,7 +353,7 @@
                 <td style="border-right: none">Hari</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td colspan="3">{{ $rincianBiaya->uang_harian }}</td>
+                <td colspan="3">{{$rincianBiaya->uang_harian}}</td>
                 <td style="border-right: none">Rp.</td>
                 <td>-</td>
                 <td></td>
@@ -741,7 +370,7 @@
                 <td style="border-right: none">Hari</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td colspan="3">{{ $rincianBiaya->uang_harian }}</td>
+                <td colspan="3">{{$rincianBiaya->uang_harian}}</td>
                 <td style="border-right: none">Rp.</td>
                 <td>-</td>
                 <td></td>
@@ -758,7 +387,7 @@
                 <td style="border-right: none">Hari</td>
                 <td style="border-right: none">x</td>
                 <td style="border-right: none">Rp.</td>
-                <td colspan="3">{{ $rincianBiaya->uang_harian }}</td>
+                <td colspan="3">{{$rincianBiaya->uang_harian}}</td>
                 <td style="border-right: none">Rp.</td>
                 <td>-</td>
                 <td></td>
@@ -767,41 +396,41 @@
                 <td style="padding-bottom: 12px"></td>
                 <td colspan="12"></td>
                 <td colspan="2"></td>
-                <td></td>
             </tr>
             <tr>
                 <td class="text-center">3.</td>
                 <td colspan="12">BIAYA :</td>
-                <td style="border-right: none; font-weight: bold;">Rp.</td>
-                <td style="font-weight: bold;">-</td>
+                <span style="font-weight: bold">
+                    <td style="border-right: none">Rp.</td>
+                    <td>-</td>
+                </span>
                 <td></td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="12">- Penerbangan {{ $rincianBiaya->keterangan_penerbangan }}</td>
+                <td colspan="12">- Penerbangan {{$rincianBiaya->keterangan_penerbangan}}</td>
                 <td style="border-right: none">Rp.</td>
-                <td>{{ $rincianBiaya->biaya_penerbangan }}</td>
+                <td>{{$rincianBiaya->biaya_penerbangan}}</td>
                 <td></td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="12">- Biaya Tol {{ $rincianBiaya->keterangan_tol }}</td>
+                <td colspan="12">- Biaya Tol {{$rincianBiaya->keterangan_tol}}</td>
                 <td style="border-right: none">Rp.</td>
-                <td>{{ $rincianBiaya->biaya_tol }}</td>
+                <td>{{$rincianBiaya->biaya_tol}}</td>
                 <td></td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="12">- Biaya Lain-Lain {{ $rincianBiaya->keterangan_lain }}</td>
+                <td colspan="12">- Biaya Lain-Lain {{$rincianBiaya->keterangan_lain}}</td>
                 <td style="border-right: none">Rp.</td>
-                <td>{{ $rincianBiaya->biaya_lain }}</td>
+                <td>{{$rincianBiaya->biaya_lain}}</td>
                 <td></td>
             </tr>
             <tr>
                 <td style="padding-bottom: 12px"></td>
                 <td colspan="12"></td>
                 <td colspan="2"></td>
-                <td></td>
             </tr>
             <tr style="border: 1px solid black">
                 <td></td>
@@ -842,8 +471,8 @@
                 <td class="text-left">
                     Yang Menerima
                     <div class="signature-space"></div>
-                    <b class="underline">{{ $rincianBiaya->sppd->pelaksana->nama }}</b><br />
-                    NIP. {{ $rincianBiaya->sppd->pelaksana->nip }}
+                    <b class="underline">{{$rincianBiaya->sppd->pelaksana->nama}}</b><br />
+                    NIP. {{$rincianBiaya->sppd->pelaksana->nip}}
                 </td>
             </tr>
             <tr>
@@ -881,8 +510,8 @@
                 <td colspan="2" class="text-center" style="padding-top: 20px">
                     Pengguna Anggaran
                     <div class="signature-space"></div>
-                    <b class="underline">{{ $rincianBiaya->sppd->pemberi_wewenang->nama }}</b><br />
-                    NIP. {{ $rincianBiaya->sppd->pemberi_wewenang->nip }}
+                    <b class="underline">{{$rincianBiaya->sppd->pemberi_wewenang->nama}}</b><br />
+                    NIP. {{$rincianBiaya->sppd->pemberi_wewenang->nip}}
                 </td>
             </tr>
         </table>
@@ -907,7 +536,7 @@
             </tr>
             <tr>
                 <td>Selama</td>
-                <td>: {{ $rincianBiaya->sppd->jumlah_hari }} hari</td>
+                <td>: {{$rincianBiaya->sppd->jumlah_hari}} hari</td>
             </tr>
             <tr>
                 <td>Dari tanggal</td>
@@ -915,7 +544,7 @@
             </tr>
         </table>
 
-        <table class="rincian-table">
+        <table class="main-table">
             <thead>
                 <tr>
                     <th style="width: 5%">No.</th>
@@ -960,6 +589,7 @@
                 </tr>
             </tbody>
         </table>
+
         <div
             style="
                     width: 40%;

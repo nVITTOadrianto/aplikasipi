@@ -80,7 +80,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="jumlah_hari" class="form-label">Lamanya Perjalanan Dinas<span
+                    <label for="jumlah_hari" class="form-label">Lamanya Perjalanan Dinas (hari)<span
                             class="text-danger">*</span></label>
                     <input type="number" class="form-control" id="jumlah_hari" name="jumlah_hari" required>
                 </div>

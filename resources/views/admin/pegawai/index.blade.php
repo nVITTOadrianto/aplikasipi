@@ -63,7 +63,7 @@
                                 {{'-'}}
                             @endif
                         </td>
-                        <td>{{$pegawai->jabatan}}</td>
+                        <td>{{$pegawai->jabatan_ttd}}</td>
                         <td class="align-middle">
                             <div class="d-flex gap-1">
                                 <a href="{{ route('pegawai.show', $pegawai->id) }}" class="btn btn-info btn-sm">

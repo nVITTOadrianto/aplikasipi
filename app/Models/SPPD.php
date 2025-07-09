@@ -101,4 +101,8 @@ class SPPD extends Model
     {
         return $this->belongsTo(Pegawai::class, 'pegawai_mengetahui');
     }
+
+    public function rincian_biaya() {
+        return $this->hasOne(RincianBiayaSPPD::class, 'id_sppd');
+    }
 }

@@ -81,7 +81,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col">
-                    <label for="jumlah_hari" class="form-label">Lamanya Perjalanan Dinas<span
+                    <label for="jumlah_hari" class="form-label">Lamanya Perjalanan Dinas (hari)<span
                             class="text-danger">*</span></label>
                     <input type="number" class="form-control" id="jumlah_hari" name="jumlah_hari" required value="{{ $sppd->jumlah_hari }}">
                 </div>
@@ -163,7 +163,7 @@
             </div>
             <div class="mb-3">
                 <label for="tanggal_tiba" class="form-label">Tanggal Tiba di Tempat</label>
-                <input type="date" class="form-control" id="tanggal_tiba" name="tanggal_tiba" value="{{ $sppd->tanggal_tiba->format('Y-m-d') }}">
+                <input type="date" class="form-control" id="tanggal_tiba" name="tanggal_tiba" value="{{ $sppd->tanggal_tiba?->format('Y-m-d') }}">
             </div>
             <div class="row mb-3">
                 <div class="col">

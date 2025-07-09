@@ -2,5 +2,13 @@
     "bookman old style": {
         "normal": "D:\\College\\Proyek KP\\ardigpi\\storage\\fonts\/bookman_old_style_normal_a236a7f4a915ad5e3ca47af9896cf959",
         "bold": "bookman_old_style_bold_323f16d7773b41ef5805ecd520fcde75"
+    },
+    "calibri": {
+        "normal": "D:\\College\\Proyek KP\\ardigpi\\storage\\fonts\/calibri_normal_ef3a71f2d838ba6e81d94ab32957877c",
+        "bold": "calibri_bold_3a802ca210a14c76440a246a4c5150ae"
+    },
+    "arial": {
+        "normal": "D:\\College\\Proyek KP\\ardigpi\\storage\\fonts\/arial_normal_790e3d7cc228e9fe07489ecba06088e8",
+        "bold": "arial_bold_23b9db34f7714b4e3f70f89b5209aa6a"
     }
 }
