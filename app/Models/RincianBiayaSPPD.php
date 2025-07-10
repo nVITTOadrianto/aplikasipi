@@ -10,7 +10,7 @@ class RincianBiayaSPPD extends Model
     use HasFactory;
     protected $table = 'rincian_biaya_sppd';
     protected $fillable = [
-        'id_sppd', 'biaya_pergi', 'biaya_pulang',
+        'id_sppd', 'biaya_pergi', 'biaya_pulang', 'menginap',
         'biaya_penginapan_4', 'biaya_penginapan_3', 'biaya_penginapan_2', 'biaya_penginapan_1',
         'uang_harian', 'keterangan_penerbangan', 'keterangan_tol', 'keterangan_lain',
         'biaya_penerbangan', 'biaya_tol', 'biaya_lain',

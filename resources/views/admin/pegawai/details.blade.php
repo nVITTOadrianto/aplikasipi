@@ -13,7 +13,7 @@
                 <p class="card-text"><strong>Tempat, Tanggal Lahir:</strong>
                     {{ $pegawai->tempat_lahir . ', ' . $pegawai->tanggal_lahir->isoFormat('D MMMM YYYY') }}
                 </p>
-                @if ($pegawai->golongan || $pegawai->ruang || $pegawai->pangkat)
+                @if ($pegawai->golongan && $pegawai->ruang && $pegawai->pangkat)
                     <p class="card-text"><strong>Golongan:</strong> {{ $pegawai->golongan }}/{{ $pegawai->ruang }}</p>
                     <p class="card-text"><strong>Pangkat:</strong> {{ $pegawai->pangkat }}</p>
                 @endif

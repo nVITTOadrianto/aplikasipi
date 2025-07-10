@@ -36,6 +36,7 @@ class SPPD extends Model
         'kepala_jabatan_di_tempat',
         'nama_di_tempat',
         'nip_di_tempat',
+        'tanggal_dibuat_surat',
     ];
     protected $dates = [
         'created_at',
@@ -43,11 +44,13 @@ class SPPD extends Model
         'tanggal_berangkat',
         'tanggal_kembali',
         'tanggal_tiba',
+        'tanggal_dibuat_surat',
     ];
     protected $casts = [
         'tanggal_berangkat' => 'date',
         'tanggal_kembali' => 'date',
         'tanggal_tiba' => 'date',
+        'tanggal_dibuat_surat' => 'date',
     ];
     protected $primaryKey = 'id';
     public $timestamps = true;

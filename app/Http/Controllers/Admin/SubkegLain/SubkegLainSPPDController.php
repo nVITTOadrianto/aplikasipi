@@ -81,6 +81,7 @@ class SubkegLainSPPDController extends Controller
             'instansi_pembebanan_anggaran' => 'required|string',
             'akun_pembebanan_anggaran' => 'required|string',
             'keterangan' => 'nullable|string',
+            'tanggal_dibuat_surat' => 'required|date',
             'tanggal_tiba' => 'nullable|date',
             'pegawai_mengetahui' => 'nullable|exists:pegawai,id',
             'kepala_jabatan_di_tempat' => 'nullable|string|max:50',
@@ -88,6 +89,7 @@ class SubkegLainSPPDController extends Controller
             'nip_di_tempat' => 'nullable|string|max:30',
             'biaya_pergi' => 'nullable|numeric',
             'biaya_pulang' => 'nullable|numeric',
+            'menginap' => 'nullable|boolean',
             'biaya_penginapan_4' => 'nullable|numeric',
             'biaya_penginapan_3' => 'nullable|numeric',
             'biaya_penginapan_2' => 'nullable|numeric',
@@ -103,6 +105,7 @@ class SubkegLainSPPDController extends Controller
         $sppd = SPPD::create($request->except([
             'biaya_pergi',
             'biaya_pulang',
+            'menginap',
             'biaya_penginapan_4',
             'biaya_penginapan_3',
             'biaya_penginapan_2',
@@ -120,6 +123,7 @@ class SubkegLainSPPDController extends Controller
             'id_sppd' => $sppd->id,
             'biaya_pergi' => $request->biaya_pergi,
             'biaya_pulang' => $request->biaya_pulang,
+            'menginap' => $request->menginap,
             'biaya_penginapan_4' => $request->biaya_penginapan_4,
             'biaya_penginapan_3' => $request->biaya_penginapan_3,
             'biaya_penginapan_2' => $request->biaya_penginapan_2,
@@ -134,12 +138,21 @@ class SubkegLainSPPDController extends Controller
         ]);
 
         // Perhitungan Biaya dan Lain-Lain
-        $pegawaiYangIkut = [
-            $rincianBiaya->sppd->pelaksana,
-            $rincianBiaya->sppd->pengikut_1,
-            $rincianBiaya->sppd->pengikut_2,
-            $rincianBiaya->sppd->pengikut_3,
-        ];
+        $pegawaiYangIkut = [];
+        // Tambahkan pelaksana (selalu ada)
+        if ($rincianBiaya->sppd->pelaksana) {
+            $pegawaiYangIkut[] = $rincianBiaya->sppd->pelaksana;
+        }
+        // Tambahkan pengikut jika ada di database (tidak null)
+        if ($rincianBiaya->sppd->pengikut_1) {
+            $pegawaiYangIkut[] = $rincianBiaya->sppd->pengikut_1;
+        }
+        if ($rincianBiaya->sppd->pengikut_2) {
+            $pegawaiYangIkut[] = $rincianBiaya->sppd->pengikut_2;
+        }
+        if ($rincianBiaya->sppd->pengikut_3) {
+            $pegawaiYangIkut[] = $rincianBiaya->sppd->pengikut_3;
+        }
 
         $totalPengikut = count($pegawaiYangIkut);
         $totalGolIV = 0;
@@ -184,10 +197,18 @@ class SubkegLainSPPDController extends Controller
         $biayaPenginapan1 = (int) preg_replace('/[^0-9]/', '', $rincianBiaya->biaya_penginapan_1);
         $uangHarian = (int) preg_replace('/[^0-9]/', '', $rincianBiaya->uang_harian);
 
-        $subtotalPenginapan4 = $totalGolIV * $biayaPenginapan4;
-        $subtotalPenginapan3 = $totalGolIII * $biayaPenginapan3;
-        $subtotalPenginapan2 = $totalGolII * $biayaPenginapan2;
-        $subtotalPenginapan1 = $totalGolI * $biayaPenginapan1;
+        $menginap = $request->menginap;
+        $discount = 0;
+        if ($menginap > 0) {
+            $discount = 1;
+        } else {
+            $discount = 0.3;
+        }
+
+        $subtotalPenginapan4 = $totalGolIV * $biayaPenginapan4 * $discount;
+        $subtotalPenginapan3 = $totalGolIII * $biayaPenginapan3 * $discount;
+        $subtotalPenginapan2 = $totalGolII * $biayaPenginapan2 * $discount;
+        $subtotalPenginapan1 = $totalGolI * $biayaPenginapan1 * $discount;
 
         $subtotalPenginapan = $subtotalPenginapan4 + $subtotalPenginapan3 + $subtotalPenginapan2 + $subtotalPenginapan1;
 
@@ -206,8 +227,100 @@ class SubkegLainSPPDController extends Controller
 
         $totalBiaya = $subtotalAngkutan + $subtotalPenginapan + $subtotalHarian + $subtotalLain;
 
-        $biayaPelaksana = $uangHarian + $subtotalAngkutan + $subtotalLain;
-        $biayaPengikut = $uangHarian;
+        $biayaPelaksana = 0;
+        $biayaPenginapanPengikut1 = 0;
+        $biayaPenginapanPengikut2 = 0;
+        $biayaPenginapanPengikut3 = 0;
+
+        if ($rincianBiaya->sppd->pelaksana) {
+            $golPelaksana = $rincianBiaya->sppd->pelaksana->golongan ?? null;
+            switch ($golPelaksana) {
+            case 'IV':
+                $biayaPenginapanPelaksana = $biayaPenginapan4;
+                break;
+            case 'III':
+                $biayaPenginapanPelaksana = $biayaPenginapan3;
+                break;
+            case 'I':
+                $biayaPenginapanPelaksana = $biayaPenginapan1;
+                break;
+            case 'II':
+            case null:
+            case '':
+            default:
+                $biayaPenginapanPelaksana = $biayaPenginapan2;
+                break;
+            }
+        }
+
+        // Pengikut 1
+        if ($rincianBiaya->sppd->pengikut_1) {
+            $golPengikut1 = $rincianBiaya->sppd->pengikut_1->golongan ?? null;
+            switch ($golPengikut1) {
+            case 'IV':
+                $biayaPenginapanPengikut1 = $biayaPenginapan4;
+                break;
+            case 'III':
+                $biayaPenginapanPengikut1 = $biayaPenginapan3;
+                break;
+            case 'I':
+                $biayaPenginapanPengikut1 = $biayaPenginapan1;
+                break;
+            case 'II':
+            case null:
+            case '':
+            default:
+                $biayaPenginapanPengikut1 = $biayaPenginapan2;
+                break;
+            }
+        }
+        // Pengikut 2
+        if ($rincianBiaya->sppd->pengikut_2) {
+            $golPengikut2 = $rincianBiaya->sppd->pengikut_2->golongan ?? null;
+            switch ($golPengikut2) {
+            case 'IV':
+                $biayaPenginapanPengikut2= $biayaPenginapan4;
+                break;
+            case 'III':
+                $biayaPenginapanPengikut2 = $biayaPenginapan3;
+                break;
+            case 'I':
+                $biayaPenginapanPengikut2 = $biayaPenginapan1;
+                break;
+            case 'II':
+            case null:
+            case '':
+            default:
+                $biayaPenginapanPengikut2 = $biayaPenginapan2;
+                break;
+            }
+        }
+        // Pengikut 3
+        if ($rincianBiaya->sppd->pengikut_3) {
+            $golPengikut3 = $rincianBiaya->sppd->pengikut_3->golongan ?? null;
+            switch ($golPengikut3) {
+            case 'IV':
+                $biayaPenginapanPengikut3 = $biayaPenginapan4;
+                break;
+            case 'III':
+                $biayaPenginapanPengikut3 = $biayaPenginapan3;
+                break;
+            case 'I':
+                $biayaPenginapanPengikut3 = $biayaPenginapan1;
+                break;
+            case 'II':
+            case null:
+            case '':
+            default:
+                $biayaPenginapanPengikut3 = $biayaPenginapan2;
+                break;
+            }
+        }
+
+        $biayaPelaksana = $uangHarian + $biayaPenginapanPelaksana + $subtotalAngkutan + $subtotalLain;
+        $biayaPengikut1 = $uangHarian + $biayaPenginapanPengikut1;
+        $biayaPengikut2 = $uangHarian + $biayaPenginapanPengikut2;
+        $biayaPengikut3 = $uangHarian + $biayaPenginapanPengikut3;
 
         // Jangan lupa, saat menampilkan hasilnya di view, format kembali dengan titik
         // Contoh di view Blade:
@@ -229,6 +342,7 @@ class SubkegLainSPPDController extends Controller
             'subtotalPergi',
             'subtotalPulang',
             'subtotalAngkutan',
+            'menginap',
             'subtotalPenginapan4',
             'subtotalPenginapan3',
             'subtotalPenginapan2',
@@ -242,7 +356,9 @@ class SubkegLainSPPDController extends Controller
             'subtotalLain',
             'totalBiaya',
             'biayaPelaksana',
-            'biayaPengikut',
+            'biayaPengikut1',
+            'biayaPengikut2',
+            'biayaPengikut3',
         ));
 
         // Simpan PDF ke direktori public/storage/uploads/sppd
@@ -303,6 +419,7 @@ class SubkegLainSPPDController extends Controller
             'instansi_pembebanan_anggaran' => 'required|string',
             'akun_pembebanan_anggaran' => 'required|string',
             'keterangan' => 'nullable|string',
+            'tanggal_dibuat_surat' => 'required|date',
             'tanggal_tiba' => 'nullable|date',
             'pegawai_mengetahui' => 'nullable|exists:pegawai,id',
             'kepala_jabatan_di_tempat' => 'nullable|string|max:50',
@@ -310,6 +427,7 @@ class SubkegLainSPPDController extends Controller
             'nip_di_tempat' => 'nullable|string|max:30',
             'biaya_pergi' => 'nullable|numeric',
             'biaya_pulang' => 'nullable|numeric',
+            'menginap' => 'nullable|boolean',
             'biaya_penginapan_4' => 'nullable|numeric',
             'biaya_penginapan_3' => 'nullable|numeric',
             'biaya_penginapan_2' => 'nullable|numeric',
@@ -327,6 +445,7 @@ class SubkegLainSPPDController extends Controller
         $sppd->update($request->except([
             'biaya_pergi',
             'biaya_pulang',
+            'menginap',
             'biaya_penginapan_4',
             'biaya_penginapan_3',
             'biaya_penginapan_2',
@@ -344,6 +463,7 @@ class SubkegLainSPPDController extends Controller
             'id_sppd' => $sppd->id,
             'biaya_pergi' => $request->biaya_pergi,
             'biaya_pulang' => $request->biaya_pulang,
+            'menginap' => $request->menginap,
             'biaya_penginapan_4' => $request->biaya_penginapan_4,
             'biaya_penginapan_3' => $request->biaya_penginapan_3,
             'biaya_penginapan_2' => $request->biaya_penginapan_2,
@@ -358,12 +478,21 @@ class SubkegLainSPPDController extends Controller
         ]);
 
         // Perhitungan Biaya dan Lain-Lain
-        $pegawaiYangIkut = [
-            $rincianBiaya->sppd->pelaksana,
-            $rincianBiaya->sppd->pengikut_1,
-            $rincianBiaya->sppd->pengikut_2,
-            $rincianBiaya->sppd->pengikut_3,
-        ];
+        $pegawaiYangIkut = [];
+        // Tambahkan pelaksana (selalu ada)
+        if ($rincianBiaya->sppd->pelaksana) {
+            $pegawaiYangIkut[] = $rincianBiaya->sppd->pelaksana;
+        }
+        // Tambahkan pengikut jika ada di database (tidak null)
+        if ($rincianBiaya->sppd->pengikut_1) {
+            $pegawaiYangIkut[] = $rincianBiaya->sppd->pengikut_1;
+        }
+        if ($rincianBiaya->sppd->pengikut_2) {
+            $pegawaiYangIkut[] = $rincianBiaya->sppd->pengikut_2;
+        }
+        if ($rincianBiaya->sppd->pengikut_3) {
+            $pegawaiYangIkut[] = $rincianBiaya->sppd->pengikut_3;
+        }
 
         $totalPengikut = count($pegawaiYangIkut);
         $totalGolIV = 0;
@@ -408,10 +537,18 @@ class SubkegLainSPPDController extends Controller
         $biayaPenginapan1 = (int) preg_replace('/[^0-9]/', '', $rincianBiaya->biaya_penginapan_1);
         $uangHarian = (int) preg_replace('/[^0-9]/', '', $rincianBiaya->uang_harian);
 
-        $subtotalPenginapan4 = $totalGolIV * $biayaPenginapan4;
-        $subtotalPenginapan3 = $totalGolIII * $biayaPenginapan3;
-        $subtotalPenginapan2 = $totalGolII * $biayaPenginapan2;
-        $subtotalPenginapan1 = $totalGolI * $biayaPenginapan1;
+        $menginap = $request->menginap;
+        $discount = 0;
+        if ($menginap > 0) {
+            $discount = 1;
+        } else {
+            $discount = 0.3;
+        }
+
+        $subtotalPenginapan4 = $totalGolIV * $biayaPenginapan4 * $discount;
+        $subtotalPenginapan3 = $totalGolIII * $biayaPenginapan3 * $discount;
+        $subtotalPenginapan2 = $totalGolII * $biayaPenginapan2 * $discount;
+        $subtotalPenginapan1 = $totalGolI * $biayaPenginapan1 * $discount;
 
         $subtotalPenginapan = $subtotalPenginapan4 + $subtotalPenginapan3 + $subtotalPenginapan2 + $subtotalPenginapan1;
 
@@ -430,8 +567,101 @@ class SubkegLainSPPDController extends Controller
 
         $totalBiaya = $subtotalAngkutan + $subtotalPenginapan + $subtotalHarian + $subtotalLain;
 
-        $biayaPelaksana = $uangHarian + $subtotalAngkutan + $subtotalLain;
-        $biayaPengikut = $uangHarian;
+        // Hitung biaya penginapan pelaksana dan pengikut berdasarkan golongan
+        $biayaPenginapanPelaksana = 0;
+        $biayaPenginapanPengikut1 = 0;
+        $biayaPenginapanPengikut2 = 0;
+        $biayaPenginapanPengikut3 = 0;
+
+        if ($rincianBiaya->sppd->pelaksana) {
+            $golPelaksana = $rincianBiaya->sppd->pelaksana->golongan ?? null;
+            switch ($golPelaksana) {
+            case 'IV':
+                $biayaPenginapanPelaksana = $biayaPenginapan4;
+                break;
+            case 'III':
+                $biayaPenginapanPelaksana = $biayaPenginapan3;
+                break;
+            case 'I':
+                $biayaPenginapanPelaksana = $biayaPenginapan1;
+                break;
+            case 'II':
+            case null:
+            case '':
+            default:
+                $biayaPenginapanPelaksana = $biayaPenginapan2;
+                break;
+            }
+        }
+
+        // Pengikut 1
+        if ($rincianBiaya->sppd->pengikut_1) {
+            $golPengikut1 = $rincianBiaya->sppd->pengikut_1->golongan ?? null;
+            switch ($golPengikut1) {
+            case 'IV':
+                $biayaPenginapanPengikut1 = $biayaPenginapan4;
+                break;
+            case 'III':
+                $biayaPenginapanPengikut1 = $biayaPenginapan3;
+                break;
+            case 'I':
+                $biayaPenginapanPengikut1 = $biayaPenginapan1;
+                break;
+            case 'II':
+            case null:
+            case '':
+            default:
+                $biayaPenginapanPengikut1 = $biayaPenginapan2;
+                break;
+            }
+        }
+        // Pengikut 2
+        if ($rincianBiaya->sppd->pengikut_2) {
+            $golPengikut2 = $rincianBiaya->sppd->pengikut_2->golongan ?? null;
+            switch ($golPengikut2) {
+            case 'IV':
+                $biayaPenginapanPengikut2= $biayaPenginapan4;
+                break;
+            case 'III':
+                $biayaPenginapanPengikut2 = $biayaPenginapan3;
+                break;
+            case 'I':
+                $biayaPenginapanPengikut2 = $biayaPenginapan1;
+                break;
+            case 'II':
+            case null:
+            case '':
+            default:
+                $biayaPenginapanPengikut2 = $biayaPenginapan2;
+                break;
+            }
+        }
+        // Pengikut 3
+        if ($rincianBiaya->sppd->pengikut_3) {
+            $golPengikut3 = $rincianBiaya->sppd->pengikut_3->golongan ?? null;
+            switch ($golPengikut3) {
+            case 'IV':
+                $biayaPenginapanPengikut3 = $biayaPenginapan4;
+                break;
+            case 'III':
+                $biayaPenginapanPengikut3 = $biayaPenginapan3;
+                break;
+            case 'I':
+                $biayaPenginapanPengikut3 = $biayaPenginapan1;
+                break;
+            case 'II':
+            case null:
+            case '':
+            default:
+                $biayaPenginapanPengikut3 = $biayaPenginapan2;
+                break;
+            }
+        }
+
+        $biayaPelaksana = $uangHarian + $biayaPenginapanPelaksana + $subtotalAngkutan + $subtotalLain;
+        $biayaPengikut1 = $uangHarian + $biayaPenginapanPengikut1;
+        $biayaPengikut2 = $uangHarian + $biayaPenginapanPengikut2;
+        $biayaPengikut3 = $uangHarian + $biayaPenginapanPengikut3;
 
         // Jangan lupa, saat menampilkan hasilnya di view, format kembali dengan titik
         // Contoh di view Blade:
@@ -439,6 +669,7 @@ class SubkegLainSPPDController extends Controller
 
         if ($sppd->file_surat) {
             unlink(public_path('storage/uploads/sppd/' . $sppd->file_surat));
+            $sppd->file_surat = null;
         }
 
         // Nama file unik berdasarkan ID dan timestamp
@@ -457,6 +688,7 @@ class SubkegLainSPPDController extends Controller
             'subtotalPergi',
             'subtotalPulang',
             'subtotalAngkutan',
+            'menginap',
             'subtotalPenginapan4',
             'subtotalPenginapan3',
             'subtotalPenginapan2',
@@ -470,7 +702,9 @@ class SubkegLainSPPDController extends Controller
             'subtotalLain',
             'totalBiaya',
             'biayaPelaksana',
-            'biayaPengikut',
+            'biayaPengikut1',
+            'biayaPengikut2',
+            'biayaPengikut3',
         ));
 
         // Simpan PDF ke direktori public/storage/uploads/sppd

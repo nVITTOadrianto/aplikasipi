@@ -236,7 +236,7 @@
                 <td style="width: 60%;"></td>
                 <td class="top-right">
                     Lembar ke : {{ $sppd->lembar_ke ?? '………………………….. ' }}<br>
-                    Kode No. &nbsp;: {{ $sppd->kode ?? '………………………….. ' }}<br>
+                    Kode No.: {{ $sppd->kode ?? '………………………….. ' }}<br>
                     Nomor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $sppd->nomor_surat ?? '………………………….. ' }}
                 </td>
             </tr>
@@ -302,7 +302,7 @@
                         c. Tanggal harus kembali/tiba di tempat baru *)
                     </td>
                     <td colspan="2" class="content-col">
-                        {{ $sppd->jumlah_hari }} hari<br>
+                        {{ $sppd->jumlah_hari . ' (' . Number::spell($sppd->jumlah_hari, 'id') . ')' }} hari<br>
                         {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
                         {{ $sppd->tanggal_kembali->isoFormat('D MMMM YYYY') }}
                     </td>
@@ -315,17 +315,17 @@
             <tbody>
                 <tr>
                     <td rowspan="3" class="label-col">9.</td>
-                    <td>{{ $sppd->pengikut_1->nama ?? '' }}</td>
+                    <td>{{ $sppd->pengikut_1 ? '1. ' . $sppd->pengikut_1->nama : '' }}</td>
                     <td>{{ $sppd->pengikut_1?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
                     <td>{{ $sppd->pengikut_1->jabatan_ttd ?? '' }}</td>
                 </tr>
                 <tr>
-                    <td>{{ $sppd->pengikut_2->nama ?? '' }}</td>
+                    <td>{{ $sppd->pengikut_2 ? '2. ' . $sppd->pengikut_2->nama : '' }}</td>
                     <td>{{ $sppd->pengikut_2?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
                     <td>{{ $sppd->pengikut_2->jabatan_ttd ?? '' }}</td>
                 </tr>
                 <tr>
-                    <td>{{ $sppd->pengikut_3->nama ?? '' }}</td>
+                    <td>{{ $sppd->pengikut_3 ? '3. ' . $sppd->pengikut_3->nama : '' }}</td>
                     <td>{{ $sppd->pengikut_3?->tanggal_lahir?->isoFormat('D MMMM YYYY') ?? '' }}</td>
                     <td>{{ $sppd->pengikut_3->jabatan_ttd ?? '' }}</td>
                 </tr>
@@ -358,7 +358,7 @@
                 <td style="width: 50%;"></td>
                 <td>
                     Dikeluarkan di : Bandar Lampung<br>
-                    Tanggal : {{ $sppd->created_at->isoFormat('D MMMM YYYY') }}<br>
+                    Tanggal : {{ $sppd->tanggal_dibuat_surat->isoFormat('D MMMM YYYY') }}<br>
                     <b>{{ strtoupper($sppd->pemberi_wewenang->jabatan_ttd) }},</b><br>
                     <div class="signature-section"></div>
                     <b><u>{{ $sppd->pemberi_wewenang->nama }}</u></b><br>
@@ -373,20 +373,34 @@
         <table class="no-border">
             <tbody>
                 <tr>
-                    <td>
+                    <td style="width: 5%;">
 
                     </td>
-                    <td style="width:50%; border-left: none;">
+                    <td style="width: 30%;">
 
                     </td>
-                    <td>
+                    <td style="width: 60%;"></td>
+                    <td style="width: 5%;">
                         I.
                     </td>
-                    <td style="width:50%; border-right: none;">
-                        Berangkat dari: {{ $sppd->tempat_berangkat }}<br>
-                        (Tempat Kedudukan):{{ $sppd->tempat_kedudukan }}<br>
-                        Ke: {{ $sppd->tempat_tujuan }}<br>
-                        Pada Tanggal: {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
+                    <td style="width: 30%;">
+                        Berangkat dari<br>
+                        (Tempat Kedudukan)<br>
+                        Ke<br>
+                        Pada Tanggal<br>
+                    </td>
+                    <td style="width: 60%">
+                        : {{ $sppd->tempat_berangkat }}<br>
+                        :{{ $sppd->tempat_kedudukan }}<br>
+                        : {{ $sppd->tempat_tujuan }}<br>
+                        : {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2"></td>
+                    <td></td>
+                    <td colspan="2">
                         <b>Pejabat Pelaksana<br>Teknis Kegiatan</b><br>
                         <div class="signature-section"></div>
                         <b><u>{{ $sppd->mengetahui->nama ?? '(…………………………………….……….)' }}</u></b><br>
@@ -396,20 +410,40 @@
                 <tr>
                     <td>II.</td>
                     <td>
-                        Tiba di : {{ $sppd->tempat_tujuan }}<br>
-                        Pada Tanggal : {{ $sppd->tanggal_tiba?->isoFormat('D MMMM YYYY') ?? '' }}<br>
-                        Kepala : {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
-                        <div class="signature-section" style="height:40px"></div><br>
+                        Tiba di<br>
+                        Pada Tanggal<br>
+                        Kepala<br>
+
+                    </td>
+                    <td>
+                        : {{ $sppd->tempat_tujuan }}<br>
+                        : {{ $sppd->tanggal_tiba?->isoFormat('D MMMM YYYY') ?? '' }}<br>
+                        : {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
+                    </td>
+                    <td></td>
+                    <td>
+                        Berangkat dari<br>
+                        Ke<br>
+                        Pada tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : {{ $sppd->tempat_tujuan }}<br>
+                        : {{ $sppd->tempat_berangkat }}<br>
+                        : {{ $sppd->tanggal_kembali->isoFormat('D MMMM YYYY') }}<br>
+                        : {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <div class="signature-section"></div>
                         ({{ $sppd->nama_di_tempat ?? '…………………………………….……….' }})<br>
                         NIP. {{ $sppd->nip_di_tempat ?? '' }}
                     </td>
                     <td></td>
-                    <td>
-                        Berangkat dari : {{ $sppd->tempat_tujuan }}<br>
-                        Ke : {{ $sppd->tempat_berangkat }}<br>
-                        Pada tanggal : {{ $sppd->tanggal_kembali->isoFormat('D MMMM YYYY') }}<br>
-                        Kepala : {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
-                        <div class="signature-section" style="height:40px"></div>
+                    <td colspan="2">
+                        <div class="signature-section"></div>
                         ({{ $sppd->nama_di_tempat ?? '…………………………………….……….' }})<br>
                         NIP. {{ $sppd->nip_di_tempat ?? '' }}
                     </td>
@@ -417,20 +451,39 @@
                 <tr>
                     <td>III.</td>
                     <td>
-                        Tiba di : <br>
-                        Pada Tanggal : <br>
-                        Kepala : <br>
-                        <div class="signature-section" style="height:40px"></div><br>
+                        Tiba di<br>
+                        Pada Tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : <br>
+                        : <br>
+                        : <br>
+                    </td>
+                    <td></td>
+                    <td>
+                        Berangkat dari<br>
+                        Ke<br>
+                        Pada tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : <br>
+                        : <br>
+                        : <br>
+                        : <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
                     </td>
                     <td></td>
-                    <td>
-                        Berangkat dari : <br>
-                        Ke : <br>
-                        Pada tanggal : <br>
-                        Kepala : <br>
-                        <div class="signature-section" style="height:40px"></div>
+                    <td colspan="2">
+                        <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
                     </td>
@@ -438,20 +491,39 @@
                 <tr>
                     <td>IV.</td>
                     <td>
-                        Tiba di : <br>
-                        Pada Tanggal : <br>
-                        Kepala : <br>
-                        <div class="signature-section" style="height:40px"></div><br>
+                        Tiba di<br>
+                        Pada Tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : <br>
+                        : <br>
+                        : <br>
+                    </td>
+                    <td></td>
+                    <td>
+                        Berangkat dari<br>
+                        Ke<br>
+                        Pada tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : <br>
+                        : <br>
+                        : <br>
+                        : <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
                     </td>
                     <td></td>
-                    <td>
-                        Berangkat dari : <br>
-                        Ke : <br>
-                        Pada tanggal : <br>
-                        Kepala : <br>
-                        <div class="signature-section" style="height:40px"></div>
+                    <td colspan="2">
+                        <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
                     </td>
@@ -459,31 +531,45 @@
                 <tr>
                     <td>V.</td>
                     <td>
-                        Tiba di : <br><br>
-                        Pada Tanggal : <br>
-                        Kepala :
-                        Pejabat yang berwenang,<br>
-                        <div class="signature-section"></div>
-                        <b><u>{{ $sppd->pemberi_wewenang->nama }}</u></b><br>
-                        NIP. {{ $sppd->pemberi_wewenang->nip }}
+                        Tiba di<br><br>
+                        Pada Tanggal<br>
+                        Kepala<br><br>
+                    </td>
+                    <td>
+                        : <br><br>
+                        : <br>
+                        : <br><br>
                     </td>
                     <td></td>
-                    <td class="attention-section">
+                    <td colspan="2" class="attention-section">
                         Telah diperiksa, dengan keterangan bahwa perjalanan tersebut di atas benar dilakukan atas
                         perintahnya dan semata-mata untuk kepentingan Jabatan dalam waktu sesingkat-singkatnya.
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">VI. CATATAN LAIN-LAIN</td>
+                    <td></td>
+                    <td colspan="2">
+                        <b>Pejabat yang berwenang,</b><br>
+                        <div class="signature-section"></div>
+                        <b><u>{{ $sppd->pemberi_wewenang->nama }}</u></b><br>
+                        NIP. {{ $sppd->pemberi_wewenang->nip }}
+                    </td>
+                    <td></td>
+                    <td colspan="2"></td>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                        <u>VII. PERHATIAN : </u>
+                    <td>VI.</td>
+                    <td colspan="5">CATATAN LAIN-LAIN</td>
+                </tr>
+                <tr>
+                    <td>VII.</td>
+                    <td colspan="5">
+                        <u>PERHATIAN : </u>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td colspan="3" class="attention-section">
+                    <td colspan="5" class="attention-section">
                         PPK yang menerbitkan SPD, Pegawai yang melakukan Perjalanan Dinas, para pejabat yang mengesahkan
                         tanggal berangkat/tiba serta Bendahara Pengeluaran bertanggung jawab berdasarkan
                         peraturan-peraturan Keuangan Negara, apabila Negara menderita rugi akibat kesalahan, kelalaian
@@ -603,7 +689,7 @@
                 <td colspan="12">Biaya Harian:</td>
                 <td colspan="2"></td>
                 @if ($rincianBiaya->sppd->pengikut_3)
-                    <td style="padding-left: 30px">4. {{ $rincianBiaya->sppd->pengikut_3->nama }}</td>
+                    <td style="padding-left: 25px">4. {{ $rincianBiaya->sppd->pengikut_3->nama }}</td>
                 @else
                     <td></td>
                 @endif
@@ -649,8 +735,13 @@
                     <td style="border-right: none">Rp.</td>
                     <td style="border-right: none">-</td>
                 @endif
-                <td style="border-right: none">x</td>
-                <td>30%</td>
+                @if ($menginap > 0)
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @else
+                    <td style="border-right: none">x</td>
+                    <td>30%</td>
+                @endif
                 <td style="border-right: none">Rp.</td>
                 @if ($totalGolIV != 0 && (int) trim($rincianBiaya->biaya_penginapan_4) > 0)
                     <td class="text-right" style="padding-right: 6px">
@@ -684,8 +775,13 @@
                     <td style="border-right: none">Rp.</td>
                     <td style="border-right: none">-</td>
                 @endif
-                <td style="border-right: none">x</td>
-                <td>30%</td>
+                @if ($menginap > 0)
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @else
+                    <td style="border-right: none">x</td>
+                    <td>30%</td>
+                @endif
                 <td style="border-right: none">Rp.</td>
                 @if ($totalGolIII != 0 && (int) trim($rincianBiaya->biaya_penginapan_3) > 0)
                     <td class="text-right" style="padding-right: 6px">
@@ -719,8 +815,13 @@
                     <td style="border-right: none">Rp.</td>
                     <td style="border-right: none">-</td>
                 @endif
-                <td style="border-right: none">x</td>
-                <td>30%</td>
+                @if ($menginap > 0)
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @else
+                    <td style="border-right: none">x</td>
+                    <td>30%</td>
+                @endif
                 <td style="border-right: none">Rp.</td>
                 @if ($totalGolII != 0 && (int) trim($rincianBiaya->biaya_penginapan_2) > 0)
                     <td class="text-right" style="padding-right: 6px">
@@ -754,8 +855,13 @@
                     <td style="border-right: none">Rp.</td>
                     <td style="border-right: none">-</td>
                 @endif
-                <td style="border-right: none">x</td>
-                <td>30%</td>
+                @if ($menginap > 0)
+                    <td style="border-right: none"></td>
+                    <td></td>
+                @else
+                    <td style="border-right: none">x</td>
+                    <td>30%</td>
+                @endif
                 <td style="border-right: none">Rp.</td>
                 @if ($totalGolI != 0 && (int) trim($rincianBiaya->biaya_penginapan_1) > 0)
                     <td class="text-right" style="padding-right: 6px">
@@ -1016,7 +1122,8 @@
                     <strong>Rp. {{ number_format($totalBiaya, 0, ',', '.') }}</strong>
                 </td>
                 <td style="width: 40%" class="text-left">
-                    Bandar Lampung, {{ Carbon\Carbon::now()->isoFormat('D MMMM YYYY') }}<br />
+                    Bandar Lampung,
+                    &nbsp;&nbsp;&nbsp;&nbsp;{{ $sppd->tanggal_dibuat_surat->isoFormat('MMMM YYYY') }}<br />
                     Telah menerima jumlah uang sebesar :<br />
                     <strong>Rp. {{ number_format($totalBiaya, 0, ',', '.') }}</strong>
                 </td>
@@ -1119,14 +1226,15 @@
                     <td class="text-center">1.</td>
                     <td class="nama-column">{{ $rincianBiaya->sppd->pelaksana->nama }}</td>
                     <td class="text-center">
-                        @if ($rincianBiaya->sppd->pelaksana->golongan || $rincianBiaya->sppd->pelaksana->ruang)
+                        @if ($rincianBiaya->sppd->pelaksana->golongan && $rincianBiaya->sppd->pelaksana->ruang)
                             {{ $rincianBiaya->sppd->pelaksana->golongan }}/{{ $rincianBiaya->sppd->pelaksana->ruang }}
                         @else
                             -
                         @endif
                     </td>
                     <td class="text-left" style="border-right: none;">Rp.</td>
-                    <td class="text-right" style="border-left: none;">{{number_format($biayaPelaksana, 0, ',', '.')}}</td>
+                    <td class="text-right" style="border-left: none;">
+                        {{ number_format($biayaPelaksana, 0, ',', '.') }}</td>
                     <td class="ttd-column">1. .........</td>
                     <td class="ttd-column"></td>
                 </tr>
@@ -1135,7 +1243,7 @@
                         <td class="text-center">2.</td>
                         <td class="nama-column">{{ $rincianBiaya->sppd->pengikut_1->nama }}</td>
                         <td class="text-center">
-                            @if ($rincianBiaya->sppd->pengikut_1->golongan || $rincianBiaya->sppd->pengikut_1->ruang)
+                            @if ($rincianBiaya->sppd->pengikut_1->golongan && $rincianBiaya->sppd->pengikut_1->ruang)
                                 {{ $rincianBiaya->sppd->pengikut_1->golongan }}/{{ $rincianBiaya->sppd->pengikut_1->ruang }}
                             @else
                                 -
@@ -1143,7 +1251,7 @@
                         </td>
                         <td class="text-left" style="border-right: none;">Rp.</td>
                         <td class="text-right" style="border-left: none;">
-                            {{ number_format($biayaPengikut, 0, ',', '.') }}</td>
+                            {{ number_format($biayaPengikut1, 0, ',', '.') }}</td>
                         <td class="ttd-column"></td>
                         <td class="ttd-column">2. .........</td>
                     </tr>
@@ -1153,7 +1261,7 @@
                         <td class="text-center">3.</td>
                         <td class="nama-column">{{ $rincianBiaya->sppd->pengikut_2->nama }}</td>
                         <td class="text-center">
-                            @if ($rincianBiaya->sppd->pengikut_2->golongan || $rincianBiaya->sppd->pengikut_2->ruang)
+                            @if ($rincianBiaya->sppd->pengikut_2->golongan && $rincianBiaya->sppd->pengikut_2->ruang)
                                 {{ $rincianBiaya->sppd->pengikut_2->golongan }}/{{ $rincianBiaya->sppd->pengikut_2->ruang }}
                             @else
                                 -
@@ -1161,7 +1269,7 @@
                         </td>
                         <td class="text-left" style="border-right: none;">Rp.</td>
                         <td class="text-right" style="border-left: none;">
-                            {{ number_format($biayaPengikut, 0, ',', '.') }}</td>
+                            {{ number_format($biayaPengikut2, 0, ',', '.') }}</td>
                         <td class="ttd-column">3. .........</td>
                         <td class="ttd-column"></td>
 
@@ -1172,7 +1280,7 @@
                         <td class="text-center">4.</td>
                         <td class="nama-column">{{ $rincianBiaya->sppd->pengikut_3->nama }}</td>
                         <td class="text-center">
-                            @if ($rincianBiaya->sppd->pengikut_3->golongan || $rincianBiaya->sppd->pengikut_3->ruang)
+                            @if ($rincianBiaya->sppd->pengikut_3->golongan && $rincianBiaya->sppd->pengikut_3->ruang)
                                 {{ $rincianBiaya->sppd->pengikut_3->golongan }}/{{ $rincianBiaya->sppd->pengikut_3->ruang }}
                             @else
                                 -
@@ -1180,7 +1288,7 @@
                         </td>
                         <td class="text-left" style="border-right: none;">Rp.</td>
                         <td class="text-right" style="border-left: none;">
-                            {{ number_format($biayaPengikut, 0, ',', '.') }}</td>
+                            {{ number_format($biayaPengikut3, 0, ',', '.') }}</td>
                         <td class="ttd-column"></td>
                         <td class="ttd-column">4. .........</td>
                     </tr>
@@ -1210,7 +1318,8 @@
 
             {{-- Bagian Tanda Tangan --}}
             <div style="width: 100%; text-align: center; padding-left: 100px; line-height: 12pt;">
-                Bandar Lampung, {{ Carbon\Carbon::now()->isoFormat('D MMMM YYYY') }}<br /><br />
+                Bandar Lampung,
+                &nbsp;&nbsp;&nbsp;&nbsp;{{ $sppd->tanggal_dibuat_surat->isoFormat('MMMM YYYY') }}<br /><br />
                 Ketua Rombongan,
                 <div class="signature-space"></div>
                 <b class="underline">{{ $rincianBiaya->sppd->pelaksana->nama }}</b><br />

@@ -57,7 +57,7 @@
                                 <br>NIP. {{ $pegawai->nip }}
                             @endif
                         </td>
-                        <td>@if($pegawai->pangkat || $pegawai->golongan || $pegawai->ruang)
+                        <td>@if($pegawai->pangkat && $pegawai->golongan && $pegawai->ruang)
                                 {{$pegawai->pangkat}}<br>{{$pegawai->golongan}}/{{$pegawai->ruang}}
                             @else
                                 {{'-'}}

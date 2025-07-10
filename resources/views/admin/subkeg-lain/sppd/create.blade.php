@@ -48,7 +48,7 @@
                 <select class="form-select" name="pegawai_pelaksana" id="pegawai_pelaksana" required>
                     <option value="" selected disabled>-- Pilih Pegawai --</option>
                     @foreach ($pegawai as $p)
-                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }}</option>
+                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }} - {{$p->golongan}}{{$p->ruang ? '/' . $p->ruang : ''}}</option>
                     @endforeach
                 </select>
             </div>
@@ -113,32 +113,36 @@
                 <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
             </div>
             <div class="mb-3">
+                <label for="tanggal_dibuat_surat" class="form-label">Tanggal Dibuat Surat<span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="tanggal_dibuat_surat" name="tanggal_dibuat_surat" required>
+            </div>
+            <div class="mb-3">
                 <h2>Pengikut (Max. 3 orang)</h2>
             </div>
             <div class="mb-3">
                 <label for="pegawai_pengikut_1" class="form-label">Pengikut 1</label>
                 <select class="form-select" name="pegawai_pengikut_1" id="pegawai_pengikut_1">
-                    <option value="" selected disabled>-- Pilih Pegawai --</option>
+                    <option value="" selected>-- Tidak Ada --</option>
                     @foreach ($pegawai as $p)
-                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }}</option>
+                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }} - {{$p->golongan}}{{$p->ruang ? '/' . $p->ruang : ''}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="mb-3">
                 <label for="pegawai_pengikut_2" class="form-label">Pengikut 2</label>
                 <select class="form-select" name="pegawai_pengikut_2" id="pegawai_pengikut_2">
-                    <option value="" selected disabled>-- Pilih Pegawai --</option>
+                    <option value="" selected>-- Tidak Ada --</option>
                     @foreach ($pegawai as $p)
-                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }}</option>
+                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }} - {{$p->golongan}}{{$p->ruang ? '/' . $p->ruang : ''}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="mb-3">
                 <label for="pegawai_pengikut_3" class="form-label">Pengikut 3</label>
                 <select class="form-select" name="pegawai_pengikut_3" id="pegawai_pengikut_3">
-                    <option value="" selected disabled>-- Pilih Pegawai --</option>
+                    <option value="" selected>-- Tidak Ada --</option>
                     @foreach ($pegawai as $p)
-                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }}</option>
+                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }} - {{$p->golongan}}{{$p->ruang ? '/' . $p->ruang : ''}}</option>
                     @endforeach
                 </select>
             </div>
@@ -192,12 +196,18 @@
                     <input type="text" class="form-control" id="biaya_pergi" name="biaya_pergi">
                 </div>
                 <div class="col">
-                    <label for="nama_di_tempat" class="form-label">Biaya Pulang</label>
-                    <input type="text" class="form-control" id="nama_di_tempat" name="nama_di_tempat">
+                    <label for="biaya_pulang" class="form-label">Biaya Pulang</label>
+                    <input type="text" class="form-control" id="biaya_pulang" name="biaya_pulang">
                 </div>
             </div>
             <div class="mb-3">
                 <h5>Biaya Harian</h5>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="1" id="menginap" name="menginap" checked>
+                <label class="form-check-label" for="menginap">
+                    Menginap (jika tidak menginap, biaya penginapan dibayar 30%)
+                </label>
             </div>
             <div class="row mb-3">
                 <div class="col">
@@ -231,7 +241,8 @@
                 </div>
                 <div class="col">
                     <label for="keterangan_penerbangan" class="form-label">Keterangan Biaya Penerbangan</label>
-                    <input type="text" class="form-control" id="keterangan_penerbangan" name="keterangan_penerbangan">
+                    <input type="text" class="form-control" id="keterangan_penerbangan"
+                        name="keterangan_penerbangan">
                 </div>
             </div>
             <div class="row mb-3">

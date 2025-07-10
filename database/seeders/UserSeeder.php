@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
     {
         //
         User::create([
-            'name' => 'Test User',
-            'email' => 'testuser@example.com',
-            'password' => '$2y$10$Me2wc750j5VWstZb8VLmLOUgvVVJgWPkDNuL1as7Z/.QBezMsBu3m',
+            'name' => 'Admin',
+            'email' => 'disperindag@lampungprov.go.id',
+            'password' => Hash::make('disperindaglampungmaju'),
         ]);
     }
 }
