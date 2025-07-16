@@ -83,7 +83,7 @@ class SubkegLainSuratMasukController extends Controller
         if ($request->hasFile('file_surat')) {
             $file = $request->file('file_surat');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('storage/uploads/surat_masuk'), $filename);
+            $file->move(storage_path('app/public/uploads/surat_masuk'), $filename);
             $suratMasuk->file_surat = $filename;
             $suratMasuk->save();
         }
@@ -140,14 +140,14 @@ class SubkegLainSuratMasukController extends Controller
         $suratMasuk = SuratMasuk::find($id);
         if ($request->hasFile('file_surat')) {
             if ($suratMasuk->file_surat) {
-                unlink(public_path('storage/uploads/surat_masuk/' . $suratMasuk->file_surat));
+                unlink(storage_path('app/public/uploads/surat_masuk/' . $suratMasuk->file_surat));
             }
         }
         $suratMasuk->update($request->all());
         if ($request->hasFile('file_surat')) {
             $file = $request->file('file_surat');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('storage/uploads/surat_masuk'), $filename);
+            $file->move(storage_path('app/public/uploads/surat_masuk'), $filename);
             $suratMasuk->file_surat = $filename;
             $suratMasuk->save();
         }
@@ -162,7 +162,7 @@ class SubkegLainSuratMasukController extends Controller
         //
         $suratMasuk = SuratMasuk::find($id);
         if ($suratMasuk->file_surat) {
-            unlink(public_path('storage/uploads/surat_masuk/' . $suratMasuk->file_surat));
+            unlink(storage_path('app/public/uploads/surat_masuk/' . $suratMasuk->file_surat));
         }
         $suratMasuk->delete();
         return redirect()->route('subkeg-lain.surat-masuk.index')->with('success', 'Surat Masuk berhasil dihapus.');

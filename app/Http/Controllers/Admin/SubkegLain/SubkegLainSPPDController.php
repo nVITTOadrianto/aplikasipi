@@ -410,7 +410,7 @@ class SubkegLainSPPDController extends Controller
         ));
 
         // Simpan PDF ke direktori public/storage/uploads/sppd
-        $pdf->save(public_path('storage/' . $filePath));
+        $pdf->save(storage_path('app/public/' . $filePath));
 
         // Simpan path file ke database
         $sppd->file_surat = $fileName;
@@ -426,7 +426,7 @@ class SubkegLainSPPDController extends Controller
     {
         //
         $sppd = SPPD::findOrFail($id);
-        return redirect('storage/uploads/sppd/' . $sppd->file_surat);
+        return redirect(storage_path('app/public/uploads/sppd/' . $sppd->file_surat));
     }
 
     /**
@@ -764,7 +764,7 @@ class SubkegLainSPPDController extends Controller
         // <td>{{ number_format($subtotalAngkutan, 0, ',', '.') }}</td>
 
         if ($sppd->file_surat) {
-            unlink(public_path('storage/uploads/sppd/' . $sppd->file_surat));
+            unlink(storage_path('app/public/uploads/sppd/' . $sppd->file_surat));
             $sppd->file_surat = null;
         }
 
@@ -804,7 +804,7 @@ class SubkegLainSPPDController extends Controller
         ));
 
         // Simpan PDF ke direktori public/storage/uploads/sppd
-        $pdf->save(public_path('storage/' . $filePath));
+        $pdf->save(storage_path('app/public/' . $filePath));
 
         // Simpan path file ke database
         $sppd->file_surat = $fileName;
@@ -821,7 +821,7 @@ class SubkegLainSPPDController extends Controller
         //
         $sppd = SPPD::find($id);
         if ($sppd->file_surat) {
-            unlink(public_path('storage/uploads/sppd/' . $sppd->file_surat));
+            unlink(storage_path('app/public/uploads/sppd/' . $sppd->file_surat));
         }
         $sppd->delete();
         return redirect()->route('subkeg-lain.sppd.index')->with('success', 'Surat Perjalanan Dinas berhasil dihapus.');
