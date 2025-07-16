@@ -428,7 +428,7 @@ class Subkeg1SPPDController extends Controller
     {
         //
         $sppd = SPPD::findOrFail($id);
-        return redirect(storage_path('app/public/uploads/sppd/' . $sppd->file_surat));
+        return redirect(asset('storage/uploads/sppd/' . $sppd->file_surat));
     }
 
     /**
