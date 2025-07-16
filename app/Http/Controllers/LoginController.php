@@ -12,7 +12,7 @@ class LoginController extends Controller
     }
 
     public function authenticate(Request $request) {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('name', 'password');
 
         if (auth()->attempt($credentials)) {
             // Authentication passed...

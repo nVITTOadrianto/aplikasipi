@@ -59,10 +59,10 @@
                 <textarea class="form-control" id="perihal" name="perihal" rows="3" required>{{ $suratMasuk->perihal }}</textarea>
             </div>
             <div class="mb-3">
-                <label for="file_surat" class="form-label">File Surat<span class="text-danger">*</span></label>
+                <label for="file_surat" class="form-label">File Surat (kosongkan jika tidak ingin mengganti surat)</label>
                 <input type="file" class="form-control" id="file_surat" name="file_surat"
                     accept=".pdf,.doc,.docx,.jpg,.png" aria-describedby="fileHelp">
-                <div id="fileHelp" class="form-text">File yang didukung: .pdf .doc .docx .jpg .png (Maks. 2 MB)</div>
+                <div id="fileHelp" class="form-text">File yang didukung: .pdf .doc .docx .jpg .png (Maks. 5 MB)</div>
             </div>
             <div class="mb-3">
                 <p class="text-danger">*wajib diisi</p>

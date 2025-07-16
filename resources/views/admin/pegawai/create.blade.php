@@ -20,7 +20,7 @@
                 <label for="file_excel" class="form-label">Impor File<span class="text-danger">*</span></label>
                 <input type="file" class="form-control" id="file_excel" name="file_excel"
                     accept=".xls,.xlsx,.csv" aria-describedby="fileHelp" required>
-                <div id="fileHelp" class="form-text">File yang didukung: .xls .xlsx .csv (Maks. 2 MB)</div>
+                <div id="fileHelp" class="form-text">File yang didukung: .xls .xlsx .csv (Maks. 5 MB)</div>
             </div>
             <button type="submit" class="btn btn-primary mb-3">Impor Excel</button>
         </form>

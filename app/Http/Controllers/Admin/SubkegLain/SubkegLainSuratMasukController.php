@@ -65,7 +65,19 @@ class SubkegLainSuratMasukController extends Controller
             'nomor_agenda' => 'required|string|max:11',
             'sifat' => 'required|in:Segera,Biasa',
             'perihal' => 'required|string|max:255',
-            'file_surat' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'file_surat' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:5120',
+        ],[
+            'pengirim.required' => 'Pengirim wajib diisi.',
+            'nomor_surat.required' => 'Nomor surat wajib diisi.',
+            'nomor_surat.unique' => 'Nomor surat sudah ada.',
+            'tanggal_surat.required' => 'Tanggal surat wajib diisi.',
+            'tanggal_diterima.required' => 'Tanggal diterima wajib diisi.',
+            'nomor_agenda.required' => 'Nomor agenda wajib diisi.',
+            'sifat.required' => 'Sifat surat wajib dipilih.',
+            'perihal.required' => 'Perihal wajib diisi.',
+            'file_surat.required' => 'File surat wajib ada.',
+            'file_surat.mimes' => 'File surat harus berupa file PDF, DOC, DOCX, JPG, JPEG, atau PNG.',
+            'file_surat.max' => 'Ukuran file surat maksimal 2MB.',
         ]);
         $suratMasuk = SuratMasuk::create($request->all());
         if ($request->hasFile('file_surat')) {
@@ -112,7 +124,18 @@ class SubkegLainSuratMasukController extends Controller
             'nomor_agenda' => 'required|string|max:255',
             'sifat' => 'required|in:Segera,Biasa',
             'perihal' => 'required|string|max:255',
-            'file_surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'file_surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        ],[
+            'pengirim.required' => 'Pengirim wajib diisi.',
+            'nomor_surat.required' => 'Nomor surat wajib diisi.',
+            'nomor_surat.unique' => 'Nomor surat sudah ada.',
+            'tanggal_surat.required' => 'Tanggal surat wajib diisi.',
+            'tanggal_diterima.required' => 'Tanggal diterima wajib diisi.',
+            'nomor_agenda.required' => 'Nomor agenda wajib diisi.',
+            'sifat.required' => 'Sifat surat wajib dipilih.',
+            'perihal.required' => 'Perihal wajib diisi.',
+            'file_surat.mimes' => 'File surat harus berupa file PDF, DOC, DOCX, JPG, JPEG, atau PNG.',
+            'file_surat.max' => 'Ukuran file surat maksimal 2MB.',
         ]);
         $suratMasuk = SuratMasuk::find($id);
         if ($request->hasFile('file_surat')) {

@@ -15,9 +15,9 @@
         <form method="POST" action="{{ route('login.post') }}">
             @csrf
             <div class="mb-3">
-                <label for="email" class="form-label">E-mail</label>
-                <input type="email" class="form-control" id="email"
-                    name="email" required autofocus>
+                <label for="name" class="form-label">Username</label>
+                <input type="text" class="form-control" id="name"
+                    name="name" required autofocus>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>

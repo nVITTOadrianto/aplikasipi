@@ -391,9 +391,15 @@
                     </td>
                     <td style="width: 60%">
                         : {{ $sppd->tempat_berangkat }}<br>
-                        :{{ $sppd->tempat_kedudukan }}<br>
-                        : {{ $sppd->tempat_tujuan }}<br>
-                        : {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
+                        : {{ $sppd->tempat_kedudukan }}<br><br>
+                        :
+                        <span style="color: white;">
+                        {{ $sppd->tempat_tujuan }}<br>
+                        </span>
+                        :
+                        <span style="color: white;">
+                        {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -416,9 +422,18 @@
 
                     </td>
                     <td>
-                        : {{ $sppd->tempat_tujuan }}<br>
-                        : {{ $sppd->tanggal_tiba?->isoFormat('D MMMM YYYY') ?? '' }}<br>
-                        : {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
+                        : 
+                        <span style="color: white;">
+                            {{ $sppd->tempat_tujuan }}<br>
+                        </span>
+                        : 
+                        <span style="color: white;">
+                            {{ $sppd->tanggal_tiba?->isoFormat('D MMMM YYYY') ?? '' }}<br>
+                        </span>
+                        :
+                        <span style="color: white;">
+                            {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
+                        </span>
                     </td>
                     <td></td>
                     <td>
@@ -428,21 +443,33 @@
                         Kepala<br>
                     </td>
                     <td>
-                        : {{ $sppd->tempat_tujuan }}<br>
-                        : {{ $sppd->tempat_berangkat }}<br>
-                        : {{ $sppd->tanggal_kembali->isoFormat('D MMMM YYYY') }}<br>
-                        : {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
+                        : 
+                        <span style="color: white;">
+                        {{ $sppd->tempat_tujuan }}<br>
+                        </span>
+                        : 
+                        <span style="color: white;">
+                        {{ $sppd->tempat_berangkat }}<br>
+                        </span>
+                        : 
+                        <span style="color: white;">
+                        {{ $sppd->tanggal_kembali->isoFormat('D MMMM YYYY') }}<br>
+                        </span>
+                        :
+                        <span style="color: white;">
+                            {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
+                        </span>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td colspan="2">
+                    <td class="text-center" colspan="2" style="padding-right: 50px; color: white;">
                         <div class="signature-section"></div>
                         ({{ $sppd->nama_di_tempat ?? '…………………………………….……….' }})<br>
                         NIP. {{ $sppd->nip_di_tempat ?? '' }}
                     </td>
                     <td></td>
-                    <td colspan="2">
+                    <td class="text-center" colspan="2" style="padding-right: 50px; color: white;">
                         <div class="signature-section"></div>
                         ({{ $sppd->nama_di_tempat ?? '…………………………………….……….' }})<br>
                         NIP. {{ $sppd->nip_di_tempat ?? '' }}
@@ -476,13 +503,13 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td colspan="2">
+                    <td class="text-center" colspan="2" style="padding-right: 50px;">
                         <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
                     </td>
                     <td></td>
-                    <td colspan="2">
+                    <td class="text-center" colspan="2" style="padding-right: 50px;">
                         <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
@@ -516,13 +543,13 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td colspan="2">
+                    <td class="text-center" colspan="2" style="padding-right: 50px;">
                         <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
                     </td>
                     <td></td>
-                    <td colspan="2">
+                    <td class="text-center" colspan="2" style="padding-right: 50px;">
                         <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
@@ -1329,6 +1356,245 @@
         </div>
 
         <div style="clear: both;"></div>
+    </div>
+    <div class="page appendix-page" style="color: white;">
+
+        <table class="no-border">
+            <tbody>
+                <tr>
+                    <td style="width: 5%;">
+
+                    </td>
+                    <td style="width: 30%;">
+
+                    </td>
+                    <td style="width: 60%;"></td>
+                    <td style="width: 5%;">
+                        I.
+                    </td>
+                    <td style="width: 30%;">
+                        Berangkat dari<br>
+                        (Tempat Kedudukan)<br>
+                        Ke<br>
+                        Pada Tanggal<br>
+                    </td>
+                    <td style="width: 60%">
+                        : {{ $sppd->tempat_berangkat }}<br>
+                        : {{ $sppd->tempat_kedudukan }}<br><br>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->tempat_tujuan }}<br>
+                        </span>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->tanggal_berangkat->isoFormat('D MMMM YYYY') }}<br>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2"></td>
+                    <td></td>
+                    <td colspan="2">
+                        <b>Pejabat Pelaksana<br>Teknis Kegiatan</b><br>
+                        <div class="signature-section"></div>
+                        <b><u>{{ $sppd->mengetahui->nama ?? '(…………………………………….……….)' }}</u></b><br>
+                        NIP. {{ $sppd->mengetahui->nip ?? '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>II.</td>
+                    <td>
+                        Tiba di<br>
+                        Pada Tanggal<br>
+                        Kepala<br>
+
+                    </td>
+                    <td>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->tempat_tujuan }}<br>
+                        </span>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->tanggal_tiba?->isoFormat('D MMMM YYYY') ?? '' }}<br>
+                        </span>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
+                        </span>
+                    </td>
+                    <td></td>
+                    <td>
+                        Berangkat dari<br>
+                        Ke<br>
+                        Pada tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->tempat_tujuan }}<br>
+                        </span>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->tempat_berangkat }}<br>
+                        </span>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->tanggal_kembali->isoFormat('D MMMM YYYY') }}<br>
+                        </span>
+                        :
+                        <span style="color: black;">
+                            {{ $sppd->kepala_jabatan_di_tempat ?? '' }}<br>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-center" colspan="2" style="padding-right: 50px; color: black;">
+                        <div class="signature-section"></div>
+                        ({{ $sppd->nama_di_tempat ?? '…………………………………….……….' }})<br>
+                        NIP. {{ $sppd->nip_di_tempat ?? '' }}
+                    </td>
+                    <td></td>
+                    <td class="text-center" colspan="2" style="padding-right: 50px; color: black;">
+                        <div class="signature-section"></div>
+                        ({{ $sppd->nama_di_tempat ?? '…………………………………….……….' }})<br>
+                        NIP. {{ $sppd->nip_di_tempat ?? '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>III.</td>
+                    <td>
+                        Tiba di<br>
+                        Pada Tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : <br>
+                        : <br>
+                        : <br>
+                    </td>
+                    <td></td>
+                    <td>
+                        Berangkat dari<br>
+                        Ke<br>
+                        Pada tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : <br>
+                        : <br>
+                        : <br>
+                        : <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-center" colspan="2" style="padding-right: 50px;">
+                        <div class="signature-section"></div>
+                        (…………………………………….……….)<br>
+                        NIP.
+                    </td>
+                    <td></td>
+                    <td class="text-center" colspan="2" style="padding-right: 50px;">
+                        <div class="signature-section"></div>
+                        (…………………………………….……….)<br>
+                        NIP.
+                    </td>
+                </tr>
+                <tr>
+                    <td>IV.</td>
+                    <td>
+                        Tiba di<br>
+                        Pada Tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : <br>
+                        : <br>
+                        : <br>
+                    </td>
+                    <td></td>
+                    <td>
+                        Berangkat dari<br>
+                        Ke<br>
+                        Pada tanggal<br>
+                        Kepala<br>
+                    </td>
+                    <td>
+                        : <br>
+                        : <br>
+                        : <br>
+                        : <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-center" colspan="2" style="padding-right: 50px;">
+                        <div class="signature-section"></div>
+                        (…………………………………….……….)<br>
+                        NIP.
+                    </td>
+                    <td></td>
+                    <td class="text-center" colspan="2" style="padding-right: 50px;">
+                        <div class="signature-section"></div>
+                        (…………………………………….……….)<br>
+                        NIP.
+                    </td>
+                </tr>
+                <tr>
+                    <td>V.</td>
+                    <td>
+                        Tiba di<br><br>
+                        Pada Tanggal<br>
+                        Kepala<br><br>
+                    </td>
+                    <td>
+                        : <br><br>
+                        : <br>
+                        : <br><br>
+                    </td>
+                    <td></td>
+                    <td colspan="2" class="attention-section">
+                        Telah diperiksa, dengan keterangan bahwa perjalanan tersebut di atas benar dilakukan atas
+                        perintahnya dan semata-mata untuk kepentingan Jabatan dalam waktu sesingkat-singkatnya.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2">
+                        <b>Pejabat yang berwenang,</b><br>
+                        <div class="signature-section"></div>
+                        <b><u>{{ $sppd->pemberi_wewenang->nama }}</u></b><br>
+                        NIP. {{ $sppd->pemberi_wewenang->nip }}
+                    </td>
+                    <td></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>VI.</td>
+                    <td colspan="5">CATATAN LAIN-LAIN</td>
+                </tr>
+                <tr>
+                    <td>VII.</td>
+                    <td colspan="5">
+                        <u>PERHATIAN : </u>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="5" class="attention-section">
+                        PPK yang menerbitkan SPD, Pegawai yang melakukan Perjalanan Dinas, para pejabat yang mengesahkan
+                        tanggal berangkat/tiba serta Bendahara Pengeluaran bertanggung jawab berdasarkan
+                        peraturan-peraturan Keuangan Negara, apabila Negara menderita rugi akibat kesalahan, kelalaian
+                        dan kealpaannya.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
 </body>
 

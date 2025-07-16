@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - Ardigpi</title>
+    <title>Dashboard - AplikasiPI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -31,6 +31,7 @@
             min-width: 70px;
             max-width: 70px;
             margin-left: 0;
+            overflow: visible;
         }
 
         .sidebar.collapsed .sidebar-label,
@@ -267,7 +268,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('subkeg-1.sppd.index') }}"
                                     class="nav-link {{ request()->routeIs('subkeg-1.sppd.index') ? 'active' : '' }}"
-                                    title="Surat Lain-Lain">
+                                    title="SPPD">
                                     <i class="bi bi-envelope"></i>
                                     <span class="sidebar-label">SPPD</span>
                                 </a>
@@ -310,7 +311,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('subkeg-lain.sppd.index') }}"
                                     class="nav-link {{ request()->routeIs('subkeg-lain.sppd.index') ? 'active' : '' }}"
-                                    title="Surat Lain-Lain">
+                                    title="SPPD">
                                     <i class="bi bi-envelope"></i>
                                     <span class="sidebar-label">SPPD</span>
                                 </a>

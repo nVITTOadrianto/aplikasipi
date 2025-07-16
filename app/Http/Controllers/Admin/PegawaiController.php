@@ -75,7 +75,7 @@ class PegawaiController extends Controller
     {
         //
         $request->validate([
-            'file_excel' => 'required|mimes:xlsx,xls,csv|max:2048'
+            'file_excel' => 'required|mimes:xlsx,xls,csv|max:5120'
         ]);
 
         $file = $request->file('file_excel');

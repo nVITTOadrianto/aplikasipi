@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,8 +21,10 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $this->call([
-            UserSeeder::class,
+        User::factory()->create([
+            'name' => 'bidang_pi',
+            'email' => 'pemberdayaanindustri20@gmail.com',
+            'password' => '$2y$10$U1jFZf8tVCrBb/DBRVxa0utGXFT9fNBFst/elA.7vdHYVRmbDeoPq',
         ]);
     }
 }

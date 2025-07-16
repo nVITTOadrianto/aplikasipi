@@ -64,7 +64,18 @@ class Subkeg1SuratKeluarController extends Controller
             'tanggal_surat' => 'required|date',
             'perihal' => 'required|string|max:255',
             'sifat' => 'required|in:Segera,Biasa',
-            'file_surat' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'file_surat' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:5120',
+        ],[
+            'sub_kegiatan.required' => 'Sub kegiatan wajib diisi.',
+            'penerima.required' => 'Penerima wajib diisi.',
+            'nomor_surat.required' => 'Nomor surat wajib diisi.',
+            'nomor_surat.unique' => 'Nomor surat sudah ada.',
+            'tanggal_surat.required' => 'Tanggal surat wajib diisi.',
+            'perihal.required' => 'Perihal wajib diisi.',
+            'sifat.required' => 'Sifat surat wajib dipilih.',
+            'file_surat.required' => 'File surat wajib ada.',
+            'file_surat.mimes' => 'File surat harus berupa file PDF, DOC, DOCX, JPG, JPEG, atau PNG.',
+            'file_surat.max' => 'Ukuran file surat maksimal 5MB.',
         ]);
         $suratKeluar = SuratKeluar::create($request->all());
         if ($request->hasFile('file_surat')) {
@@ -109,7 +120,16 @@ class Subkeg1SuratKeluarController extends Controller
             'tanggal_surat' => 'required|date',
             'perihal' => 'required|string|max:255',
             'sifat' => 'required|in:Segera,Biasa',
-            'file_surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'file_surat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        ],[
+            'penerima.required' => 'Penerima wajib diisi.',
+            'nomor_surat.required' => 'Nomor surat wajib diisi.',
+            'nomor_surat.unique' => 'Nomor surat sudah ada.',
+            'tanggal_surat.required' => 'Tanggal surat wajib diisi.',
+            'perihal.required' => 'Perihal wajib diisi.',
+            'sifat.required' => 'Sifat surat wajib dipilih.',
+            'file_surat.mimes' => 'File surat harus berupa file PDF, DOC, DOCX, JPG, JPEG, atau PNG.',
+            'file_surat.max' => 'Ukuran file surat maksimal 5MB.',
         ]);
         $suratKeluar = SuratKeluar::find($id);
         if ($request->hasFile('file_surat')) {
