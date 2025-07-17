@@ -1,20 +1,14 @@
-{{-- @extends('admin.layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
     <main class="container py-4">
-        <h1 class="mb-4 fw-bold">Profile Settings</h1>
+        <h1 class="mb-4 fw-bold">Profil</h1>
         @session('success')
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endsession
-        @error('password')
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ $message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @enderror
         <form action="{{ route('profile.update') }}" method="post">
             @csrf
             @method('PUT')
@@ -25,28 +19,15 @@
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">E-mail<span class="text-danger">*</span></label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}"
+                <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" disabled
                     required>
             </div>
+            <h4 class="mb-3">Ubah Password</h4>
+            <a href="{{ route('change-password') }}" class="btn btn-primary mb-3">Ubah Password</a>
             <div class="mb-3">
-                <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <p class="text-danger">*wajib diisi</p>
             </div>
-            <h4 class="mb-3">Mengubah Password (opsional)</h4>
-            <div class="mb-3">
-                <div class="mb-3">
-                    <label for="new_password" class="form-label">Password Baru</label>
-                    <input type="password" class="form-control" id="new_password" name="new_password">
-                </div>
-                <div class="mb-3">
-                    <div class="mb-3">
-                        <label for="confirm_new_password" class="form-label">Konfirmasi Password Baru</label>
-                        <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password">
-                    </div>
-                    <div class="mb-3">
-                        <p class="text-danger">*wajib diisi</p>
-                    </div>
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Kembali ke Dashboard</a>
+            <button type="submit" class="btn btn-success">Simpan Profil</button>
         </form>
-    @endsection --}}
+    </main>
+@endsection

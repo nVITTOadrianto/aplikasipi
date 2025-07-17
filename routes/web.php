@@ -39,11 +39,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    // Route::get('/profile', [DashboardController::class, 'indexProfile'])
-    //     ->name('profile');
+    Route::get('/profile', [DashboardController::class, 'indexProfile'])
+        ->name('profile');
 
-    // Route::put('/profile', [DashboardController::class,'updateProfile'])
-    //     ->name('profile.update');
+    Route::put('/profile', [DashboardController::class,'updateProfile'])
+        ->name('profile.update');
+
+    Route::get('/change-password', [DashboardController::class, 'indexPassword'])
+        ->name('change-password');
+
+    Route::put('/change-password', [DashboardController::class, 'updatePassword'])
+        ->name('change-password.update');
 
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
@@ -90,6 +96,9 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/details/{id}', [Subkeg1SuratMasukController::class, 'show'])
                 ->name('show');
+            
+            Route::get('/file/{id}', [Subkeg1SuratMasukController::class, 'file'])
+                ->name('file');
 
             Route::get('/edit/{id}', [Subkeg1SuratMasukController::class, 'edit'])
                 ->name('edit');
@@ -113,6 +122,9 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/details/{id}', [Subkeg1SuratKeluarController::class, 'show'])
                 ->name('show');
+
+            Route::get('/file/{id}', [Subkeg1SuratKeluarController::class, 'file'])
+                ->name('file');
 
             Route::get('/edit/{id}', [Subkeg1SuratKeluarController::class, 'edit'])
                 ->name('edit');
@@ -161,6 +173,9 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/details/{id}', [SubkegLainSuratMasukController::class, 'show'])
                 ->name('show');
+                
+            Route::get('/file/{id}', [SubkegLainSuratMasukController::class, 'file'])
+                ->name('file');
 
             Route::get('/edit/{id}', [SubkegLainSuratMasukController::class, 'edit'])
                 ->name('edit');
@@ -184,6 +199,9 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/details/{id}', [SubkegLainSuratKeluarController::class, 'show'])
                 ->name('show');
+
+            Route::get('/file/{id}', [SubkegLainSuratKeluarController::class, 'file'])
+                ->name('file');
 
             Route::get('/edit/{id}', [SubkegLainSuratKeluarController::class, 'edit'])
                 ->name('edit');

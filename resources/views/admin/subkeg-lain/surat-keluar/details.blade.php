@@ -13,7 +13,7 @@
                 <p class="card-text"><strong>Sifat Surat:</strong> {{ $suratKeluar->sifat }}</p>
                 @if ($suratKeluar->file_surat)
                     <p class="card-text"><strong>File Surat:</strong><a
-                            href="{{ asset('storage/uploads/surat_keluar/' . $suratKeluar->file_surat) }}"
+                            href="{{ route('subkeg-lain.surat-keluar.file', $suratKeluar->id) }}"
                             target="_blank" class="btn btn-primary"><i class="bi bi-eye me-2"></i>Lihat File</a></p>
                 @endif
             </div>

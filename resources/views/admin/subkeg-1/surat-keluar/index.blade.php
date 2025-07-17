@@ -17,7 +17,7 @@
         </div>
         <div class="card mb-4">
             <div class="card-body">
-                <form action="{{ route('subkeg-lain.surat-keluar.index') }}" method="GET">
+                <form action="{{ route('subkeg-1.surat-keluar.index') }}" method="GET">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
@@ -40,7 +40,7 @@
                         <div class="col-md-2 d-flex align-items-end">
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Filter</button>
-                                <a href="{{ route('subkeg-lain.surat-keluar.index') }}" class="btn btn-secondary">Reset</a>
+                                <a href="{{ route('subkeg-1.surat-keluar.index') }}" class="btn btn-secondary">Reset</a>
                             </div>
                         </div>
                     </div>

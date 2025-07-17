@@ -26,42 +26,57 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('suratMasuk1Count', 'suratKeluar1Count', 'suratMasukLainCount', 'suratKeluarLainCount', 'suratMasukTotal', 'suratKeluarTotal'));
     }
 
-    // public function indexProfile() {
-    //     $user = auth()->user();
-    //     return view('admin.profile', compact('user'));
-    // }
+    public function indexProfile() {
+        $user = auth()->user();
+        return view('admin.profile', compact('user'));
+    }
 
-    // public function updateProfile() {
-    //     $user = User::find(auth()->user()->id);
+    public function updateProfile(Request $request) {
+        $user = User::find(auth()->user()->id);
 
-    //     // Validasi input
-    //     request()->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-    //         'password' => 'required',
-    //         'password_baru' => 'nullable|min:6|confirmed',
-    //     ]);
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+        ]);
 
-    //     // Cek password lama
-    //     if (!Hash::check(request('password'), $user->password)) {
-    //         return back()->withErrors(['password' => 'Password lama salah']);
-    //     }
+        $user->update([
+            'name' => request('name'),
+            'email' => request('email'),
+        ]);
+        return redirect()->route('profile')->with('success', "Profil berhasil diperbarui");
+    }
 
-    //     $data = [
-    //         'name' => request('name'),
-    //         'email' => request('email'),
-    //     ];
+    public function indexPassword() {
+        return view('admin.change-password');
+    }
 
-    //     // Jika password baru diisi, update password
-    //     if (request('new_password')) {
-    //         $data['password'] = Hash::make(request('new_password'));
-    //     }
+    public function updatePassword(Request $request) {
+        $user = User::find(auth()->user()->id);
 
-    //     if (request('new_password') != request('confirm_new_password')) {
-    //         return back()->withErrors(['password' => 'Password baru dan konfirmasi password baru tidak sama']);
-    //     }
+        // Cek password lama
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password.same' => 'Password lama salah']);
+        }
 
-    //     $user->update($data);
-    //     return redirect()->route('profile')->with('success', "Profil berhasil diperbarui");
-    // }
+        // Validasi input
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:6',
+            'confirm_new_password' => 'required|same:new_password',
+        ], [
+            'current_password.required' => 'Password lama harus diisi',
+            'new_password.required' => 'Password baru harus diisi',
+            'new_password.min' => 'Password baru harus terdiri dari minimal 6 karakter',
+            'confirm_new_password.required' => 'Konfirmasi password baru harus diisi',
+            'confirm_new_password.same' => 'Konfirmasi password baru tidak sama dengan password baru',
+        ]);
+
+        // Update password baru
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return redirect()->route('profile')->with('success', 'Password berhasil diperbarui');
+    }
 }

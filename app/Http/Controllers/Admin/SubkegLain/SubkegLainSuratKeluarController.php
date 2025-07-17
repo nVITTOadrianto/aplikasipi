@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\SubkegLain;
 use App\Http\Controllers\Controller;
 use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubkegLainSuratKeluarController extends Controller
 {
@@ -94,6 +95,26 @@ class SubkegLainSuratKeluarController extends Controller
         //
         $suratKeluar = SuratKeluar::find($id);
         return view('admin.subkeg-lain.surat-keluar.details', compact('suratKeluar'));
+    }
+    public function file(string $id)
+    {
+        //
+        $suratKeluar = SuratKeluar::findOrFail($id);
+        $path = 'uploads/surat_keluar/' . $suratKeluar->file_surat;
+
+        // Check if the file exists in the private storage
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
+
+        // Get the full path to the file
+        $filePath = Storage::path($path);
+
+        // Get the file's mime type
+        $mimeType = Storage::mimeType($path);
+
+        // Return the file as a response
+        return response()->file($filePath, ['Content-Type' => $mimeType]);
     }
 
     /**

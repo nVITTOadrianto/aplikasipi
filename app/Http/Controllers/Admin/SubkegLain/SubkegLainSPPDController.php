@@ -8,6 +8,7 @@ use App\Models\RincianBiayaSPPD;
 use App\Models\SPPD;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubkegLainSPPDController extends Controller
 {
@@ -426,7 +427,21 @@ class SubkegLainSPPDController extends Controller
     {
         //
         $sppd = SPPD::findOrFail($id);
-        return redirect(asset('storage/uploads/sppd/' . $sppd->file_surat));
+        $path = 'uploads/sppd/' . $sppd->file_surat;
+
+        // Check if the file exists in the private storage
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
+
+        // Get the full path to the file
+        $filePath = Storage::path($path);
+
+        // Get the file's mime type
+        $mimeType = Storage::mimeType($path);
+
+        // Return the file as a response
+        return response()->file($filePath, ['Content-Type' => $mimeType]);
     }
 
     /**

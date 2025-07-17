@@ -207,8 +207,8 @@
                 <div class="d-flex align-items-center justify-content-between px-3 py-3 border-bottom">
                     <a class="navbar-brand sidebar-label" href="{{ route('home') }}">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="{{ asset('logo_pi.png') }}" alt="Logo Pemberdayaan Industri" width="auto" height="40"
-                                class="d-inline-block align-text-top">
+                            <img src="{{ asset('logo_pi.png') }}" alt="Logo Pemberdayaan Industri" width="auto"
+                                height="40" class="d-inline-block align-text-top">
                         </div>
                     </a>
                     <button class="btn" id="sidebarToggle" title="Toggle Sidebar">
@@ -236,7 +236,9 @@
                     <li class="nav-item">
                         @php
                             $isKoordinasiActive =
-                                request()->routeIs('subkeg-1.surat-masuk.index') || request()->routeIs('subkeg-1.surat-keluar.index') || request()->routeIs('subkeg-1.sppd.index');
+                                request()->routeIs('subkeg-1.surat-masuk.index') ||
+                                request()->routeIs('subkeg-1.surat-keluar.index') ||
+                                request()->routeIs('subkeg-1.sppd.index');
                         @endphp
                         <a href="#submenu-koordinasi" data-bs-toggle="collapse"
                             class="nav-link {{ $isKoordinasiActive ? 'active' : '' }}"
@@ -280,7 +282,9 @@
                     <li class="nav-item">
                         @php
                             $isLainLainActive =
-                                request()->routeIs('subkeg-lain.surat-masuk.index') || request()->routeIs('subkeg-lain.surat-keluar.index') || request()->routeIs('subkeg-lain.sppd.index');
+                                request()->routeIs('subkeg-lain.surat-masuk.index') ||
+                                request()->routeIs('subkeg-lain.surat-keluar.index') ||
+                                request()->routeIs('subkeg-lain.sppd.index');
                         @endphp
                         <a href="#submenu-lain" data-bs-toggle="collapse"
                             class="nav-link {{ $isLainLainActive ? 'active' : '' }}" title="Lain-Lain">
@@ -335,6 +339,14 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <i class="bi bi-person me-2"></i> Profile
+                                </a>
+                            </li>
+                            <li>
+                                <div class="my-1 dropdown-divider"></div>
+                            </li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" class="m-0">
                                     @csrf

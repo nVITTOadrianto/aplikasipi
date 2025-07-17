@@ -22,11 +22,11 @@
                 <label for="pengirim" class="form-label">Surat Dari<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="pengirim" name="pengirim" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 position-relative" style="z-index:1;">
                 <label for="nomor_surat" class="form-label">Nomor Surat<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" required>
+                <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" required autocomplete="off" style="background: #fff; position: relative; z-index:2;">
             </div>
-            <div class="row g-5 mb-3">
+            <div class="row mb-3">
                 <div class="col">
                     <label for="tanggal_surat" class="form-label">Tanggal Surat<span class="text-danger">*</span></label>
                     <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat" required>

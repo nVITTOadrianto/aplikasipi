@@ -16,7 +16,7 @@
                 <p class="card-text"><strong>Perihal:</strong> {{ $suratMasuk->perihal }}</p>
                 @if ($suratMasuk->file_surat)
                     <p class="card-text"><strong>File Surat:</strong> <a
-                            href="{{ asset('storage/uploads/surat_masuk/' . $suratMasuk->file_surat) }}"
+                            href="{{ route('subkeg-lain.surat-masuk.file', $suratMasuk->id) }}"
                             target="_blank" class="btn btn-primary"><i class="bi bi-eye me-2"></i>Lihat File</a></p>
                 @endif
             </div>
