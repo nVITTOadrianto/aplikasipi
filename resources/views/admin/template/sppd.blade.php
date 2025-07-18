@@ -503,13 +503,13 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="text-center" colspan="2" style="padding-right: 50px;">
+                    <td class="text-center" colspan="2" style="padding-right: 50px; color: white;">
                         <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
                     </td>
                     <td></td>
-                    <td class="text-center" colspan="2" style="padding-right: 50px;">
+                    <td class="text-center" colspan="2" style="padding-right: 50px; color: white;">
                         <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
@@ -543,13 +543,13 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="text-center" colspan="2" style="padding-right: 50px;">
+                    <td class="text-center" colspan="2" style="padding-right: 50px; color: white;">
                         <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.
                     </td>
                     <td></td>
-                    <td class="text-center" colspan="2" style="padding-right: 50px;">
+                    <td class="text-center" colspan="2" style="padding-right: 50px; color: white;">
                         <div class="signature-section"></div>
                         (…………………………………….……….)<br>
                         NIP.

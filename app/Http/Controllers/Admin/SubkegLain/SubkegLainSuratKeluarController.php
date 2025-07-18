@@ -79,9 +79,15 @@ class SubkegLainSuratKeluarController extends Controller
         $suratKeluar = SuratKeluar::create($request->all());
         if ($request->hasFile('file_surat')) {
             $file = $request->file('file_surat');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(storage_path('app/public/uploads/surat_keluar'), $filename);
-            $suratKeluar->file_surat = $filename;
+            $fileName = 'surat_keluar-' . $suratKeluar->id . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $filePath = 'uploads/surat_keluar/' . $fileName;
+
+            if (!Storage::exists('uploads/surat_keluar')) {
+                Storage::makeDirectory('uploads/surat_keluar');
+            }
+
+            Storage::put($filePath, file_get_contents($file));
+            $suratKeluar->file_surat = $fileName;
             $suratKeluar->save();
         }
         return redirect()->route('subkeg-lain.surat-keluar.index')->with('success', 'Surat Keluar berhasil ditambahkan.');
@@ -152,16 +158,22 @@ class SubkegLainSuratKeluarController extends Controller
         ]);
         $suratKeluar = SuratKeluar::find($id);
         if ($request->hasFile('file_surat')) {
-            if ($suratKeluar->file_surat) {
-                unlink(storage_path('app/public/uploads/surat_keluar/' . $suratKeluar->file_surat));
+            if (Storage::exists('uploads/surat_keluar/' . $suratKeluar->file_surat)) {
+                Storage::delete('uploads/surat_keluar/' . $suratKeluar->file_surat);
             }
         }
         $suratKeluar->update($request->all());
         if ($request->hasFile('file_surat')) {
             $file = $request->file('file_surat');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(storage_path('app/public/uploads/surat_keluar'), $filename);
-            $suratKeluar->file_surat = $filename;
+            $fileName = 'surat_keluar-' . $suratKeluar->id . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $filePath = 'uploads/surat_keluar/' . $fileName;
+
+            if (!Storage::exists('uploads/surat_keluar')) {
+                Storage::makeDirectory('uploads/surat_keluar');
+            }
+
+            Storage::put($filePath, file_get_contents($file));
+            $suratKeluar->file_surat = $fileName;
             $suratKeluar->save();
         }
         return redirect()->route('subkeg-lain.surat-keluar.index')->with('success', 'Surat Keluar berhasil diperbarui.');
@@ -174,8 +186,8 @@ class SubkegLainSuratKeluarController extends Controller
     {
         //
         $suratKeluar = SuratKeluar::find($id);
-        if ($suratKeluar->file_surat) {
-            unlink(storage_path('app/public/uploads/surat_keluar/' . $suratKeluar->file_surat));
+        if (Storage::exists('uploads/surat_keluar/' . $suratKeluar->file_surat)) {
+            Storage::delete('uploads/surat_keluar/' . $suratKeluar->file_surat);
         }
         $suratKeluar->delete();
         return redirect()->route('subkeg-lain.surat-keluar.index')->with('success', 'Surat Keluar berhasil dihapus.');
