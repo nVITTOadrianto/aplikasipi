@@ -41,7 +41,7 @@ class SubkegLainSPPDController extends Controller
         }
 
         // Ambil data dengan paginasi
-        $sppdSppd = $query->orderBy("created_at", "desc")->paginate(5);
+        $sppdSppd = $query->orderBy("created_at", "desc")->paginate(10);
 
         return view('admin.subkeg-lain.sppd.index', compact('sppdSppd', 'search', 'startDate', 'endDate'));
     }

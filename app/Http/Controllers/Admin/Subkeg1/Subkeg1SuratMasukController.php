@@ -39,7 +39,7 @@ class Subkeg1SuratMasukController extends Controller
         }
 
         // Ambil data dengan paginasi
-        $suratSuratMasuk = $query->orderBy("created_at", "desc")->paginate(5);
+        $suratSuratMasuk = $query->orderBy("created_at", "desc")->paginate(10);
 
         return view('admin.subkeg-1.surat-masuk.index', compact('suratSuratMasuk', 'search', 'startDate', 'endDate'));
     }

@@ -39,7 +39,7 @@ class Subkeg1SuratKeluarController extends Controller
         }
 
         // Ambil data dengan paginasi
-        $suratSuratKeluar = $query->orderBy("created_at", "desc")->paginate(5);
+        $suratSuratKeluar = $query->orderBy("created_at", "desc")->paginate(10);
 
         return view('admin.subkeg-1.surat-keluar.index', compact('suratSuratKeluar', 'search', 'startDate', 'endDate'));
     }
