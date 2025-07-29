@@ -153,7 +153,7 @@
                 <h5>Pemberangkatan</h5>
             </div>
             <div class="mb-3">
-                <label for="pegawai_mengetahui" class="form-label">Pegawai yang Mengetahui (PPTK)</label>
+                <label for="pegawai_mengetahui" class="form-label">Pejabat Pelaksana Teknis Kegiatan</label>
                 <select class="form-select" name="pegawai_mengetahui" id="pegawai_mengetahui">
                     <option value="" selected disabled>-- Pilih Pegawai --</option>
                     @foreach ($pegawai as $p)
@@ -263,6 +263,16 @@
                     <label for="keterangan_lain" class="form-label">Keterangan Biaya Lain-Lain</label>
                     <input type="text" class="form-control" id="keterangan_lain" name="keterangan_lain" value="{{ $rincianBiaya->keterangan_lain }}">
                 </div>
+            </div>
+            <div class="mb-3">
+                <label for="pegawai_bendahara" class="form-label">Bendahara Pengeluaran</label>
+                <select class="form-select" name="pegawai_bendahara" id="pegawai_bendahara">
+                    <option value="" selected disabled>-- Pilih Pegawai --</option>
+                    @foreach ($pegawai as $p)
+                        <option value="{{ $p->id }}" {{ $rincianBiaya->id_pegawai_bendahara == $p->id ? 'selected' : ''}}>{{ $p->nip }} - {{ $p->nama }} -
+                            {{ $p->jabatan_ttd }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mb-3">
                 <p class="text-danger">*wajib diisi</p>

@@ -67,6 +67,7 @@
             page-break-after: always;
             /* Memberi jeda halaman saat dicetak */
             position: relative;
+            height: 98%;
         }
 
         .page:last-child {
@@ -193,6 +194,20 @@
         .rincian-table td {
             padding: 6px 3px;
         }
+        
+        /* ============== BKP PAGE STYLES ============== */
+        /* The BKP page now uses a background image. */
+        /* Ensure you have 'bkp_background.png' in your public/images folder. */
+        .bkp-page {
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            position: relative;
+            font-family: 'Times New Roman', serif;
+            font-size: 10pt;
+            line-height: 1.2;
+        }
+        /* ============== END BKP PAGE STYLES ============== */
+
 
         /* Utility classes */
         .text-right {
@@ -1159,8 +1174,8 @@
                 <td>
                     Bendahara Pengeluaran
                     <div class="signature-space"></div>
-                    <b class="underline">ELMA KAISI, S.E.</b><br />
-                    <b>NIP. 19771215 200604 2 011</b>
+                    <b class="underline">{{ $rincianBiaya->pegawai_bendahara->nama }}</b><br />
+                    <b>NIP. {{ $rincianBiaya->pegawai_bendahara->nip }}</b>
                 </td>
                 <td class="text-left">
                     Yang Menerima
@@ -1595,6 +1610,43 @@
             </tbody>
         </table>
 
+    </div>
+    <div class="page bkp-page" style="background-image: url('{{ public_path('BKP.jpg') }}');">
+
+        <!-- Header -->
+        <div style="position: absolute; top: 3.25%; left: 83%;">{{ $sppd->tanggal_dibuat_surat->isoFormat('YYYY') }}</div>
+
+        <!-- Main Content -->
+        <div style="position: absolute; top: 5.5%; left: 37%;">{{ $sppd->instansi_pembebanan_anggaran }}</div>
+        <div style="position: absolute; top: 8.5%; left: 25%; font-style: italic; font-weight: bold;">{{ ucwords(Number::spell($totalBiaya, 'id')) . ' Rupiah' ?? '' }}</div>
+        <div style="position: absolute; top: 10.5%; left: 29%; width: 66%; line-height: 1.75;">{{ $sppd->maksud }}</div>
+
+        <!-- Terbilang -->
+        <div style="position: absolute; top: 19.5%; left: 22%;">{{ number_format($totalBiaya, 0, ',', '.') ?? 0 }}</div>
+
+        <!-- Signatures Top -->
+        <div style="position: absolute; top: 19.5%; left: 50%; text-align: center; width: 25%;">Bandar Lampung,</div>
+        <div style="position: absolute; top: 28.75%; left: 3%; text-align: center; width: 25%; font-size: 9pt;">
+            <div>{{ $sppd->pemberi_wewenang->nama }}</div>
+            <div>NIP. {{ $sppd->pemberi_wewenang->nip }}</div>
+        </div>
+        <div style="position: absolute; top: 28.75%; left: 26%; text-align: center; width: 25%; font-size: 9pt;">
+            <div>{{ $sppd->mengetahui->nama ?? '' }}</div>
+            <div>NIP. {{ $sppd->mengetahui->nip ?? '' }}</div>
+        </div>
+        <div style="position: absolute; top: 28.75%; left: 48%; text-align: center; width: 25%; font-size: 9pt;">
+            <div>{{ $rincianBiaya->pegawai_bendahara->nama }}</div>
+            <div>NIP. {{ $rincianBiaya->pegawai_bendahara->nip }}</div>
+        </div>     
+        <div style="position: absolute; top: 28.75%; left: 70%; text-align: center; width: 25%; font-size: 9pt;">
+            <div>{{ $sppd->pelaksana->nama ?? '' }}</div>
+            <div>NIP. {{ $sppd->pelaksana->nip ?? '' }}</div>
+        </div>   
+        <!-- Telah Dibukukan -->
+        <div style="position: absolute; top: 35.6%; left: 70%;">{{ $sppd->akun_pembebanan_anggaran }}</div>
+        <div style="position: absolute; top: 37.2%; left: 70%;">{{ $sppd->tanggal_dibuat_surat->isoFormat('YYYY') }}</div>
+
+        {{-- END OF BKP PAGE --}}
     </div>
 </body>
 

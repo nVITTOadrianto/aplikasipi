@@ -78,4 +78,9 @@ class Pegawai extends Model
     {
         return $this->belongsTo(SPPD::class, 'pegawai_mengetahui');
     }
+
+    public function rincian_biaya_pegawai_bendahara()
+    {
+        return $this->hasOne(RincianBiayaSPPD::class, 'id_pegawai_bendahara');
+    }
 }

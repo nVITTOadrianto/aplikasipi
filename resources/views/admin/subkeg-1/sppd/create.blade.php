@@ -116,8 +116,10 @@
                 <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
             </div>
             <div class="mb-3">
-                <label for="tanggal_dibuat_surat" class="form-label">Tanggal Dibuat Surat<span class="text-danger">*</span></label>
-                <input type="date" class="form-control" id="tanggal_dibuat_surat" name="tanggal_dibuat_surat" required>
+                <label for="tanggal_dibuat_surat" class="form-label">Tanggal Dibuat Surat<span
+                        class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="tanggal_dibuat_surat" name="tanggal_dibuat_surat"
+                    required>
             </div>
             <div class="mb-3">
                 <h2>Pengikut (Max. 3 orang)</h2>
@@ -159,7 +161,7 @@
                 <h5>Pemberangkatan</h5>
             </div>
             <div class="mb-3">
-                <label for="pegawai_mengetahui" class="form-label">Pegawai yang Mengetahui (PPTK)</label>
+                <label for="pegawai_mengetahui" class="form-label">Pejabat Pelaksana Teknis Kegiatan</label>
                 <select class="form-select" name="pegawai_mengetahui" id="pegawai_mengetahui">
                     <option value="" selected disabled>-- Pilih Pegawai --</option>
                     @foreach ($pegawai as $p)
@@ -270,6 +272,16 @@
                     <label for="keterangan_lain" class="form-label">Keterangan Biaya Lain-Lain</label>
                     <input type="text" class="form-control" id="keterangan_lain" name="keterangan_lain">
                 </div>
+            </div>
+            <div class="mb-3">
+                <label for="pegawai_bendahara" class="form-label">Bendahara Pengeluaran</label>
+                <select class="form-select" name="pegawai_bendahara" id="pegawai_bendahara">
+                    <option value="" selected disabled>-- Pilih Pegawai --</option>
+                    @foreach ($pegawai as $p)
+                        <option value="{{ $p->id }}">{{ $p->nip }} - {{ $p->nama }} -
+                            {{ $p->jabatan_ttd }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mb-3">
                 <p class="text-danger">*wajib diisi</p>

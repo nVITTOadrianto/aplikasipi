@@ -70,7 +70,7 @@
                         <td>{{ $surat->tanggal_kembali->isoFormat('D MMMM YYYY') }}</td>
                         <td class="align-middle">
                             <div class="d-flex gap-1">
-                                <a href="{{ route('subkeg-1.sppd.show', $surat->id) }}" class="btn btn-info btn-sm">
+                                <a href="{{ route('subkeg-1.sppd.show', $surat->id) }}" target="_blank" class="btn btn-info btn-sm">
                                     <i class="bi bi-eye"></i>
                                 </a>
                                 <a href="{{ route('subkeg-1.sppd.edit', $surat->id) }}" class="btn btn-warning btn-sm">

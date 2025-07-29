@@ -102,6 +102,7 @@ class SubkegLainSPPDController extends Controller
             'biaya_penerbangan' => 'nullable|numeric',
             'biaya_tol' => 'nullable|numeric',
             'biaya_lain' => 'nullable|numeric',
+            'pegawai_bendahara' => 'nullable|exists:pegawai,id',
         ], [
             'lembar.integer' => 'Lembar harus berupa angka.',
             'kode.integer' => 'Kode harus berupa angka.',
@@ -150,6 +151,7 @@ class SubkegLainSPPDController extends Controller
             'biaya_penerbangan.numeric' => 'Biaya penerbangan harus berupa angka.',
             'biaya_tol.numeric' => 'Biaya tol harus berupa angka.',
             'biaya_lain.numeric' => 'Biaya lain harus berupa angka.',
+            'pegawai_bendahara.exists' => 'Pegawai bendahara tidak ditemukan.',
         ]);
         $sppd = SPPD::create($request->except([
             'biaya_pergi',
@@ -165,7 +167,8 @@ class SubkegLainSPPDController extends Controller
             'keterangan_lain',
             'biaya_penerbangan',
             'biaya_tol',
-            'biaya_lain'
+            'biaya_lain',
+            'pegawai_bendahara'
         ]));
 
         $rincianBiaya = RincianBiayaSPPD::create([
@@ -184,6 +187,7 @@ class SubkegLainSPPDController extends Controller
             'biaya_penerbangan' => $request->biaya_penerbangan,
             'biaya_tol' => $request->biaya_tol,
             'biaya_lain' => $request->biaya_lain,
+            'id_pegawai_bendahara' => $request->pegawai_bendahara,
         ]);
 
         // Perhitungan Biaya dan Lain-Lain
@@ -506,6 +510,7 @@ class SubkegLainSPPDController extends Controller
             'biaya_penerbangan' => 'nullable|numeric',
             'biaya_tol' => 'nullable|numeric',
             'biaya_lain' => 'nullable|numeric',
+            'pegawai_bendahara' => 'nullable|exists:pegawai,id',
         ], [
             'lembar.integer' => 'Lembar harus berupa angka.',
             'kode.integer' => 'Kode harus berupa angka.',
@@ -554,6 +559,7 @@ class SubkegLainSPPDController extends Controller
             'biaya_penerbangan.numeric' => 'Biaya penerbangan harus berupa angka.',
             'biaya_tol.numeric' => 'Biaya tol harus berupa angka.',
             'biaya_lain.numeric' => 'Biaya lain harus berupa angka.',
+            'pegawai_bendahara.exists' => 'Pegawai bendahara tidak ditemukan.',
         ]);
 
         $sppd = SPPD::findOrFail($id);
@@ -571,7 +577,8 @@ class SubkegLainSPPDController extends Controller
             'keterangan_lain',
             'biaya_penerbangan',
             'biaya_tol',
-            'biaya_lain'
+            'biaya_lain',
+            'pegawai_bendahara'
         ]));
         $rincianBiaya = RincianBiayaSPPD::findOrFail($id);
         $rincianBiaya->update([
@@ -590,6 +597,7 @@ class SubkegLainSPPDController extends Controller
             'biaya_penerbangan' => $request->biaya_penerbangan,
             'biaya_tol' => $request->biaya_tol,
             'biaya_lain' => $request->biaya_lain,
+            'id_pegawai_bendahara' => $request->pegawai_bendahara,
         ]);
 
         // Perhitungan Biaya dan Lain-Lain
