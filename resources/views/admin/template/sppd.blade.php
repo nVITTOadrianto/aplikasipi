@@ -50,7 +50,7 @@
         }
 
         @page {
-            margin: 1cm;
+            margin: 0.9cm;
         }
 
         body {
@@ -142,7 +142,6 @@
             height: 60px;
         }
 
-        .page-2,
         .attention-section {
             text-align: justify;
         }
@@ -325,8 +324,8 @@
                 <tr>
                     <td class="label-col">8.</td>
                     <td style="text-align:left; padding-left:5px;">Pengikut : Nama</td>
-                    <td style="text-align:left;">Tanggal Lahir</td>
-                    <td style="text-align:left;">Keterangan</td>
+                    <td style="text-align:left; width: 20%;">Tanggal Lahir</td>
+                    <td style="text-align:left; width: 40%;">Keterangan</td>
             <tbody>
                 <tr>
                     <td rowspan="3" class="label-col">9.</td>
@@ -762,7 +761,7 @@
                     <td style="border-right: none">{{ $totalGolIV }}</td>
                     <td style="border-right: none">org</td>
                     <td style="border-right: none">x</td>
-                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">{{ $rincianBiaya->jumlah_hari_penginapan }}</td>
                     <td style="border-right: none">Hari</td>
                     <td style="border-right: none">x</td>
                     <td style="border-right: none">Rp.</td>
@@ -802,7 +801,7 @@
                     <td style="border-right: none">{{ $totalGolIII }}</td>
                     <td style="border-right: none">org</td>
                     <td style="border-right: none">x</td>
-                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">{{ $rincianBiaya->jumlah_hari_penginapan }}</td>
                     <td style="border-right: none">Hari</td>
                     <td style="border-right: none">x</td>
                     <td style="border-right: none">Rp.</td>
@@ -842,7 +841,7 @@
                     <td style="border-right: none">{{ $totalGolII }}</td>
                     <td style="border-right: none">org</td>
                     <td style="border-right: none">x</td>
-                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">{{ $rincianBiaya->jumlah_hari_penginapan }}</td>
                     <td style="border-right: none">Hari</td>
                     <td style="border-right: none">x</td>
                     <td style="border-right: none">Rp.</td>
@@ -882,7 +881,7 @@
                     <td style="border-right: none">{{ $totalGolI }}</td>
                     <td style="border-right: none">org</td>
                     <td style="border-right: none">x</td>
-                    <td style="border-right: none">{{ $rincianBiaya->sppd->jumlah_hari }}</td>
+                    <td style="border-right: none">{{ $rincianBiaya->jumlah_hari_penginapan }}</td>
                     <td style="border-right: none">Hari</td>
                     <td style="border-right: none">x</td>
                     <td style="border-right: none">Rp.</td>

@@ -92,6 +92,7 @@ class Subkeg1SPPDController extends Controller
             'biaya_pergi' => 'nullable|numeric',
             'biaya_pulang' => 'nullable|numeric',
             'menginap' => 'nullable|boolean',
+            'jumlah_hari_penginapan' => 'nullable|integer',
             'biaya_penginapan_4' => 'nullable|numeric',
             'biaya_penginapan_3' => 'nullable|numeric',
             'biaya_penginapan_2' => 'nullable|numeric',
@@ -145,6 +146,7 @@ class Subkeg1SPPDController extends Controller
             'biaya_pergi.numeric' => 'Biaya pergi harus berupa angka.',
             'biaya_pulang.numeric' => 'Biaya pulang harus berupa angka.',
             'menginap.boolean' => 'Menginap harus berupa nilai benar/salah.',
+            'jumlah_hari_penginapan.integer' => 'Jumlah hari penginapan harus berupa angka.',
             'biaya_penginapan_4.numeric' => 'Biaya penginapan golongan IV harus berupa angka.',
             'biaya_penginapan_3.numeric' => 'Biaya penginapan golongan III harus berupa angka.',
             'biaya_penginapan_2.numeric' => 'Biaya penginapan golongan II harus berupa angka.',
@@ -159,6 +161,7 @@ class Subkeg1SPPDController extends Controller
             'biaya_pergi',
             'biaya_pulang',
             'menginap',
+            'jumlah_hari_penginapan',
             'biaya_penginapan_4',
             'biaya_penginapan_3',
             'biaya_penginapan_2',
@@ -178,6 +181,7 @@ class Subkeg1SPPDController extends Controller
             'biaya_pergi' => $request->biaya_pergi,
             'biaya_pulang' => $request->biaya_pulang,
             'menginap' => $request->menginap,
+            'jumlah_hari_penginapan' => $request->jumlah_hari_penginapan,
             'biaya_penginapan_4' => $request->biaya_penginapan_4,
             'biaya_penginapan_3' => $request->biaya_penginapan_3,
             'biaya_penginapan_2' => $request->biaya_penginapan_2,
@@ -260,17 +264,21 @@ class Subkeg1SPPDController extends Controller
             $discount = 0.3;
         }
 
-        $subtotalPenginapan4 = $totalGolIV * $biayaPenginapan4 * $discount;
-        $subtotalPenginapan3 = $totalGolIII * $biayaPenginapan3 * $discount;
-        $subtotalPenginapan2 = $totalGolII * $biayaPenginapan2 * $discount;
-        $subtotalPenginapan1 = $totalGolI * $biayaPenginapan1 * $discount;
+        $jumlahHariPenginapan = $request->jumlah_hari_penginapan ?? 0;
+
+        $subtotalPenginapan4 = $totalGolIV * $biayaPenginapan4 * $discount * $jumlahHariPenginapan;
+        $subtotalPenginapan3 = $totalGolIII * $biayaPenginapan3 * $discount * $jumlahHariPenginapan;
+        $subtotalPenginapan2 = $totalGolII * $biayaPenginapan2 * $discount * $jumlahHariPenginapan;
+        $subtotalPenginapan1 = $totalGolI * $biayaPenginapan1 * $discount * $jumlahHariPenginapan;
 
         $subtotalPenginapan = $subtotalPenginapan4 + $subtotalPenginapan3 + $subtotalPenginapan2 + $subtotalPenginapan1;
 
-        $subtotalHarian4 = $totalGolIV * $uangHarian;
-        $subtotalHarian3 = $totalGolIII * $uangHarian;
-        $subtotalHarian2 = $totalGolII * $uangHarian;
-        $subtotalHarian1 = $totalGolI * $uangHarian;
+        $jumlahHari = $request->jumlah_hari ?? 0;
+
+        $subtotalHarian4 = $totalGolIV * $uangHarian * $jumlahHari;
+        $subtotalHarian3 = $totalGolIII * $uangHarian * $jumlahHari;
+        $subtotalHarian2 = $totalGolII * $uangHarian * $jumlahHari;
+        $subtotalHarian1 = $totalGolI * $uangHarian * $jumlahHari;
 
         $subtotalHarian = $subtotalHarian4 + $subtotalHarian3 + $subtotalHarian2 + $subtotalHarian1;
 
@@ -372,10 +380,10 @@ class Subkeg1SPPDController extends Controller
             }
         }
 
-        $biayaPelaksana = $uangHarian + $biayaPenginapanPelaksana + $subtotalAngkutan + $subtotalLain;
-        $biayaPengikut1 = $uangHarian + $biayaPenginapanPengikut1;
-        $biayaPengikut2 = $uangHarian + $biayaPenginapanPengikut2;
-        $biayaPengikut3 = $uangHarian + $biayaPenginapanPengikut3;
+        $biayaPelaksana = $uangHarian * $jumlahHari + $biayaPenginapanPelaksana * $jumlahHariPenginapan + $subtotalAngkutan + $subtotalLain;
+        $biayaPengikut1 = $uangHarian * $jumlahHari + $biayaPenginapanPengikut1 * $jumlahHariPenginapan;
+        $biayaPengikut2 = $uangHarian * $jumlahHari + $biayaPenginapanPengikut2 * $jumlahHariPenginapan;
+        $biayaPengikut3 = $uangHarian * $jumlahHari + $biayaPenginapanPengikut3 * $jumlahHariPenginapan;
 
         // Jangan lupa, saat menampilkan hasilnya di view, format kembali dengan titik
         // Contoh di view Blade:
@@ -502,6 +510,7 @@ class Subkeg1SPPDController extends Controller
             'biaya_pergi' => 'nullable|numeric',
             'biaya_pulang' => 'nullable|numeric',
             'menginap' => 'nullable|boolean',
+            'jumlah_hari_penginapan' => 'nullable|integer',
             'biaya_penginapan_4' => 'nullable|numeric',
             'biaya_penginapan_3' => 'nullable|numeric',
             'biaya_penginapan_2' => 'nullable|numeric',
@@ -555,6 +564,7 @@ class Subkeg1SPPDController extends Controller
             'biaya_pergi.numeric' => 'Biaya pergi harus berupa angka.',
             'biaya_pulang.numeric' => 'Biaya pulang harus berupa angka.',
             'menginap.boolean' => 'Menginap harus berupa nilai benar/salah.',
+            'jumlah_hari_penginapan.integer' => 'Jumlah hari penginapan harus berupa angka.',
             'biaya_penginapan_4.numeric' => 'Biaya penginapan golongan IV harus berupa angka.',
             'biaya_penginapan_3.numeric' => 'Biaya penginapan golongan III harus berupa angka.',
             'biaya_penginapan_2.numeric' => 'Biaya penginapan golongan II harus berupa angka.',
@@ -571,6 +581,7 @@ class Subkeg1SPPDController extends Controller
             'biaya_pergi',
             'biaya_pulang',
             'menginap',
+            'jumlah_hari_penginapan',
             'biaya_penginapan_4',
             'biaya_penginapan_3',
             'biaya_penginapan_2',
@@ -590,6 +601,7 @@ class Subkeg1SPPDController extends Controller
             'biaya_pergi' => $request->biaya_pergi,
             'biaya_pulang' => $request->biaya_pulang,
             'menginap' => $request->menginap,
+            'jumlah_hari_penginapan' => $request->jumlah_hari_penginapan,
             'biaya_penginapan_4' => $request->biaya_penginapan_4,
             'biaya_penginapan_3' => $request->biaya_penginapan_3,
             'biaya_penginapan_2' => $request->biaya_penginapan_2,
@@ -672,17 +684,21 @@ class Subkeg1SPPDController extends Controller
             $discount = 0.3;
         }
 
-        $subtotalPenginapan4 = $totalGolIV * $biayaPenginapan4 * $discount;
-        $subtotalPenginapan3 = $totalGolIII * $biayaPenginapan3 * $discount;
-        $subtotalPenginapan2 = $totalGolII * $biayaPenginapan2 * $discount;
-        $subtotalPenginapan1 = $totalGolI * $biayaPenginapan1 * $discount;
+        $jumlahHariPenginapan = $request->jumlah_hari_penginapan ?? 0;
+
+        $subtotalPenginapan4 = $totalGolIV * $biayaPenginapan4 * $discount * $jumlahHariPenginapan;
+        $subtotalPenginapan3 = $totalGolIII * $biayaPenginapan3 * $discount * $jumlahHariPenginapan;
+        $subtotalPenginapan2 = $totalGolII * $biayaPenginapan2 * $discount * $jumlahHariPenginapan;
+        $subtotalPenginapan1 = $totalGolI * $biayaPenginapan1 * $discount * $jumlahHariPenginapan;
 
         $subtotalPenginapan = $subtotalPenginapan4 + $subtotalPenginapan3 + $subtotalPenginapan2 + $subtotalPenginapan1;
 
-        $subtotalHarian4 = $totalGolIV * $uangHarian;
-        $subtotalHarian3 = $totalGolIII * $uangHarian;
-        $subtotalHarian2 = $totalGolII * $uangHarian;
-        $subtotalHarian1 = $totalGolI * $uangHarian;
+        $jumlahHari = $request->jumlah_hari ?? 0;
+
+        $subtotalHarian4 = $totalGolIV * $uangHarian * $jumlahHari;
+        $subtotalHarian3 = $totalGolIII * $uangHarian * $jumlahHari;
+        $subtotalHarian2 = $totalGolII * $uangHarian * $jumlahHari;
+        $subtotalHarian1 = $totalGolI * $uangHarian * $jumlahHari;
 
         $subtotalHarian = $subtotalHarian4 + $subtotalHarian3 + $subtotalHarian2 + $subtotalHarian1;
 
@@ -785,10 +801,10 @@ class Subkeg1SPPDController extends Controller
             }
         }
 
-        $biayaPelaksana = $uangHarian + $biayaPenginapanPelaksana + $subtotalAngkutan + $subtotalLain;
-        $biayaPengikut1 = $uangHarian + $biayaPenginapanPengikut1;
-        $biayaPengikut2 = $uangHarian + $biayaPenginapanPengikut2;
-        $biayaPengikut3 = $uangHarian + $biayaPenginapanPengikut3;
+        $biayaPelaksana = $uangHarian * $jumlahHari + $biayaPenginapanPelaksana * $jumlahHariPenginapan + $subtotalAngkutan + $subtotalLain;
+        $biayaPengikut1 = $uangHarian * $jumlahHari + $biayaPenginapanPengikut1 * $jumlahHariPenginapan;
+        $biayaPengikut2 = $uangHarian * $jumlahHari + $biayaPenginapanPengikut2 * $jumlahHariPenginapan;
+        $biayaPengikut3 = $uangHarian * $jumlahHari + $biayaPenginapanPengikut3 * $jumlahHariPenginapan;
 
         // Jangan lupa, saat menampilkan hasilnya di view, format kembali dengan titik
         // Contoh di view Blade:

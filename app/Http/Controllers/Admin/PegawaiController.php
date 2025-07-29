@@ -54,7 +54,7 @@ class PegawaiController extends Controller
     {
         //
         $pegawai = $this->validate($request, [
-            'nip' => 'nullable|string|max:30|unique:pegawai,nip',
+            'nip' => 'nullable|string|max:30',
             'nama' => 'required|string|max:50',
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
@@ -63,6 +63,12 @@ class PegawaiController extends Controller
             'pangkat' => 'nullable|string|max:50',
             'jabatan' => 'required|string|max:100',
             'jabatan_ttd' => 'nullable|string|max:50',
+        ],[
+            'nip.unique' => 'NIP sudah terdaftar.',
+            'nama.required' => 'Nama Pegawai harus diisi.',
+            'tempat_lahir.required' => 'Tempat Lahir harus diisi.',
+            'tanggal_lahir.required' => 'Tanggal Lahir harus diisi.',
+            'jabatan.required' => 'Jabatan harus diisi.',
         ]);
         Pegawai::create($pegawai);
         return redirect()->route('pegawai.index')->with('success', 'Data Pegawai berhasil ditambahkan.');
@@ -183,7 +189,7 @@ class PegawaiController extends Controller
     {
         //
         $pegawai = $this->validate($request, [
-            'nip' => 'nullable|string|max:30|unique:pegawai,nip',
+            'nip' => 'nullable|string|max:30',
             'nama' => 'required|string|max:50',
             'tempat_lahir' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
@@ -192,6 +198,12 @@ class PegawaiController extends Controller
             'pangkat' => 'nullable|string|max:50',
             'jabatan' => 'required|string|max:100',
             'jabatan_ttd' => 'nullable|string|max:50',
+        ],[
+            'nip.unique' => 'NIP sudah terdaftar.',
+            'nama.required' => 'Nama Pegawai harus diisi.',
+            'tempat_lahir.required' => 'Tempat Lahir harus diisi.',
+            'tanggal_lahir.required' => 'Tanggal Lahir harus diisi.',
+            'jabatan.required' => 'Jabatan harus diisi.',
         ]);
         $pegawaiOld = Pegawai::findOrFail($id);
 
