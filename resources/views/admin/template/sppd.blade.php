@@ -1173,8 +1173,8 @@
                 <td>
                     Bendahara Pengeluaran
                     <div class="signature-space"></div>
-                    <b class="underline">{{ $rincianBiaya->pegawai_bendahara->nama }}</b><br />
-                    <b>NIP. {{ $rincianBiaya->pegawai_bendahara->nip }}</b>
+                    <b class="underline">{{ $rincianBiaya->pegawai_bendahara->nama ?? '' }}</b><br />
+                    <b>NIP. {{ $rincianBiaya->pegawai_bendahara->nip ?? '' }}</b>
                 </td>
                 <td class="text-left">
                     Yang Menerima
@@ -1634,8 +1634,8 @@
             <div>NIP. {{ $sppd->mengetahui->nip ?? '' }}</div>
         </div>
         <div style="position: absolute; top: 28.75%; left: 48%; text-align: center; width: 25%; font-size: 9pt;">
-            <div>{{ $rincianBiaya->pegawai_bendahara->nama }}</div>
-            <div>NIP. {{ $rincianBiaya->pegawai_bendahara->nip }}</div>
+            <div>{{ $rincianBiaya->pegawai_bendahara->nama ?? '' }}</div>
+            <div>NIP. {{ $rincianBiaya->pegawai_bendahara->nip ?? '' }}</div>
         </div>     
         <div style="position: absolute; top: 28.75%; left: 70%; text-align: center; width: 25%; font-size: 9pt;">
             <div>{{ $sppd->pelaksana->nama ?? '' }}</div>
