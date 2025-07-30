@@ -213,7 +213,7 @@
             <div class="row mb-3">
                 <div class="col-2">
                     <label for="jumlah_hari_penginapan" class="form-label">Lama Penginapan (hari)</label>
-                    <input type="number" class="form-control" id="jumlah_hari_penginapan" name="jumlah_hari_penginapan" value="{{ $sppd->jumlah_hari_penginapan }}">
+                    <input type="number" class="form-control" id="jumlah_hari_penginapan" name="jumlah_hari_penginapan" value="{{ $rincianBiaya->jumlah_hari_penginapan }}">
                 </div>
                 <div class="col">
                     <label for="biaya_penginapan_4" class="form-label">Biaya Penginapan Golongan IV</label>
