@@ -17,7 +17,7 @@
         </div>
         <div class="card mb-4">
             <div class="card-body">
-                <form action="{{ route('subkeg-1.surat-masuk.index') }}" method="GET">
+                <form action="{{ route('subkeg-1.sppd.index') }}" method="GET">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
@@ -40,7 +40,7 @@
                         <div class="col-md-2 d-flex align-items-end">
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Filter</button>
-                                <a href="{{ route('subkeg-1.surat-masuk.index') }}" class="btn btn-secondary">Reset</a>
+                                <a href="{{ route('subkeg-1.sppd.index') }}" class="btn btn-secondary">Reset</a>
                             </div>
                         </div>
                     </div>
@@ -56,6 +56,7 @@
                     <th>Tempat Tujuan</th>
                     <th>Tanggal Berangkat</th>
                     <th>Tanggal Pulang</th>
+                    <th>Tanggal SPPD</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -68,6 +69,7 @@
                         <td>{{ $surat->tempat_tujuan }}</td>
                         <td>{{ $surat->tanggal_berangkat->isoFormat('D MMMM YYYY') }}</td>
                         <td>{{ $surat->tanggal_kembali->isoFormat('D MMMM YYYY') }}</td>
+                        <td>{{ $surat->tanggal_dibuat_surat->isoFormat('D MMMM YYYY') }}</td>
                         <td class="align-middle">
                             <div class="d-flex gap-1">
                                 <a href="{{ route('subkeg-1.sppd.show', $surat->id) }}" target="_blank" class="btn btn-info btn-sm">

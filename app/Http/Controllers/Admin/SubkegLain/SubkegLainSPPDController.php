@@ -35,9 +35,9 @@ class SubkegLainSPPDController extends Controller
 
         // Filter berdasarkan rentang tanggal
         if ($startDate && $endDate) {
-            $query->whereBetween('created_at', [$startDate, $endDate]);
+            $query->whereBetween('tanggal_dibuat_surat', [$startDate, $endDate]);
         } elseif ($startDate) {
-            $query->whereDate('created_at', $startDate);
+            $query->whereDate('tanggal_dibuat_surat', $startDate);
         }
 
         // Ambil data dengan paginasi
