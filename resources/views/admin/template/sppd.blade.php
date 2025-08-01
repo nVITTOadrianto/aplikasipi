@@ -250,7 +250,7 @@
                 <td style="width: 60%;"></td>
                 <td class="top-right">
                     Lembar ke : {{ $sppd->lembar_ke ?? '………………………….. ' }}<br>
-                    Kode No.: {{ $sppd->kode ?? '………………………….. ' }}<br>
+                    Kode No.&nbsp;&nbsp;&nbsp;: {{ $sppd->kode ?? '………………………….. ' }}<br>
                     Nomor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{ $sppd->nomor_surat ?? '………………………….. ' }}
                 </td>
             </tr>
@@ -1269,6 +1269,8 @@
                     <td class="text-center">
                         @if ($rincianBiaya->sppd->pelaksana->golongan && $rincianBiaya->sppd->pelaksana->ruang)
                             {{ $rincianBiaya->sppd->pelaksana->golongan }}/{{ $rincianBiaya->sppd->pelaksana->ruang }}
+                        @elseif($rincianBiaya->sppd->pelaksana->golongan)
+                            {{ $rincianBiaya->sppd->pelaksana->golongan }}
                         @else
                             -
                         @endif
@@ -1286,6 +1288,8 @@
                         <td class="text-center">
                             @if ($rincianBiaya->sppd->pengikut_1->golongan && $rincianBiaya->sppd->pengikut_1->ruang)
                                 {{ $rincianBiaya->sppd->pengikut_1->golongan }}/{{ $rincianBiaya->sppd->pengikut_1->ruang }}
+                            @elseif($rincianBiaya->sppd->pengikut_1->golongan)
+                                {{ $rincianBiaya->sppd->pengikut_1->golongan }}
                             @else
                                 -
                             @endif
@@ -1304,6 +1308,8 @@
                         <td class="text-center">
                             @if ($rincianBiaya->sppd->pengikut_2->golongan && $rincianBiaya->sppd->pengikut_2->ruang)
                                 {{ $rincianBiaya->sppd->pengikut_2->golongan }}/{{ $rincianBiaya->sppd->pengikut_2->ruang }}
+                            @elseif($rincianBiaya->sppd->pengikut_2->golongan)
+                                {{ $rincianBiaya->sppd->pengikut_2->golongan }}
                             @else
                                 -
                             @endif
@@ -1323,6 +1329,8 @@
                         <td class="text-center">
                             @if ($rincianBiaya->sppd->pengikut_3->golongan && $rincianBiaya->sppd->pengikut_3->ruang)
                                 {{ $rincianBiaya->sppd->pengikut_3->golongan }}/{{ $rincianBiaya->sppd->pengikut_3->ruang }}
+                            @elseif($rincianBiaya->sppd->pengikut_3->golongan)
+                                {{ $rincianBiaya->sppd->pengikut_3->golongan }}
                             @else
                                 -
                             @endif

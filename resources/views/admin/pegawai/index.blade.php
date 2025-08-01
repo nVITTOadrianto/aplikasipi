@@ -59,6 +59,8 @@
                         </td>
                         <td>@if($pegawai->pangkat && $pegawai->golongan && $pegawai->ruang)
                                 {{$pegawai->pangkat}}<br>{{$pegawai->golongan}}/{{$pegawai->ruang}}
+                            @elseif($pegawai->golongan && $pegawai->pangkat)
+                                {{$pegawai->pangkat}}<br>{{$pegawai->golongan}}
                             @else
                                 {{'-'}}
                             @endif

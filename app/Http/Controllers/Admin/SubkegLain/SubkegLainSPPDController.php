@@ -225,12 +225,15 @@ class SubkegLainSPPDController extends Controller
                     $totalGolI++;
                     break;
                 case 'III':
+                case 'IX':
                     $totalGolIII++;
                     break;
                 case 'IV':
                     $totalGolIV++;
                     break;
                 case 'II':
+                case 'V':
+                case 'VII':
                 case null:
                 case '':
                     $totalGolII++;
@@ -300,12 +303,15 @@ class SubkegLainSPPDController extends Controller
                 $biayaPenginapanPelaksana = $biayaPenginapan4;
                 break;
             case 'III':
+            case 'IX':
                 $biayaPenginapanPelaksana = $biayaPenginapan3;
                 break;
             case 'I':
                 $biayaPenginapanPelaksana = $biayaPenginapan1;
                 break;
             case 'II':
+            case 'V':
+            case 'VII':
             case null:
             case '':
             default:
@@ -322,12 +328,15 @@ class SubkegLainSPPDController extends Controller
                 $biayaPenginapanPengikut1 = $biayaPenginapan4;
                 break;
             case 'III':
+            case 'IX':
                 $biayaPenginapanPengikut1 = $biayaPenginapan3;
                 break;
             case 'I':
                 $biayaPenginapanPengikut1 = $biayaPenginapan1;
                 break;
             case 'II':
+            case 'V':
+            case 'VII':
             case null:
             case '':
             default:
@@ -343,12 +352,15 @@ class SubkegLainSPPDController extends Controller
                 $biayaPenginapanPengikut2= $biayaPenginapan4;
                 break;
             case 'III':
+            case 'IX':
                 $biayaPenginapanPengikut2 = $biayaPenginapan3;
                 break;
             case 'I':
                 $biayaPenginapanPengikut2 = $biayaPenginapan1;
                 break;
             case 'II':
+            case 'V':
+            case 'VII':
             case null:
             case '':
             default:
@@ -364,12 +376,15 @@ class SubkegLainSPPDController extends Controller
                 $biayaPenginapanPengikut3 = $biayaPenginapan4;
                 break;
             case 'III':
+            case 'IX':
                 $biayaPenginapanPengikut3 = $biayaPenginapan3;
                 break;
             case 'I':
                 $biayaPenginapanPengikut3 = $biayaPenginapan1;
                 break;
             case 'II':
+            case 'V':
+            case 'VII':
             case null:
             case '':
             default:
@@ -643,12 +658,15 @@ class SubkegLainSPPDController extends Controller
                     $totalGolI++;
                     break;
                 case 'III':
+                case 'IX':
                     $totalGolIII++;
                     break;
                 case 'IV':
                     $totalGolIV++;
                     break;
                 case 'II':
+                case 'V':
+                case 'VII':
                 case null:
                 case '':
                     $totalGolII++;
@@ -719,12 +737,15 @@ class SubkegLainSPPDController extends Controller
                 $biayaPenginapanPelaksana = $biayaPenginapan4;
                 break;
             case 'III':
+            case 'IX':
                 $biayaPenginapanPelaksana = $biayaPenginapan3;
                 break;
             case 'I':
                 $biayaPenginapanPelaksana = $biayaPenginapan1;
                 break;
             case 'II':
+            case 'V':
+            case 'VII':
             case null:
             case '':
             default:
@@ -741,12 +762,15 @@ class SubkegLainSPPDController extends Controller
                 $biayaPenginapanPengikut1 = $biayaPenginapan4;
                 break;
             case 'III':
+            case 'IX':
                 $biayaPenginapanPengikut1 = $biayaPenginapan3;
                 break;
             case 'I':
                 $biayaPenginapanPengikut1 = $biayaPenginapan1;
                 break;
             case 'II':
+            case 'V':
+            case 'VII':
             case null:
             case '':
             default:
@@ -762,12 +786,15 @@ class SubkegLainSPPDController extends Controller
                 $biayaPenginapanPengikut2= $biayaPenginapan4;
                 break;
             case 'III':
+            case 'IX':
                 $biayaPenginapanPengikut2 = $biayaPenginapan3;
                 break;
             case 'I':
                 $biayaPenginapanPengikut2 = $biayaPenginapan1;
                 break;
             case 'II':
+            case 'V':
+            case 'VII':
             case null:
             case '':
             default:
@@ -783,12 +810,15 @@ class SubkegLainSPPDController extends Controller
                 $biayaPenginapanPengikut3 = $biayaPenginapan4;
                 break;
             case 'III':
+            case 'IX':
                 $biayaPenginapanPengikut3 = $biayaPenginapan3;
                 break;
             case 'I':
                 $biayaPenginapanPengikut3 = $biayaPenginapan1;
                 break;
             case 'II':
+            case 'V':
+            case 'VII':
             case null:
             case '':
             default:

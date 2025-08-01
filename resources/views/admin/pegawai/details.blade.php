@@ -16,6 +16,12 @@
                 @if ($pegawai->golongan && $pegawai->ruang && $pegawai->pangkat)
                     <p class="card-text"><strong>Golongan:</strong> {{ $pegawai->golongan }}/{{ $pegawai->ruang }}</p>
                     <p class="card-text"><strong>Pangkat:</strong> {{ $pegawai->pangkat }}</p>
+                @elseif ($pegawai->golongan && $pegawai->pangkat)
+                    <p class="card-text"><strong>Golongan:</strong> {{ $pegawai->golongan }}</p>
+                    <p class="card-text"><strong>Pangkat:</strong> {{ $pegawai->pangkat }}</p>
+                @else
+                    <p class="card-text"><strong>Golongan:</strong> -</p>
+                    <p class="card-text"><strong>Pangkat:</strong> -</p>
                 @endif
                 <p class="card-text"><strong>Jabatan:</strong> {{ $pegawai->jabatan }}</p>
             </div>
